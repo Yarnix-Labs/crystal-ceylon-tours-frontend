@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Crystal Ceylon - Tourism Theme with #fbb138 (gold) as primary & #00a8d9 (teal) as accent */
+    --background: 0 0% 100%;
+    --foreground: 200 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 30% 15%;
+
+    /* Primary: #fbb138 (Golden Orange) = hsl(37, 96%, 60%) */
+    --primary: 37 96% 60%;
+    --primary-foreground: 200 30% 15%;
+
+    /* Secondary: Light gold tint */
+    --secondary: 37 60% 95%;
+    --secondary-foreground: 37 90% 40%;
+
+    /* Muted backgrounds */
+    --muted: 37 20% 96%;
+    --muted-foreground: 200 20% 45%;
+
+    /* Accent: #00a8d9 (Teal Blue) = hsl(194, 100%, 43%) */
+    --accent: 194 100% 43%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 37 25% 90%;
+    --input: 37 25% 90%;
+    --ring: 37 96% 60%;
+
+    --radius: 0.75rem;
+
+    /* Custom tourism colors */
+    --ocean: 194 100% 43%;
+    --ocean-light: 194 85% 55%;
+    --ocean-dark: 194 100% 32%;
+    --sunset: 37 96% 60%;
+    --sunset-light: 40 100% 72%;
+    --sunset-dark: 37 96% 45%;
+    --palm: 145 50% 35%;
+    --palm-dark: 145 55% 25%;
+    --sand: 37 40% 92%;
+    --footer: 200 35% 12%;
+    --footer-foreground: 37 30% 90%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 200 20% 26%;
+    --sidebar-primary: 37 96% 60%;
+    --sidebar-primary-foreground: 200 30% 15%;
+    --sidebar-accent: 194 60% 95%;
+    --sidebar-accent-foreground: 194 100% 35%;
+    --sidebar-border: 37 25% 90%;
+    --sidebar-ring: 37 96% 60%;
+  }
+
+  .dark {
+    --background: 200 35% 8%;
+    --foreground: 37 20% 95%;
+
+    --card: 200 35% 12%;
+    --card-foreground: 37 20% 95%;
+
+    --popover: 200 35% 12%;
+    --popover-foreground: 37 20% 95%;
+
+    --primary: 37 90% 55%;
+    --primary-foreground: 200 35% 10%;
+
+    --secondary: 200 35% 18%;
+    --secondary-foreground: 37 85% 65%;
+
+    --muted: 200 35% 18%;
+    --muted-foreground: 37 20% 65%;
+
+    --accent: 194 90% 50%;
+    --accent-foreground: 200 35% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 37 20% 95%;
+
+    --border: 200 35% 20%;
+    --input: 200 35% 20%;
+    --ring: 37 90% 55%;
+
+    --sidebar-background: 200 35% 10%;
+    --sidebar-foreground: 37 20% 90%;
+    --sidebar-primary: 37 90% 55%;
+    --sidebar-primary-foreground: 200 35% 10%;
+    --sidebar-accent: 200 35% 18%;
+    --sidebar-accent-foreground: 194 80% 60%;
+    --sidebar-border: 200 35% 20%;
+    --sidebar-ring: 37 90% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans font-light antialiased;
+  }
+
+  p {
+    @apply font-light;
+  }
+
+  strong, b {
+    @apply font-semibold;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      hsla(210, 30%, 10%, 0.3) 0%,
+      hsla(210, 30%, 10%, 0.5) 50%,
+      hsla(210, 30%, 10%, 0.7) 100%
+    );
+  }
+
+  .section-label {
+    @apply text-sm font-semibold uppercase tracking-widest text-accent;
+  }
+
+  .destination-card {
+    @apply relative overflow-hidden rounded-2xl bg-card shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .destination-card-image {
+    @apply aspect-[4/5] w-full object-cover transition-transform duration-500;
+  }
+
+  .destination-card:hover .destination-card-image {
+    @apply scale-105;
+  }
+
+  .province-badge {
+    @apply absolute top-4 right-4 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-medium text-foreground shadow-sm;
+  }
+
+  .stat-value {
+    @apply text-4xl font-display font-bold text-white;
+  }
+
+  .stat-label {
+    @apply text-sm text-white/80;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-ocean-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-accent to-sunset-light bg-clip-text text-transparent;
+  }
+}

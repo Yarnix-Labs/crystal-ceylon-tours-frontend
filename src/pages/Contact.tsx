@@ -1,0 +1,195 @@
+import Navbar from "@/components/Navbar";
+import PageHero from "@/components/PageHero";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
+import contactHero from "@/assets/contact-hero.jpg";
+
+const contactInfo = [
+  {
+    icon: MapPin,
+    title: "Visit Us",
+    details: ["42 Galle Road", "Colombo 03", "Sri Lanka"],
+  },
+  {
+    icon: Phone,
+    title: "Call Us",
+    details: ["+94 77 123 4567", "+94 11 234 5678"],
+  },
+  {
+    icon: Mail,
+    title: "Email Us",
+    details: ["info@crystalceylon.com", "bookings@crystalceylon.com"],
+  },
+  {
+    icon: Clock,
+    title: "Working Hours",
+    details: ["Mon - Sat: 8AM - 6PM", "Sunday: 9AM - 4PM"],
+  },
+];
+
+const Contact = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <PageHero
+        title="Contact Us"
+        subtitle="We'd love to hear from you. Let's plan your dream Sri Lankan adventure together."
+        backgroundImage={contactHero}
+        breadcrumb="Contact"
+      />
+
+      {/* Contact Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="opacity-0 animate-fade-in-left" style={{ animationDelay: "0.2s" }}>
+              <h2 className="font-display text-3xl font-bold text-foreground mb-2">
+                Send Us a Message
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Fill out the form below and our team will get back to you within 24 hours.
+              </p>
+
+              <form className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      First Name
+                    </label>
+                    <Input placeholder="John" className="h-12" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Last Name
+                    </label>
+                    <Input placeholder="Doe" className="h-12" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Email Address
+                  </label>
+                  <Input type="email" placeholder="john@example.com" className="h-12" />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Phone Number
+                  </label>
+                  <Input type="tel" placeholder="+1 234 567 8900" className="h-12" />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Interested In
+                  </label>
+                  <select className="w-full h-12 rounded-lg border border-input bg-background px-3 text-foreground">
+                    <option value="">Select a tour type</option>
+                    <option value="cultural">Cultural Tours</option>
+                    <option value="adventure">Adventure Tours</option>
+                    <option value="wildlife">Wildlife Safari</option>
+                    <option value="beach">Beach Holidays</option>
+                    <option value="custom">Custom Itinerary</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Your Message
+                  </label>
+                  <Textarea
+                    placeholder="Tell us about your dream Sri Lankan adventure..."
+                    className="min-h-32 resize-none"
+                  />
+                </div>
+
+                <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-ocean-dark h-14 text-lg">
+                  <Send className="h-5 w-5 mr-2" />
+                  Send Message
+                </Button>
+              </form>
+            </div>
+
+            {/* Contact Info */}
+            <div className="opacity-0 animate-fade-in-right" style={{ animationDelay: "0.4s" }}>
+              <h2 className="font-display text-3xl font-bold text-foreground mb-2">
+                Get in Touch
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Prefer to reach out directly? Here's how you can contact us.
+              </p>
+
+              <div className="grid sm:grid-cols-2 gap-6 mb-10">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  return (
+                    <div
+                      key={info.title}
+                      className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-foreground mb-2">
+                        {info.title}
+                      </h3>
+                      {info.details.map((detail) => (
+                        <p key={detail} className="text-muted-foreground text-sm">
+                          {detail}
+                        </p>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* WhatsApp CTA */}
+              <div className="bg-gradient-to-r from-palm to-palm-dark rounded-2xl p-8 text-center">
+                <MessageCircle className="h-12 w-12 text-white mx-auto mb-4" />
+                <h3 className="font-display text-2xl font-bold text-white mb-2">
+                  Chat with Us on WhatsApp
+                </h3>
+                <p className="text-white/90 mb-6">
+                  Get instant responses and personalized travel advice.
+                </p>
+                <Button size="lg" className="bg-white text-palm hover:bg-white/90">
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  Start WhatsApp Chat
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="h-96 bg-muted relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <MapPin className="h-12 w-12 text-primary mx-auto mb-4 animate-float" />
+            <p className="text-muted-foreground">
+              Interactive map would be displayed here
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              42 Galle Road, Colombo 03, Sri Lanka
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <WhatsAppButton />
+      <ScrollToTop />
+    </div>
+  );
+};
+
+export default Contact;
