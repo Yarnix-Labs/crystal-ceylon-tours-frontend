@@ -19,6 +19,7 @@ const navLinks = [
   { name: "Customize Package", href: "/custom-package" },
   { name: "About Us", href: "/about" },
   { name: "Blog", href: "/blog" },
+  { name: "Gallery", href: "/gallery" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -76,8 +77,8 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Top info bar */}
-      <div className={`transition-all duration-500 ease-in-out bg-white border-b border-border/30 ${
-        isScrolled ? "max-h-0 opacity-0 overflow-hidden" : "max-h-10 opacity-100"
+      <div className={`transition-all duration-500 ease-in-out bg-white ${
+        isScrolled ? "max-h-0 opacity-0 overflow-hidden border-b-0" : "max-h-10 opacity-100 border-b border-border/30"
       }`}>
         <div className="px-2 sm:px-4">
           <div className="flex items-center justify-between py-1.5 text-xs text-muted-foreground w-full">
@@ -166,11 +167,6 @@ const Navbar = () => {
           {/* Top wave decoration - accent color */}
           <svg className="absolute top-0 left-0 w-full h-2 text-accent" viewBox="0 0 200 10" preserveAspectRatio="none">
             <path fill="currentColor" d="M0,10 C30,0 70,10 100,5 C130,0 170,10 200,5 L200,0 L0,0 Z" />
-          </svg>
-          
-          {/* Bottom wave decoration - primary color */}
-          <svg className="absolute bottom-0 left-0 w-full h-2 text-primary" viewBox="0 0 200 10" preserveAspectRatio="none">
-            <path fill="currentColor" d="M0,0 C30,10 70,0 100,5 C130,10 170,0 200,5 L200,10 L0,10 Z" />
           </svg>
           
           {/* Organic wave edge */}
