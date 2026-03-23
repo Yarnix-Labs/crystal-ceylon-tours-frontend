@@ -71,36 +71,43 @@ const ThingsToDo = () => {
       />
 
       {/* Activities Grid */}
-      <section className="py-20">
+      <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {activities.map((activity, index) => (
               <Link
                 key={activity.title}
                 to={`/things-to-do/${activity.slug}`}
-                className="group block rounded-lg border border-border bg-card overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fade-in-up"
+                className="group relative flex flex-col rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30 opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image */}
-                <div className="overflow-hidden">
+                <div className="relative overflow-hidden rounded-[16px] sm:rounded-[20px] mb-3 sm:mb-5 bg-muted">
                   <img 
                     src={activity.image} 
                     alt={activity.title}
-                    className="w-full aspect-[3/2] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full aspect-video sm:aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
+                  <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </div>
 
                 {/* Content */}
-                <div className="p-3">
-                  <h3 className="font-display text-base font-bold text-accent mb-1">
+                <div className="px-3 pb-3 flex flex-col flex-1">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2.5 group-hover:text-primary transition-colors duration-300">
                     {activity.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-3">
+                  <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed mb-6 font-normal">
                     {activity.description}
                   </p>
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary mt-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    Read More →
-                  </span>
+                  
+                  {/* CTA */}
+                  <div className="mt-auto flex items-center justify-between text-primary font-semibold text-sm pt-4 border-t border-border/40">
+                    <span className="flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+                      Learn More
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                    <div className="w-6 sm:w-8 h-1 rounded-full bg-border transition-all duration-300 group-hover:w-12 sm:group-hover:w-16 group-hover:bg-primary" />
+                  </div>
                 </div>
               </Link>
             ))}

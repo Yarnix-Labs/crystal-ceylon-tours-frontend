@@ -207,11 +207,11 @@ Looking forward to your response!
         breadcrumb="Custom Package"
       />
 
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 bg-muted/40">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Step 1: Destinations */}
-            <div className="bg-card rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg mb-8">
+            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                   1
@@ -352,7 +352,7 @@ Looking forward to your response!
             </div>
 
             {/* Step 2: Trip Details */}
-            <div className="bg-card rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg mb-8">
+            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                   2
@@ -430,7 +430,7 @@ Looking forward to your response!
             </div>
 
             {/* Step 3: Activities */}
-            <div className="bg-card rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg mb-8">
+            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                   3
@@ -440,7 +440,7 @@ Looking forward to your response!
                 </h2>
               </div>
 
-              <p className="text-muted-foreground mb-4">
+              <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-4">
                 Select activities you'd like to include (optional)
               </p>
 
@@ -475,7 +475,7 @@ Looking forward to your response!
             </div>
 
             {/* Step 4: Contact Details */}
-            <div className="bg-card rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg mb-8">
+            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                   4
@@ -584,7 +584,7 @@ Looking forward to your response!
                 Send Request via WhatsApp
               </Button>
 
-              <p className="text-sm text-muted-foreground text-center mt-4">
+              <p className="text-foreground/80 font-medium text-xs sm:text-sm text-center mt-4">
                 We'll review your request and get back to you within 24 hours with
                 a personalized itinerary and quote.
               </p>
