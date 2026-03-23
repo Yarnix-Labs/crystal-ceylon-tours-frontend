@@ -33,7 +33,7 @@ const NewsletterCTASection = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 sm:py-24 bg-background relative overflow-hidden"
+      className="py-14 sm:py-20 md:py-24 bg-background relative overflow-hidden"
     >
       {/* Subtle background blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -48,28 +48,28 @@ const NewsletterCTASection = () => {
           }`}
         >
           {/* Outer Card */}
-          <div className="relative rounded-[32px] bg-gradient-to-br from-secondary/60 via-white to-accent/5 p-1.5 shadow-[0_8px_40px_rgba(0,0,0,0.04)] ring-1 ring-border/30">
-            <div className="rounded-[26px] bg-white p-8 sm:p-12 md:p-14">
-              <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
+          <div className="relative rounded-[22px] sm:rounded-[32px] bg-gradient-to-br from-secondary/60 via-white to-accent/5 p-1 sm:p-1.5 shadow-[0_8px_40px_rgba(0,0,0,0.04)] ring-1 ring-border/30">
+            <div className="rounded-[18px] sm:rounded-[26px] bg-white p-5 sm:p-8 md:p-12 lg:p-14">
+              <div className="flex flex-col lg:flex-row items-start gap-8 sm:gap-10 lg:gap-16">
 
                 {/* Left Side — Content */}
                 <div className="flex-1">
                   {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-4 sm:mb-6">
                     <Sparkles className="h-3.5 w-3.5" />
                     Stay Connected
                   </div>
 
-                  <h2 className="font-display text-4xl sm:text-5xl font-bold text-foreground mb-2 leading-tight">
+                  <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-1 sm:mb-2 leading-tight">
                     Never Miss an
                   </h2>
-                  <h2 className="font-display text-4xl sm:text-5xl font-bold mb-5 leading-tight">
+                  <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 leading-tight">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent italic">
                       Adventure
                     </span>
                   </h2>
 
-                  <p className="text-muted-foreground text-sm sm:text-base max-w-md leading-relaxed font-normal mb-8">
+                  <p className="text-muted-foreground text-xs sm:text-sm md:text-base max-w-md leading-relaxed font-normal mb-5 sm:mb-8">
                     Join our community of passionate travelers and get exclusive access to deals, insider tips, and destination inspiration delivered to your inbox.
                   </p>
 
@@ -77,22 +77,22 @@ const NewsletterCTASection = () => {
                   <div className="flex items-center gap-3">
                     {/* Avatar dots */}
                     <div className="flex -space-x-2.5">
-                      <div className="w-9 h-9 rounded-full border-2 border-white bg-accent shadow-sm" />
-                      <div className="w-9 h-9 rounded-full border-2 border-white bg-primary shadow-sm" />
-                      <div className="w-9 h-9 rounded-full border-2 border-white bg-ocean-dark shadow-sm" />
+                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border-2 border-white bg-accent shadow-sm" />
+                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border-2 border-white bg-primary shadow-sm" />
+                      <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border-2 border-white bg-ocean-dark shadow-sm" />
                     </div>
                     <div>
-                      <p className="text-lg font-display font-bold text-foreground leading-tight">2,000+</p>
-                      <p className="text-[11px] text-muted-foreground font-medium">Happy Subscribers</p>
+                      <p className="text-base sm:text-lg font-display font-bold text-foreground leading-tight">2,000+</p>
+                      <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium">Happy Subscribers</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Right Side — Subscribe Card */}
                 <div className="w-full lg:w-[380px] shrink-0">
-                  <div className="rounded-[22px] bg-gradient-to-br from-accent/5 via-white to-primary/5 border border-border/40 p-6 sm:p-8 shadow-sm">
+                  <div className="rounded-[18px] sm:rounded-[22px] bg-gradient-to-br from-accent/5 via-white to-primary/5 border border-border/40 p-5 sm:p-6 md:p-8 shadow-sm">
                     {/* Mail icon */}
-                    <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4 sm:mb-5">
                       <Mail className="h-6 w-6" />
                     </div>
 
@@ -112,13 +112,13 @@ const NewsletterCTASection = () => {
                           placeholder="Enter your email address"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="h-12 rounded-xl bg-white border-border/60 text-foreground placeholder:text-muted-foreground/40 pl-11 pr-5 text-sm focus-visible:ring-accent/40 focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:border-accent/50"
+                          className="h-11 sm:h-12 rounded-xl bg-white border-border/60 text-foreground placeholder:text-muted-foreground/40 pl-10 sm:pl-11 pr-4 sm:pr-5 text-xs sm:text-sm focus-visible:ring-accent/40 focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:border-accent/50"
                           required
                         />
                       </div>
                       <Button
                         type="submit"
-                        className="w-full h-12 rounded-xl bg-accent hover:bg-ocean-light text-white font-bold tracking-wider transition-all duration-300 shadow-lg shadow-accent/15 hover:shadow-accent/30 hover:-translate-y-0.5 group"
+                        className="w-full h-11 sm:h-12 rounded-xl bg-accent hover:bg-ocean-light text-white text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 shadow-lg shadow-accent/15 hover:shadow-accent/30 hover:-translate-y-0.5 group"
                       >
                         <span className="flex items-center gap-2">
                           Subscribe to Newsletter

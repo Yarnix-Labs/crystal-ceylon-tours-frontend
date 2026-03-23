@@ -11,8 +11,8 @@ import {
   Check,
   Star,
   Camera,
-  Utensils,
-  Bed
+  Sun,
+  Send
 } from "lucide-react";
 import sigiriyaImg from "@/assets/sigiriya.jpg";
 import ellaImg from "@/assets/ella.jpg";
@@ -249,124 +249,72 @@ const DestinationDetail = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[30vh] sm:h-[40vh] min-h-[250px] sm:min-h-[300px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src={destination.image} 
             alt={destination.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <Link 
-            to="/destinations" 
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
-          >
-            <ChevronLeft className="h-5 w-5" />
-            Back to Destinations
-          </Link>
-          <div className="flex items-center justify-center gap-2 text-white/80 mb-4">
-            <MapPin className="h-5 w-5" />
-            <span>{destination.province}</span>
-          </div>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            {destination.name}
-          </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">{destination.tagline}</p>
+          <div className="absolute inset-0 bg-black/20" />
         </div>
       </section>
 
-      {/* Quick Info Bar */}
-      <section className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="flex flex-col items-center gap-2">
-              <Clock className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Ideal Duration</span>
-              <span className="text-sm font-medium text-foreground">{destination.idealDuration}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Star className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Best Time</span>
-              <span className="text-sm font-medium text-foreground">{destination.bestTime}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Thermometer className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Weather</span>
-              <span className="text-sm font-medium text-foreground line-clamp-1">{destination.weather.split('.')[0]}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Camera className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Highlights</span>
-              <span className="text-sm font-medium text-foreground">{destination.highlights.length}+ attractions</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Main Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
+      <section className="py-16 sm:py-20">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16">
             {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-8">
+              
+              {/* Back Button */}
+              <div className="mb-8">
+                <Link to="/destinations">
+                  <Button variant="outline" className="gap-2 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                    <ChevronLeft className="h-4 w-4" />
+                    Back to Destinations
+                  </Button>
+                </Link>
+              </div>
+
               {/* Description */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  About {destination.name}
+              <div className="mb-12 sm:mb-16">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8 flex items-end gap-2.5">
+                  <span className="italic text-primary font-medium tracking-tight">About</span> 
+                  {destination.name}
                 </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                
+                {/* Vertical line border wrapper */}
+                <div className="border-l-[3px] border-primary/40 pl-5 sm:pl-8 space-y-3 sm:space-y-4">
                   {destination.description.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
+                    <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                      {paragraph}
+                    </p>
                   ))}
                 </div>
               </div>
 
-              {/* Highlights */}
+              {/* Key Highlights */}
               <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Highlights
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {destination.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-center gap-3 bg-card p-4 rounded-lg">
-                      <Star className="h-5 w-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">{highlight}</span>
-                    </div>
-                  ))}
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-[2px] w-12 sm:w-16 bg-accent rounded-full"></div>
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground">
+                    Key Highlights
+                  </h2>
                 </div>
-              </div>
-
-              {/* Things to Do */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Things To Do
-                </h2>
-                <div className="space-y-4">
+                
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   {destination.thingsToDo.map((activity, index) => (
-                    <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                      <h3 className="font-semibold text-foreground text-lg mb-2">{activity.title}</h3>
-                      <p className="text-muted-foreground">{activity.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Nearby Attractions */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Nearby Attractions
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {destination.nearbyAttractions.map((attraction, index) => (
-                    <div key={index} className="flex items-center justify-between bg-card p-4 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <MapPin className="h-5 w-5 text-primary" />
-                        <span className="text-foreground">{attraction.name}</span>
+                    <div key={index} className="bg-card/50 hover:bg-card p-5 sm:p-6 rounded-[24px] border border-border/40 shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                        <Check className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
                       </div>
-                      <span className="text-sm text-muted-foreground">{attraction.distance}</span>
+                      <div>
+                        <h3 className="font-display text-base sm:text-lg font-bold text-foreground mb-1.5">{activity.title}</h3>
+                        <p className="text-sm sm:text-base text-foreground/80 font-medium leading-[1.6]">{activity.description}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -374,59 +322,60 @@ const DestinationDetail = () => {
             </div>
 
             {/* Right Column - Sidebar */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-4">
               <div className="sticky top-28 space-y-6">
-                {/* Getting There */}
-                <div className="bg-card rounded-xl p-6 shadow-sm">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-4">Getting There</h3>
-                  <p className="text-muted-foreground text-sm">{destination.gettingThere}</p>
-                </div>
-
-                {/* Local Cuisine */}
-                <div className="bg-card rounded-xl p-6 shadow-sm">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Utensils className="h-5 w-5 text-accent" />
-                    <h3 className="font-display text-xl font-bold text-foreground">Local Cuisine</h3>
-                  </div>
-                  <ul className="space-y-2">
-                    {destination.localCuisine.map((item, index) => (
-                      <li key={index} className="flex items-center gap-2 text-muted-foreground">
-                        <Check className="h-4 w-4 text-palm" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Where to Stay */}
-                <div className="bg-card rounded-xl p-6 shadow-sm">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Bed className="h-5 w-5 text-accent" />
-                    <h3 className="font-display text-xl font-bold text-foreground">Where to Stay</h3>
-                  </div>
-                  <ul className="space-y-2">
-                    {destination.accommodations.map((hotel, index) => (
-                      <li key={index} className="flex items-center gap-2 text-muted-foreground">
-                        <Check className="h-4 w-4 text-palm" />
-                        <span>{hotel}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* CTA Card */}
-                <div className="bg-primary/10 rounded-xl p-6">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2">Plan Your Visit</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Let us create a custom itinerary including {destination.name} and nearby attractions.
+                
+                {/* Start Your Journey */}
+                <div className="bg-white rounded-[32px] p-6 sm:p-8 shadow-sm ring-1 ring-border/20">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-3">Start Your Journey</h3>
+                  <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-8 text-left">
+                    Ready to experience the magic of {destination.name}? Let our travel experts craft the perfect itinerary for you.
                   </p>
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
-                    Get Custom Itinerary
-                  </Button>
-                  <Button variant="outline" className="w-full mt-3 border-primary text-primary">
-                    View Tour Packages
+                  
+                  <div className="space-y-6 mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Send className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-foreground text-sm sm:text-base">Tailored Itineraries</h4>
+                        <p className="text-foreground/80 text-sm font-medium mt-0.5">Customized just for you</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-foreground text-sm sm:text-base">Best Timing</h4>
+                        <p className="text-foreground/80 text-xs sm:text-sm font-medium mt-0.5">Optimized for your schedule</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Check className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-foreground text-sm sm:text-base">Expert Guides</h4>
+                        <p className="text-foreground/80 text-sm font-medium mt-0.5">Advice on when to visit</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl h-auto py-3.5 sm:py-4 text-sm sm:text-base font-bold tracking-wide transition-transform hover:-translate-y-1">
+                    Explore Packages
                   </Button>
                 </div>
+
+                {/* Explorer's Note */}
+                <div className="bg-primary/10 rounded-[32px] p-6 sm:p-8 border border-primary/20">
+                  <Sun className="h-7 w-7 text-primary mb-4" />
+                  <h3 className="font-display italic text-2xl font-bold text-primary mb-3">Explorer's Note</h3>
+                  <p className="text-primary/90 italic text-sm sm:text-base leading-relaxed font-medium">
+                    The {destination.province.replace('Province', '').trim()} region is highly recommended during Sri Lanka's {destination.bestTime} season when {destination.weather.toLowerCase()}
+                  </p>
+                </div>
+
               </div>
             </div>
           </div>

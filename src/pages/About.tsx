@@ -86,18 +86,18 @@ const About = () => {
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-3 mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
               Born from a Love for Sri Lanka
             </h2>
-            <div className="space-y-6 text-lg text-muted-foreground opacity-0 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-              <p>
+            <div className="space-y-4 sm:space-y-6 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+              <p className="text-xs sm:text-sm md:text-base text-foreground/80 font-medium leading-relaxed text-justify">
                 Crystal Ceylon was founded in 2010 by Chamara Fernando, a passionate traveler who wanted to share 
                 the magic of Sri Lanka with the world. What started as a small family operation has grown into 
                 one of the most trusted tour companies on the island.
               </p>
-              <p>
+              <p className="text-xs sm:text-sm md:text-base text-foreground/80 font-medium leading-relaxed text-justify">
                 We believe that travel should be transformative. That's why we go beyond typical tourist trails 
                 to offer authentic experiences that connect you with Sri Lanka's rich culture, stunning landscapes, 
                 and warm-hearted people.
               </p>
-              <p>
+              <p className="text-xs sm:text-sm md:text-base text-foreground/80 font-medium leading-relaxed text-justify">
                 Today, our team of experienced local guides and travel experts continue to craft unforgettable 
                 journeys, whether you're climbing ancient rock fortresses, sipping tea in misty highlands, 
                 or spotting leopards in the wild.
@@ -132,7 +132,7 @@ const About = () => {
                   <h3 className="font-display text-xl font-bold text-foreground mb-3">
                     {value.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-foreground/80 text-xs sm:text-sm font-medium leading-relaxed">
                     {value.description}
                   </p>
                 </div>
@@ -165,7 +165,7 @@ const About = () => {
                 <h3 className="font-display text-lg font-bold text-foreground">
                   {member.name}
                 </h3>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-foreground/80 text-xs sm:text-sm font-medium">
                   {member.role}
                 </p>
               </div>

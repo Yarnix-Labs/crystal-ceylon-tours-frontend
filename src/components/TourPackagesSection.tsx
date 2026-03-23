@@ -34,7 +34,7 @@ const packages = [
 
 const TourPackagesSection = () => {
   return (
-    <section id="packages" className="py-24 bg-gradient-to-b from-background to-secondary/30 relative overflow-hidden">
+    <section id="packages" className="py-16 sm:py-24 bg-gradient-to-b from-background to-secondary/30 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
@@ -43,12 +43,12 @@ const TourPackagesSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 relative">
+        <div className="text-center mb-10 sm:mb-16 relative">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-xs font-bold uppercase tracking-widest mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
             Our Tours
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-[48px] font-bold text-foreground mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[48px] font-bold text-foreground mb-2 sm:mb-3">
             Popular <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Tour Packages
               <svg className="absolute -bottom-1.5 left-0 w-full h-3" viewBox="0 0 100 12" preserveAspectRatio="none">
@@ -64,7 +64,7 @@ const TourPackagesSection = () => {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {packages.map((pkg) => (
             <Link
               key={pkg.title}
@@ -72,7 +72,7 @@ const TourPackagesSection = () => {
               className="group relative flex flex-col rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
             >
               {/* Image Container */}
-              <div className="relative overflow-hidden rounded-[20px] mb-5 bg-muted">
+              <div className="relative overflow-hidden rounded-[16px] sm:rounded-[20px] mb-3 sm:mb-5 bg-muted">
                 <img
                   src={pkg.image}
                   alt={pkg.title}
@@ -110,7 +110,7 @@ const TourPackagesSection = () => {
                   </span>
                 </div>
 
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2.5 group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2.5 group-hover:text-primary transition-colors duration-300">
                   {pkg.title}
                 </h3>
 
@@ -132,11 +132,11 @@ const TourPackagesSection = () => {
         </div>
 
         {/* View All Button */}
-        <div className="text-center mt-16 relative z-10">
+        <div className="text-center mt-10 sm:mt-16 relative z-10">
           <Link to="/tour-packages">
-            <Button variant="outline" size="lg" className="border-accent/40 text-accent hover:bg-accent hover:text-white rounded-full px-8 py-6 h-auto text-sm sm:text-base font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-accent/20 hover:shadow-lg hover:-translate-y-1 group">
+            <Button variant="outline" size="lg" className="border-accent/40 text-accent hover:bg-accent hover:text-white rounded-full px-5 py-3 sm:px-8 sm:py-6 h-auto text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-accent/20 hover:shadow-lg hover:-translate-y-1 group">
               View All Tour Packages
-              <ArrowRight className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1.5 sm:ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>

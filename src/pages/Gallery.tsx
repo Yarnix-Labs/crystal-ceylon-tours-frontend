@@ -301,7 +301,7 @@ const Gallery = () => {
         <div className="container mx-auto px-4 relative z-10">
           {/* Image Count */}
           <div className="text-center mb-10">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-foreground/80 text-xs sm:text-sm md:text-base font-medium">
               Showing{" "}
               <span className="font-bold text-foreground">{galleryImages.length}</span>{" "}
               photos from across Sri Lanka
@@ -378,7 +378,7 @@ const Gallery = () => {
             <div className="inline-flex flex-col items-center gap-4">
               <div className="flex items-center gap-3">
                 <Camera className="h-5 w-5 text-accent" />
-                <span className="text-muted-foreground text-sm font-medium">
+                <span className="text-foreground/80 text-xs sm:text-sm md:text-base font-medium">
                   Want to see these places in person?
                 </span>
               </div>

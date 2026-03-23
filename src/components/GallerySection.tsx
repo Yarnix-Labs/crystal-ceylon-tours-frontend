@@ -97,7 +97,7 @@ const GallerySection = () => {
     <section
       ref={sectionRef}
       id="gallery"
-      className="py-24 bg-gradient-to-b from-background to-secondary/40 relative overflow-hidden"
+      className="py-16 sm:py-24 bg-gradient-to-b from-background to-secondary/40 relative overflow-hidden"
     >
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -108,7 +108,7 @@ const GallerySection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-1000 ${
+          className={`text-center mb-10 sm:mb-16 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -117,7 +117,7 @@ const GallerySection = () => {
             <Camera className="h-3.5 w-3.5" />
             Gallery
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-[48px] font-bold text-foreground mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[48px] font-bold text-foreground mb-2 sm:mb-3">
             Captured{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Moments
@@ -144,7 +144,7 @@ const GallerySection = () => {
 
         {/* Gallery Grid - Modern Mosaic Layout */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] sm:auto-rows-[200px] gap-3 sm:gap-4 transition-all duration-1000 delay-200 ${
+          className={`grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[160px] md:auto-rows-[200px] gap-2 sm:gap-3 md:gap-4 transition-all duration-1000 delay-200 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
@@ -194,7 +194,7 @@ const GallerySection = () => {
 
         {/* View All Button */}
         <div
-          className={`text-center mt-14 relative z-10 transition-all duration-1000 delay-500 ${
+          className={`text-center mt-10 sm:mt-14 relative z-10 transition-all duration-1000 delay-500 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -202,10 +202,10 @@ const GallerySection = () => {
             <Button
               variant="outline"
               size="lg"
-              className="border-accent/40 text-accent hover:bg-accent hover:text-white rounded-full px-8 py-6 h-auto text-sm sm:text-base font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-accent/20 hover:shadow-lg hover:-translate-y-1 group"
+              className="border-accent/40 text-accent hover:bg-accent hover:text-white rounded-full px-5 py-3 sm:px-8 sm:py-6 h-auto text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-accent/20 hover:shadow-lg hover:-translate-y-1 group"
             >
               View Full Gallery
-              <ArrowRight className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1.5 sm:ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>

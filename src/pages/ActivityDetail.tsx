@@ -271,109 +271,93 @@ const ActivityDetail = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[30vh] sm:h-[40vh] min-h-[250px] sm:min-h-[300px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src={activity.image} 
             alt={activity.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover text-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <Link 
-            to="/things-to-do" 
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
-          >
-            <ChevronLeft className="h-5 w-5" />
-            Back to Things To Do
-          </Link>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="text-primary">{activity.title.split(' ')[0]}</span>{' '}
-            <span className="text-accent">{activity.title.split(' ').slice(1).join(' ')}</span>
-          </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">{activity.tagline}</p>
+          <div className="absolute inset-0 bg-black/20" />
         </div>
       </section>
 
-      {/* Quick Info Bar */}
-      <section className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="flex flex-col items-center gap-2">
-              <Calendar className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Best Time</span>
-              <span className="text-sm font-medium text-foreground">{activity.bestTime.split('|')[0].trim()}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Clock className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Duration</span>
-              <span className="text-sm font-medium text-foreground">{activity.duration}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Sun className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Difficulty</span>
-              <span className="text-sm font-medium text-foreground">{activity.difficulty}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Group Size</span>
-              <span className="text-sm font-medium text-foreground">{activity.groupSize}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Main Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+          <div className="max-w-5xl mx-auto">
+            {/* Main Content */}
+            <div className="space-y-12 sm:space-y-16">
+              
+              {/* Back Button */}
+              <div className="mb-8">
+                <Link to="/things-to-do">
+                  <Button variant="outline" className="gap-2 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                    <ChevronLeft className="h-4 w-4" />
+                    Back to Things To Do
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Activity Header Title (Moved from Hero) */}
+              <div className="mb-0 sm:mb-2">
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground">
+                    <span className="text-primary">{activity.title.split(' ')[0]}</span>{' '}
+                    <span>{activity.title.split(' ').slice(1).join(' ')}</span>
+                  </h1>
+                </div>
+              </div>
+
               {/* Description */}
               <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
                   About This Experience
                 </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  {activity.description.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))}
+                <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
+                  <div className="space-y-3 sm:space-y-4">
+                    {activity.description.map((paragraph, index) => (
+                      <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
 
               {/* Highlights */}
               <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Highlights
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {activity.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-center gap-3 bg-card p-4 rounded-lg">
-                      <Star className="h-5 w-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">{highlight}</span>
-                    </div>
-                  ))}
+                <div className="text-center mb-8 sm:mb-12">
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
+                    Experience Highlights
+                  </h2>
                 </div>
-              </div>
-
-              {/* Locations */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Best Locations
-                </h2>
-                <div className="space-y-4">
+                <div className="space-y-6 sm:space-y-8">
                   {activity.locations.map((location, index) => (
-                    <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                      <div className="flex items-start gap-4">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <MapPin className="h-5 w-5 text-primary" />
+                    <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-10 items-center`}>
+                      {/* Image Side */}
+                      <div className="md:w-1/2 relative rounded-[16px] sm:rounded-[24px] overflow-hidden shadow-sm">
+                        <img src={activity.image} alt={location.name} className="w-full aspect-video sm:aspect-[16/10] object-cover" />
+                        <div className="absolute top-4 left-4 h-8 w-8 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold shadow-md">
+                          {(index + 1).toString().padStart(2, '0')}
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-foreground text-lg mb-2">{location.name}</h3>
-                          <p className="text-muted-foreground">{location.description}</p>
+                      </div>
+
+                      {/* Content Side */}
+                      <div className="md:w-1/2 bg-card rounded-[16px] sm:rounded-[24px] p-6 sm:p-8 md:p-10 border border-border/30">
+                        <div className="flex items-start sm:items-center gap-3 mb-4">
+                          <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
+                          </div>
+                          <h3 className="font-display text-lg sm:text-xl font-bold text-foreground">
+                            {location.name}
+                          </h3>
                         </div>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          {location.description}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -382,50 +366,18 @@ const ActivityDetail = () => {
 
               {/* Tips */}
               <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
                   Insider Tips
                 </h2>
-                <div className="bg-accent/10 p-6 rounded-xl">
-                  <ul className="space-y-3">
+                <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
+                  <ul className="space-y-2.5 sm:space-y-3">
                     {activity.tips.map((tip, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Camera className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground">{tip}</span>
+                      <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-foreground/80 text-xs sm:text-sm md:text-base font-medium leading-relaxed">
+                        <Camera className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0 mt-0.5" />
+                        <span>{tip}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-28 space-y-6">
-                {/* What's Included */}
-                <div className="bg-card rounded-xl p-6 shadow-sm">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-4">What's Included</h3>
-                  <ul className="space-y-3">
-                    {activity.whatsIncluded.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-palm flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* CTA Card */}
-                <div className="bg-primary/10 rounded-xl p-6">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2">Ready to Experience?</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Let us help you plan the perfect {activity.title.toLowerCase()} adventure in Sri Lanka.
-                  </p>
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
-                    Book This Experience
-                  </Button>
-                  <Button variant="outline" className="w-full mt-3 border-primary text-primary">
-                    Ask a Question
-                  </Button>
                 </div>
               </div>
             </div>

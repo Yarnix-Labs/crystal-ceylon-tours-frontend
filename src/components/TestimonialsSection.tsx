@@ -109,7 +109,7 @@ const TestimonialsSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="py-24 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden"
+      className="py-16 sm:py-24 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden"
     >
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -120,15 +120,15 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div 
-          className={`text-center mb-16 relative transition-all duration-1000 ${
+          className={`text-center mb-10 sm:mb-16 relative transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-xs font-bold uppercase tracking-widest mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-xs font-bold uppercase tracking-widest mb-4 sm:mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
             Testimonials
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-[48px] font-bold text-foreground mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[48px] font-bold text-foreground mb-2 sm:mb-3">
             What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Travelers Say
               <svg className="absolute -bottom-1.5 left-0 w-full h-3" viewBox="0 0 100 12" preserveAspectRatio="none">
@@ -138,7 +138,7 @@ const TestimonialsSection = () => {
           </h2>
                               {/* <p className="text-muted-foreground text-sm sm:text-lg max-w-2xl mx-auto font-normal"> */}
 
-          <p className="text-muted-foreground text-md sm:text-lg max-w-2xl mx-auto font-normal">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-normal px-2">
             Don't just take our word for it. Here's what travelers from around the world 
             have to say about their unforgettable experiences with us.
           </p>
@@ -151,7 +151,7 @@ const TestimonialsSection = () => {
           }`}
         >
           <div className="relative p-2 sm:p-4 bg-white/40 backdrop-blur-xl rounded-[32px] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-black/5">
-            <div className="relative bg-white rounded-[24px] shadow-sm p-6 sm:p-10 md:p-14 border border-border/30">
+            <div className="relative bg-white rounded-[20px] sm:rounded-[24px] shadow-sm p-5 sm:p-8 md:p-14 border border-border/30">
               
               {/* Decorative Quotes Background */}
               <div className="absolute inset-0 overflow-hidden rounded-[24px] pointer-events-none">
@@ -160,11 +160,11 @@ const TestimonialsSection = () => {
 
               {/* Content */}
               <div className="relative z-10">
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start group">
+                <div className="flex flex-col md:flex-row gap-5 sm:gap-8 md:gap-12 items-center md:items-start group">
                   
                   {/* Avatar Side */}
                   <div className="shrink-0 relative">
-                    <div className="relative w-28 h-28 md:w-36 md:h-36">
+                    <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36">
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full scale-110 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700" />
                       <img
                         src={currentTestimonial.avatar}
@@ -184,16 +184,16 @@ const TestimonialsSection = () => {
                       <StarRating rating={currentTestimonial.rating} />
                     </div>
                     
-                    <p className="text-foreground text-xl md:text-2xl leading-relaxed mb-8 font-display italic text-balance font-medium">
+                    <p className="text-foreground text-base sm:text-xl md:text-2xl leading-relaxed mb-5 sm:mb-8 font-display italic text-balance font-medium">
                       "{currentTestimonial.text}"
                     </p>
 
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-t border-border/40 pt-6">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-t border-border/40 pt-4 sm:pt-6">
                       <div>
-                        <h4 className="font-display text-xl md:text-2xl font-bold text-foreground mb-1">
+                        <h4 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 sm:mb-1">
                           {currentTestimonial.name}
                         </h4>
-                        <p className="text-muted-foreground text-sm uppercase tracking-wider font-semibold">
+                        <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wider font-semibold">
                           {currentTestimonial.location}
                         </p>
                       </div>
@@ -246,7 +246,7 @@ const TestimonialsSection = () => {
 
         {/* Modern Trust Indicators */}
         <div 
-          className={`mt-24 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto transition-all duration-1000 delay-500 ${
+          className={`mt-14 sm:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 max-w-5xl mx-auto transition-all duration-1000 delay-500 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
@@ -256,9 +256,9 @@ const TestimonialsSection = () => {
             { value: "98%", label: "Recommend Us", stars: false, subtext: "To family and friends" },
             { value: "24/7", label: "Premium Support", stars: false, subtext: "Always here for you" },
           ].map((stat, idx) => (
-            <div key={idx} className="relative group p-6 sm:p-8 rounded-[24px] bg-white border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 text-center flex flex-col items-center justify-center hover:-translate-y-1">
+            <div key={idx} className="relative group p-4 sm:p-6 md:p-8 rounded-[20px] sm:rounded-[24px] bg-white border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 text-center flex flex-col items-center justify-center hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[24px]" />
-              <div className="relative z-10 text-4xl sm:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-3">
+              <div className="relative z-10 text-3xl sm:text-4xl md:text-5xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2 sm:mb-3">
                 {stat.value}
               </div>
               {stat.stars && (
@@ -266,7 +266,7 @@ const TestimonialsSection = () => {
                   <StarRating rating={5} />
                 </div>
               )}
-              <div className="relative z-10 text-sm font-bold text-foreground uppercase tracking-wider mb-1.5">
+              <div className="relative z-10 text-xs sm:text-sm font-bold text-foreground uppercase tracking-wider mb-1">
                 {stat.label}
               </div>
               <div className="relative z-10 text-xs text-muted-foreground font-light">

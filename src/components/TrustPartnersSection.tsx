@@ -53,7 +53,7 @@ const TrustPartnersSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-16 bg-background relative overflow-hidden border-t border-border/30"
+      className="py-12 sm:py-16 bg-background relative overflow-hidden border-t border-border/30"
     >
       {/* Subtle background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -68,7 +68,7 @@ const TrustPartnersSection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <p className="text-muted-foreground text-xs sm:text-sm font-bold uppercase tracking-[0.2em]">
+          <p className="text-muted-foreground text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em]">
             Trusted & Certified — Your Journey is Safe With Us
           </p>
         </div>

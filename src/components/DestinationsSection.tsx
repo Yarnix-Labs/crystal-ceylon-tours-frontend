@@ -47,7 +47,7 @@ const destinations = [
 
 const DestinationsSection = () => {
   return (
-    <section id="destinations" className="py-24 bg-gradient-to-b from-secondary/50 to-secondary relative overflow-hidden">
+    <section id="destinations" className="py-16 sm:py-24 bg-gradient-to-b from-secondary/50 to-secondary relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-20 -left-64 w-96 h-96 bg-accent/5 rounded-full blur-[100px]" />
@@ -56,12 +56,12 @@ const DestinationsSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-border/50 text-accent text-xs font-bold uppercase tracking-widest mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
             Destinations
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-[48px] font-bold text-foreground mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[48px] font-bold text-foreground mb-2 sm:mb-3">
             Explore <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
               Sri Lanka
               <svg className="absolute -bottom-1.5 left-0 w-full h-3" viewBox="0 0 100 12" preserveAspectRatio="none">
@@ -76,15 +76,15 @@ const DestinationsSection = () => {
         </div>
 
         {/* Destinations Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {destinations.map((destination) => (
             <Link
               key={destination.name}
-              to={`/destinations/${destination.name.toLowerCase().replace(/\s+/g, "-")}`}
-              className="group relative block rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
+              to={`/destinations/${destination.name.toLowerCase().replace(/\\s+/g, "-")}`}
+              className="group relative flex flex-col rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
             >
               {/* Image Container */}
-              <div className="relative overflow-hidden rounded-[20px] mb-5 bg-muted">
+              <div className="relative overflow-hidden rounded-[16px] sm:rounded-[20px] mb-3 sm:mb-5 bg-muted">
                 <img
                   src={destination.image}
                   alt={destination.name}
@@ -104,7 +104,7 @@ const DestinationsSection = () => {
               </div>
 
               {/* Content text */}
-              <div className="px-3 pb-3">
+              <div className="px-3 pb-3 flex flex-col flex-1">
                 <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold text-accent mb-2.5 uppercase tracking-wider">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -112,16 +112,22 @@ const DestinationsSection = () => {
                   {destination.province}
                 </div>
                 
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2.5 group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2.5 group-hover:text-primary transition-colors duration-300">
                   {destination.name}
                 </h3>
 
-                <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed font-normal">
+                <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed font-normal mb-6">
                   {destination.description}
                 </p>
                 
                 {/* Visual read more indicator */}
-                <div className="w-8 h-1 rounded-full bg-border mt-4 transition-all duration-300 group-hover:w-16 group-hover:bg-primary" />
+                <div className="mt-auto flex items-center justify-between text-primary font-semibold text-sm pt-4 border-t border-border/40">
+                  <span className="flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+                    Explore Destination
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </span>
+                  <div className="w-8 h-1 rounded-full bg-border transition-all duration-300 group-hover:w-16 group-hover:bg-primary" />
+                </div>
               </div>
             </Link>
           ))}

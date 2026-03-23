@@ -45,7 +45,7 @@ const Contact = () => {
       />
 
       {/* Contact Section */}
-      <section className="py-20">
+      <section className="py-20 bg-muted/40">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -53,7 +53,7 @@ const Contact = () => {
               <h2 className="font-display text-3xl font-bold text-foreground mb-2">
                 Send Us a Message
               </h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-8">
                 Fill out the form below and our team will get back to you within 24 hours.
               </p>
 
@@ -123,7 +123,7 @@ const Contact = () => {
               <h2 className="font-display text-3xl font-bold text-foreground mb-2">
                 Get in Touch
               </h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-8">
                 Prefer to reach out directly? Here's how you can contact us.
               </p>
 
@@ -133,7 +133,7 @@ const Contact = () => {
                   return (
                     <div
                       key={info.title}
-                      className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                      className="group relative bg-white rounded-[20px] sm:rounded-[24px] p-6 sm:p-8 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
                     >
                       <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                         <Icon className="h-6 w-6 text-primary" />
@@ -142,7 +142,7 @@ const Contact = () => {
                         {info.title}
                       </h3>
                       {info.details.map((detail) => (
-                        <p key={detail} className="text-muted-foreground text-sm">
+                        <p key={detail} className="text-foreground/80 text-xs sm:text-sm font-medium">
                           {detail}
                         </p>
                       ))}
@@ -175,10 +175,10 @@ const Contact = () => {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <MapPin className="h-12 w-12 text-primary mx-auto mb-4 animate-float" />
-            <p className="text-muted-foreground">
+            <p className="text-foreground/80 font-medium text-sm md:text-base">
               Interactive map would be displayed here
             </p>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-foreground/80 font-medium text-xs sm:text-sm mt-2">
               42 Galle Road, Colombo 03, Sri Lanka
             </p>
           </div>

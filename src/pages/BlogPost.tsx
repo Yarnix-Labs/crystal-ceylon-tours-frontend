@@ -265,148 +265,67 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-end justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src={post.image} 
-            alt={post.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-4 pb-12">
+      {/* Minimal Content Layout */}
+      <div className="pt-28 pb-20 min-h-[70vh] bg-[#F8F9FA]/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          {/* Back Button */}
           <Link 
             to="/blog" 
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-bold mb-12 sm:mb-16 transition-colors text-sm sm:text-base"
           >
             <ChevronLeft className="h-5 w-5" />
             Back to Blog
           </Link>
-          <div className="inline-block bg-accent text-accent-foreground px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-            {post.category}
-          </div>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 max-w-4xl">
+          
+          {/* Primary Post Header */}
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] font-bold text-foreground mb-6 leading-[1.2] tracking-tight">
             {post.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-6 text-white/80">
-            <div className="flex items-center gap-2">
+          
+          {/* 3 Items: Author, Date, Read Time */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm sm:text-base text-muted-foreground font-medium mb-12 pb-8 border-b border-border/40">
+            <span className="flex items-center gap-2">
               <User className="h-4 w-4" />
-              <span>{post.author}</span>
-            </div>
-            <div className="flex items-center gap-2">
+              {post.author}
+            </span>
+            <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-border" />
+            <span className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              <span>{post.date}</span>
-            </div>
-            <div className="flex items-center gap-2">
+              {post.date}
+            </span>
+            <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-border" />
+            <span className="flex items-center gap-2">
               <Clock className="h-4 w-4" />
-              <span>{post.readTime}</span>
-            </div>
+              {post.readTime}
+            </span>
+          </div>
+
+          {/* Clean Long Description Standard */}
+          <div className="prose prose-lg sm:prose-xl max-w-none">
+            {post.content.map((block, index) => {
+              switch (block.type) {
+                case 'paragraph':
+                  return <p key={index} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{block.content as string}</p>;
+                case 'heading':
+                case 'subheading':
+                  return null;
+                case 'list':
+                  return (
+                    <div key={index}>
+                      {(block.content as string[]).map((item, i) => (
+                        <p key={`${index}-${i}`} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{item}</p>
+                      ))}
+                    </div>
+                  );
+                case 'quote':
+                  return <p key={index} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{block.content as string}</p>;
+                default:
+                  return null;
+              }
+            })}
           </div>
         </div>
-      </section>
-
-      {/* Article Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-4 gap-12">
-            {/* Main Content */}
-            <article className="lg:col-span-3 prose prose-lg max-w-none">
-              {post.content.map((block, index) => {
-                switch (block.type) {
-                  case 'paragraph':
-                    return <p key={index} className="text-muted-foreground leading-relaxed mb-6">{block.content as string}</p>;
-                  case 'heading':
-                    return <h2 key={index} className="font-display text-2xl font-bold text-foreground mt-10 mb-4">{block.content as string}</h2>;
-                  case 'subheading':
-                    return <h3 key={index} className="font-display text-xl font-semibold text-foreground mt-6 mb-3">{block.content as string}</h3>;
-                  case 'list':
-                    return (
-                      <ul key={index} className="space-y-2 mb-6">
-                        {(block.content as string[]).map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                            <span className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    );
-                  case 'quote':
-                    return (
-                      <blockquote key={index} className="border-l-4 border-accent pl-6 py-2 my-8 bg-accent/5 rounded-r-lg">
-                        <p className="text-lg italic text-foreground">{block.content as string}</p>
-                      </blockquote>
-                    );
-                  default:
-                    return null;
-                }
-              })}
-
-              {/* Tags */}
-              <div className="mt-12 pt-8 border-t border-border">
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span key={tag} className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Author Bio */}
-              <div className="mt-8 p-6 bg-card rounded-xl">
-                <div className="flex items-start gap-4">
-                  <div className="h-16 w-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <User className="h-8 w-8 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground text-lg">{post.author}</h4>
-                    <p className="text-muted-foreground mt-1">{post.authorBio}</p>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            {/* Sidebar */}
-            <aside className="lg:col-span-1">
-              <div className="sticky top-28 space-y-6">
-                {/* Share */}
-                <div className="bg-card rounded-xl p-6">
-                  <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                    <Share2 className="h-4 w-4" />
-                    Share Article
-                  </h4>
-                  <div className="flex gap-3">
-                    <button className="h-10 w-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-80 transition-opacity">
-                      <Facebook className="h-5 w-5" />
-                    </button>
-                    <button className="h-10 w-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:opacity-80 transition-opacity">
-                      <Twitter className="h-5 w-5" />
-                    </button>
-                    <button className="h-10 w-10 rounded-full bg-muted text-foreground flex items-center justify-center hover:opacity-80 transition-opacity">
-                      <Bookmark className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <div className="bg-primary/10 rounded-xl p-6">
-                  <h4 className="font-semibold text-foreground mb-2">Ready to Explore?</h4>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Let us help you plan your Sri Lanka adventure.
-                  </p>
-                  <Link to="/tour-packages">
-                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                      View Tour Packages
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
+      </div>
 
       <Footer />
       <WhatsAppButton />
