@@ -1,19 +1,32 @@
-// Define your API endpoint paths here to keep them organized
-export const API_ENDPOINTS = {
-  // auth: {
-  //   login: '/auth/login',
-  //   register: '/auth/register',
-  //   profile: '/auth/profile',
-  // },
-  // users: {
-  //   getAll: '/users',
-  //   getById: (id: string | number) => `/users/${id}`,
-  //   create: '/users',
-  //   update: (id: string | number) => `/users/${id}`,
-  //   delete: (id: string | number) => `/users/${id}`,
-  // },
-  // tours: {
-  //   getAll: '/tours',
-  //   getById: (id: string | number) => `/tours/${id}`,
-  // },
+export const ENDPOINTS = {
+  // Tour Packages
+  tourPackagesList: (page: number = 1) => `/tour-packages/package/summary/?page=${page}`,
+  tourPackageBySlugClient: (slug: string) => `/tour-packages/${slug}`,
+
+  // Destinations
+  destinationsList: (page: number = 1) => `/destinations/summary/list?page=${page}`,
+  destinationBySlugClient: (slug: string) => `/destinations/published/${slug}`,
+
+  // Blogs
+  blogs: '/blogs',
+  blogList: (page: number = 1) => `/blogs/summary/list?page=${page}`,
+  blogBySlugClient: (slug: string) => `/blogs/published/${slug}`,
+
+  // Things To Do
+  thingsToDo: '/things-to-do',
+  thingsToDoList: (page: number = 1) => `/things-to-do/summary/list?page=${page}`,
+  thingToDoBySlugClient: (slug: string) => `/things-to-do/published/${slug}`,
+
+  // Gallery
+  galleryList: (page: number = 1) => `/gallery/?page=${page}`,
+
+  // Reviews
+  reviewsList: (page: number = 1) => `/reviews?page=${page}`,
+
+  // Contact & Subscriptions
+  contactMessage: '/contact/message',
+  contactSubscribe: '/contact/subscribe',
+  
+  // Booking
+  createBooking: '/bookings/create',
 };
