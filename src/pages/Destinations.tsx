@@ -1,68 +1,48 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious,
+  PaginationEllipsis
+} from "@/components/ui/pagination";
+import { MapPin, Info } from "lucide-react";
 import destinationsHero from "@/assets/destinations-hero.jpg";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import galleImg from "@/assets/galle.jpg";
-import kandyImg from "@/assets/kandy.jpg";
-import yalaImg from "@/assets/yala.jpg";
-import mirissaImg from "@/assets/mirissa.jpg";
-
-const destinations = [
-  {
-    slug: "sigiriya",
-    name: "Sigiriya",
-    province: "Central Province",
-    description: "Ancient rock fortress rising dramatically from the jungle, offering breathtaking panoramic views and fascinating frescoes.",
-    image: sigiriyaImg,
-    highlights: ["Lion Rock Fortress", "Ancient Frescoes", "Water Gardens"],
-  },
-  {
-    slug: "ella",
-    name: "Ella",
-    province: "Uva Province",
-    description: "Picturesque hill country town surrounded by tea plantations and misty mountains, perfect for hiking and nature lovers.",
-    image: ellaImg,
-    highlights: ["Nine Arch Bridge", "Little Adam's Peak", "Tea Plantations"],
-  },
-  {
-    slug: "galle",
-    name: "Galle",
-    province: "Southern Province",
-    description: "Historic Dutch colonial fort city with charming cobblestone streets, boutique shops, and stunning ocean views.",
-    image: galleImg,
-    highlights: ["Galle Fort", "Lighthouse", "Dutch Architecture"],
-  },
-  {
-    slug: "kandy",
-    name: "Kandy",
-    province: "Central Province",
-    description: "Sacred city home to the Temple of the Tooth, surrounded by lush green hills and the beautiful Kandy Lake.",
-    image: kandyImg,
-    highlights: ["Temple of Tooth", "Kandy Lake", "Peradeniya Gardens"],
-  },
-  {
-    slug: "yala-national-park",
-    name: "Yala National Park",
-    province: "Southern Province",
-    description: "Premier wildlife sanctuary famous for its leopard population, elephants, and diverse ecosystems.",
-    image: yalaImg,
-    highlights: ["Leopard Safari", "Elephants", "Bird Watching"],
-  },
-  {
-    slug: "mirissa",
-    name: "Mirissa",
-    province: "Southern Province",
-    description: "Pristine tropical beach paradise perfect for whale watching, surfing, and ultimate relaxation.",
-    image: mirissaImg,
-    highlights: ["Whale Watching", "Pristine Beaches", "Surfing"],
-  },
-];
+import { useDestinations } from "@/hooks/use-public-api";
 
 const Destinations = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
+  const initialPage = pageParam ? parseInt(pageParam) : 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  const { data: response, isLoading, isError } = useDestinations(currentPage);
+
+  useEffect(() => {
+    if (pageParam && parseInt(pageParam) !== currentPage) {
+      setCurrentPage(parseInt(pageParam));
+    }
+  }, [pageParam, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ page: page.toString() });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const destinations = response?.items || [];
+  const meta = response?.meta;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -77,43 +57,148 @@ const Destinations = () => {
       {/* Destinations Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {destinations.map((destination, index) => (
-              <Link
-                key={destination.name}
-                to={`/destinations/${destination.slug}`}
-                className="group block rounded-lg border border-border bg-card overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Image */}
-                <div className="overflow-hidden">
-                <img
-                    src={destination.image}
-                    alt={destination.name}
-                    className="w-full aspect-[3/2] object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
+          {isError ? (
+            <div className="text-center py-20 bg-muted/20 rounded-xl border border-dashed border-border">
+              <Info className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-bold mb-2">Failed to load destinations</h3>
+              <p className="text-muted-foreground mb-6">There was an error connecting to the server. Please try again later.</p>
+              <Button onClick={() => window.location.reload()}>Retry</Button>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {isLoading ? (
+                  // Loading Skeletons
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="bg-card rounded-lg border border-border overflow-hidden flex flex-col h-[380px]">
+                      <Skeleton className="w-full aspect-[3/2]" />
+                      <div className="p-4 space-y-3 flex-1">
+                        <Skeleton className="h-6 w-1/2" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-full" />
+                        <div className="mt-auto pt-4">
+                          <Skeleton className="h-4 w-24" />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : destinations.length > 0 ? (
+                  destinations.map((destination, index) => (
+                    <Link
+                      key={destination.id}
+                      to={`/destinations/${destination.slug}`}
+                      className="group block rounded-lg border border-border bg-card overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-400 opacity-0 animate-fade-in-up flex flex-col h-full"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      {/* Image */}
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={destination.coverImage}
+                          alt={destination.title}
+                          className="w-full aspect-[3/2] object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        {destination.location && (
+                          <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {destination.location}
+                          </div>
+                        )}
+                      </div>
 
-                {/* Content */}
-                <div className="p-3">
-                  <h3 className="font-display text-base font-bold text-accent mb-1">
-                    {destination.name}
-                  </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-3">
-                    {destination.description}
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary mt-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    Read More →
-                  </span>
+                      {/* Content */}
+                      <div className="p-5 flex flex-col flex-1">
+                        <h3 className="font-display text-lg font-bold text-accent mb-2 group-hover:text-primary transition-colors duration-300">
+                          {destination.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed mb-4">
+                          {destination.excerpt}
+                        </p>
+                        <div className="mt-auto flex items-center gap-1 text-sm font-bold text-primary group-hover:gap-2 transition-all duration-300">
+                          Read More <span className="text-lg">→</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-20">
+                    <p className="text-muted-foreground">No destinations found.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Pagination */}
+              {meta && meta.totalPages > 1 && (
+                <div className="mt-12">
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (currentPage > 1) handlePageChange(currentPage - 1);
+                          }}
+                          className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      
+                      {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map((page) => {
+                        if (
+                          page === 1 || 
+                          page === meta.totalPages || 
+                          (page >= currentPage - 1 && page <= currentPage + 1)
+                        ) {
+                          return (
+                            <PaginationItem key={page}>
+                              <PaginationLink
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handlePageChange(page);
+                                }}
+                                isActive={currentPage === page}
+                                className="cursor-pointer"
+                              >
+                                {page}
+                              </PaginationLink>
+                            </PaginationItem>
+                          );
+                        } else if (
+                          page === currentPage - 2 || 
+                          page === currentPage + 2
+                        ) {
+                          return (
+                            <PaginationItem key={page}>
+                              <PaginationEllipsis />
+                            </PaginationItem>
+                          );
+                        }
+                        return null;
+                      })}
+
+                      <PaginationItem>
+                        <PaginationNext 
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (currentPage < meta.totalPages) handlePageChange(currentPage + 1);
+                          }}
+                          className={currentPage === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
                 </div>
-              </Link>
-            ))}
-          </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
       <Footer />
       <WhatsAppButton />
+      <ScrollToTop />
     </div>
   );
 };
