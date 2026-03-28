@@ -123,6 +123,13 @@ const BlogPost = () => {
           <Link 
             to="/blog" 
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors font-medium group"
+      {/* Minimal Content Layout */}
+      <div className="pt-28 pb-20 min-h-[70vh] bg-[#F8F9FA]/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          {/* Back Button */}
+          <Link 
+            to="/blog" 
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-bold mb-12 sm:mb-16 transition-colors text-sm sm:text-base"
           >
             <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
             Back to Blog
@@ -249,9 +256,56 @@ const BlogPost = () => {
                 </div>
               </div>
             </aside>
+          
+          {/* Primary Post Header */}
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-[54px] font-bold text-foreground mb-6 leading-[1.2] tracking-tight">
+            {post.title}
+          </h1>
+          
+          {/* 3 Items: Author, Date, Read Time */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm sm:text-base text-muted-foreground font-medium mb-12 pb-8 border-b border-border/40">
+            <span className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              {post.author}
+            </span>
+            <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-border" />
+            <span className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              {post.date}
+            </span>
+            <span className="hidden sm:block w-1.5 h-1.5 rounded-full bg-border" />
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              {post.readTime}
+            </span>
+          </div>
+
+          {/* Clean Long Description Standard */}
+          <div className="prose prose-lg sm:prose-xl max-w-none">
+            {post.content.map((block, index) => {
+              switch (block.type) {
+                case 'paragraph':
+                  return <p key={index} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{block.content as string}</p>;
+                case 'heading':
+                case 'subheading':
+                  return null;
+                case 'list':
+                  return (
+                    <div key={index}>
+                      {(block.content as string[]).map((item, i) => (
+                        <p key={`${index}-${i}`} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{item}</p>
+                      ))}
+                    </div>
+                  );
+                case 'quote':
+                  return <p key={index} className="text-foreground/80 font-medium text-sm sm:text-base md:text-[17px] leading-[1.8] text-justify sm:text-left mb-8">{block.content as string}</p>;
+                default:
+                  return null;
+              }
+            })}
           </div>
         </div>
-      </section>
+      </div>
 
       <Footer />
       <WhatsAppButton />

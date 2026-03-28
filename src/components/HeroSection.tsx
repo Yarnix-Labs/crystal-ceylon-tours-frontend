@@ -1,111 +1,12 @@
-import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, MapPin, ChevronDown, ArrowRight } from "lucide-react";
+import { Search, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import heroVideo from "@/assets/hero-video.mp4";
-import whatsappIcon from "@/assets/whatsapp-icon.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
 
-const stats = [
-  { value: 50, suffix: "+", label: "Tour Packages" },
-  { value: 15, suffix: "K+", label: "Happy Travelers" },
-  { value: 98, suffix: "%", label: "Satisfaction Rate" },
-];
 
-const useCountUp = (end: number, duration: number = 2000, startCounting: boolean) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!startCounting) return;
-    
-    let startTime: number | null = null;
-    let animationFrame: number;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(easeOutQuart * end));
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, startCounting]);
-
-  return count;
-};
-
-const AnimatedStat = ({ value, suffix, label, startCounting }: { 
-  value: number; 
-  suffix: string; 
-  label: string;
-  startCounting: boolean;
-}) => {
-  const count = useCountUp(value, 2000, startCounting);
-  
-  return (
-    <div className="text-center">
-      <div className="text-3xl sm:text-4xl font-display font-bold text-white">
-        {count}{suffix}
-      </div>
-      <div className="text-xs sm:text-sm text-white/80">{label}</div>
-    </div>
-  );
-};
-
-const StatsSection = () => {
-  const [startCounting, setStartCounting] = useState(false);
-  const statsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStartCounting(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div 
-      ref={statsRef}
-      className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 mt-10"
-    >
-      {stats.map((stat) => (
-        <AnimatedStat 
-          key={stat.label} 
-          value={stat.value} 
-          suffix={stat.suffix} 
-          label={stat.label}
-          startCounting={startCounting}
-        />
-      ))}
-    </div>
-  );
-};
 
 const HeroSection = () => {
   const phoneNumber = "+94771234567";
@@ -113,7 +14,7 @@ const HeroSection = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-28 pb-12">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -139,20 +40,20 @@ const HeroSection = () => {
           </div>
 
           {/* Heading */}
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+          <h1 className="font-display text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
             <span className="text-accent">Your Gateway to</span>
             <br />
             <span className="text-primary italic">Sri Lanka's Paradise</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg text-white/90 mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed px-2">
             Discover ancient temples, pristine beaches, lush tea plantations, and exotic wildlife 
             with personalized private tours crafted just for you.
           </p>
 
           {/* Search Box */}
-          <div className="bg-background/95 backdrop-blur-md rounded-2xl sm:rounded-full p-3 shadow-xl max-w-3xl mx-auto">
+          <div className="bg-background/95 backdrop-blur-md rounded-2xl sm:rounded-full p-2.5 sm:p-3 shadow-xl max-w-3xl mx-auto">
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-0">
               {/* Search Input */}
               <div className="flex-1 relative w-full sm:border-r border-border/50">
@@ -163,43 +64,13 @@ const HeroSection = () => {
                 />
               </div>
               
-              {/* Dropdowns container - hidden on mobile */}
-              <div className="hidden sm:flex items-center">
-                {/* All Regions Dropdown */}
-                <div className="sm:border-r border-border/50">
-                  <Select>
-                    <SelectTrigger className="w-32 lg:w-36 h-11 border-0 bg-transparent focus:ring-0 focus:ring-offset-0 text-sm">
-                      <SelectValue placeholder="All Regions" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Regions</SelectItem>
-                      <SelectItem value="central">Central Province</SelectItem>
-                      <SelectItem value="southern">Southern Province</SelectItem>
-                      <SelectItem value="western">Western Province</SelectItem>
-                      <SelectItem value="uva">Uva Province</SelectItem>
-                      <SelectItem value="northern">Northern Province</SelectItem>
-                      <SelectItem value="eastern">Eastern Province</SelectItem>
-                    </SelectContent>
-                  </Select>
+              {/* Static text container - hidden on mobile */}
+              <div className="hidden sm:flex items-center h-11">
+                <div className="sm:border-r border-border/50 h-full flex items-center justify-start w-32 lg:w-36 px-4">
+                  <span className="text-sm text-muted-foreground whitespace-nowrap">Sri Lanka</span>
                 </div>
-
-                {/* Tour Type Dropdown */}
-                <div>
-                  <Select>
-                    <SelectTrigger className="w-32 lg:w-36 h-11 border-0 bg-transparent focus:ring-0 focus:ring-offset-0 text-sm">
-                      <SelectValue placeholder="Tour Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Tour Types</SelectItem>
-                      <SelectItem value="cultural">Cultural & Heritage</SelectItem>
-                      <SelectItem value="adventure">Adventure Tours</SelectItem>
-                      <SelectItem value="wildlife">Wildlife Safari</SelectItem>
-                      <SelectItem value="beach">Beach Holidays</SelectItem>
-                      <SelectItem value="honeymoon">Honeymoon Packages</SelectItem>
-                      <SelectItem value="ayurveda">Ayurveda & Wellness</SelectItem>
-                      <SelectItem value="trekking">Hiking & Trekking</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="h-full flex items-center justify-start w-32 lg:w-36 px-4">
+                  <span className="text-sm text-muted-foreground whitespace-nowrap">Adventures</span>
                 </div>
               </div>
 
@@ -280,46 +151,17 @@ const HeroSection = () => {
                   
                   {/* CTA Button with organic shape */}
                   <div className="flex-shrink-0">
-                    <div className="flex items-center gap-2 bg-accent text-white px-5 sm:px-6 py-3 rounded-[25px_10px_25px_10px] font-semibold text-sm sm:text-base group-hover:bg-primary group-hover:rounded-[10px_25px_10px_25px] transition-all duration-500 shadow-xl">
+                    <div className="flex items-center gap-1.5 sm:gap-2 bg-accent text-white px-4 py-2.5 sm:px-6 sm:py-3 rounded-[25px_10px_25px_10px] font-semibold text-xs sm:text-sm md:text-base group-hover:bg-primary group-hover:rounded-[10px_25px_10px_25px] transition-all duration-500 shadow-xl">
                       <span>Start Planning</span>
-                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
               </div>
             </Link>
-
-            {/* Quick Contact Strip */}
-            <div className="mt-4 flex items-center justify-center gap-3 opacity-0 animate-fade-in" style={{ animationDelay: '1.1s' }}>
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-              
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-                <span className="text-white/70 text-xs sm:text-sm">Need help planning?</span>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 bg-[#25D366] text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold hover:bg-[#20bd5a] hover:scale-105 transition-all duration-300 shadow-lg shadow-[#25D366]/30"
-                >
-                  <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4 brightness-0 invert" />
-                  <span>Chat Now</span>
-                </a>
-              </div>
-              
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            </div>
           </div>
 
-          {/* Stats */}
-          <StatsSection />
 
-          {/* Scroll indicator */}
-          <div className="mt-12 animate-bounce">
-            <a href="#destinations" className="inline-flex flex-col items-center text-white/70 hover:text-white transition-colors">
-              <span className="text-xs mb-1">Scroll to explore</span>
-              <ChevronDown className="h-4 w-4" />
-            </a>
-          </div>
         </div>
       </div>
     </section>

@@ -114,11 +114,12 @@ const ActivityDetail = () => {
       
       {/* Hero Section */}
       <section className="relative h-[65vh] min-h-[450px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[30vh] sm:h-[40vh] min-h-[250px] sm:min-h-[300px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src={activity.coverImage || activity.heroImage || activity.image} 
             alt={activity.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover text-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
         </div>
@@ -186,6 +187,11 @@ const ActivityDetail = () => {
           </div>
         </div>
       </section>
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+      </section>
+
+
 
       {/* Overview Section - Centered and Boxed as per Image */}
       <section className="py-24 bg-muted/30">
@@ -313,6 +319,100 @@ const ActivityDetail = () => {
               <Button variant="outline" className="border-white text-white hover:bg-white/10 px-8 h-14 rounded-2xl font-black text-lg">
                 Get a Quote
               </Button>
+            </div>
+          <div className="max-w-5xl mx-auto">
+            {/* Main Content */}
+            <div className="space-y-12 sm:space-y-16">
+              
+              {/* Back Button */}
+              <div className="mb-8">
+                <Link to="/things-to-do">
+                  <Button variant="outline" className="gap-2 rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                    <ChevronLeft className="h-4 w-4" />
+                    Back to Things To Do
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Activity Header Title (Moved from Hero) */}
+              <div className="mb-0 sm:mb-2">
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground">
+                    <span className="text-primary">{activity.title.split(' ')[0]}</span>{' '}
+                    <span>{activity.title.split(' ').slice(1).join(' ')}</span>
+                  </h1>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
+                  About This Experience
+                </h2>
+                <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
+                  <div className="space-y-3 sm:space-y-4">
+                    {activity.description.map((paragraph, index) => (
+                      <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Highlights */}
+              <div>
+                <div className="text-center mb-8 sm:mb-12">
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
+                    Experience Highlights
+                  </h2>
+                </div>
+                <div className="space-y-6 sm:space-y-8">
+                  {activity.locations.map((location, index) => (
+                    <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-10 items-center`}>
+                      {/* Image Side */}
+                      <div className="md:w-1/2 relative rounded-[16px] sm:rounded-[24px] overflow-hidden shadow-sm">
+                        <img src={activity.image} alt={location.name} className="w-full aspect-video sm:aspect-[16/10] object-cover" />
+                        <div className="absolute top-4 left-4 h-8 w-8 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold shadow-md">
+                          {(index + 1).toString().padStart(2, '0')}
+                        </div>
+                      </div>
+
+                      {/* Content Side */}
+                      <div className="md:w-1/2 bg-card rounded-[16px] sm:rounded-[24px] p-6 sm:p-8 md:p-10 border border-border/30">
+                        <div className="flex items-start sm:items-center gap-3 mb-4">
+                          <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                            <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
+                          </div>
+                          <h3 className="font-display text-lg sm:text-xl font-bold text-foreground">
+                            {location.name}
+                          </h3>
+                        </div>
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                          {location.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tips */}
+              <div>
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
+                  Insider Tips
+                </h2>
+                <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
+                  <ul className="space-y-2.5 sm:space-y-3">
+                    {activity.tips.map((tip, index) => (
+                      <li key={index} className="flex items-start gap-2.5 sm:gap-3 text-foreground/80 text-xs sm:text-sm md:text-base font-medium leading-relaxed">
+                        <Camera className="h-4 w-4 sm:h-5 sm:w-5 text-accent flex-shrink-0 mt-0.5" />
+                        <span>{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
