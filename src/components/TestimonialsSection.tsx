@@ -1,54 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReviews } from "@/hooks/use-public-api";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Mitchell",
-    location: "London, UK",
-    rating: 5,
-    text: "An absolutely magical experience! Our guide was incredibly knowledgeable about Sri Lankan history and culture. The itinerary was perfectly balanced between adventure and relaxation. Can't wait to come back!",
-    tourType: "Cultural Heritage Tour",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-  },
-  {
-    id: 2,
-    name: "Marcus Weber",
-    location: "Berlin, Germany",
-    rating: 5,
-    text: "Crystal Ceylon Tours made our honeymoon unforgettable. From the stunning tea plantations in Ella to the beautiful beaches of Mirissa, every detail was perfectly arranged. Highly recommended!",
-    tourType: "Honeymoon Package",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-  },
-  {
-    id: 3,
-    name: "Emma Thompson",
-    location: "Sydney, Australia",
-    rating: 5,
-    text: "The wildlife safari at Yala was the highlight of our trip! We saw leopards, elephants, and so many exotic birds. The accommodations were top-notch and the food was incredible.",
-    tourType: "Wildlife Safari Tour",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-  },
-  {
-    id: 4,
-    name: "Jean-Pierre Dubois",
-    location: "Paris, France",
-    rating: 5,
-    text: "Une expérience extraordinaire! The team went above and beyond to customize our tour. Sigiriya at sunrise was breathtaking. Thank you for making our family vacation so special!",
-    tourType: "Custom Family Tour",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-  },
-  {
-    id: 5,
-    name: "Yuki Tanaka",
-    location: "Tokyo, Japan",
-    rating: 5,
-    text: "Perfect organization from start to finish. The Ayurveda retreat was exactly what I needed. Professional, authentic, and truly rejuvenating. Will definitely book again!",
-    tourType: "Ayurveda & Wellness",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-  },
-];
+// Mock testimonials removed to strictly ensure pure API data rendering
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -69,6 +24,7 @@ const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { data: response, isLoading } = useReviews(1);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -87,24 +43,37 @@ const TestimonialsSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  const displayReviews = (response?.items || []).slice(0, 5).map((rev: any) => ({
+    id: rev.id,
+    name: rev.name || rev.customerName || "Satisfied Traveler",
+    location: rev.location || "Sri Lanka",
+    rating: rev.rating || 5,
+    text: rev.comment || rev.text || "",
+    tourType: rev.tourType || rev.tourName || "Featured Tour",
+    avatar: rev.avatar || rev.image || rev.customerImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+  }));
+
   // Auto-rotate testimonials
   useEffect(() => {
+    if (displayReviews.length <= 1) return;
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev + 1) % displayReviews.length);
     }, 6000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [displayReviews.length]);
 
   const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    if (displayReviews.length === 0) return;
+    setCurrentIndex((prev) => (prev - 1 + displayReviews.length) % displayReviews.length);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    if (displayReviews.length === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % displayReviews.length);
   };
 
-  const currentTestimonial = testimonials[currentIndex];
+  const currentTestimonial = displayReviews.length > 0 ? displayReviews[currentIndex] : null;
 
   return (
     <section 
@@ -145,104 +114,112 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Main Testimonial Card */}
-        <div 
-          className={`max-w-5xl mx-auto transition-all duration-1000 delay-200 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
-        >
-          <div className="relative p-2 sm:p-4 bg-white/40 backdrop-blur-xl rounded-[32px] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-black/5">
-            <div className="relative bg-white rounded-[20px] sm:rounded-[24px] shadow-sm p-5 sm:p-8 md:p-14 border border-border/30">
-              
-              {/* Decorative Quotes Background */}
-              <div className="absolute inset-0 overflow-hidden rounded-[24px] pointer-events-none">
-                <Quote className="absolute -top-10 -right-10 w-64 h-64 rotate-12 text-primary/5" />
-              </div>
+        {currentTestimonial ? (
+          <div 
+            className={`max-w-5xl mx-auto transition-all duration-1000 delay-200 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
+          >
+            <div className="relative p-2 sm:p-4 bg-white/40 backdrop-blur-xl rounded-[32px] border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-black/5">
+              <div className="relative bg-white rounded-[20px] sm:rounded-[24px] shadow-sm p-5 sm:p-8 md:p-14 border border-border/30">
+                
+                {/* Decorative Quotes Background */}
+                <div className="absolute inset-0 overflow-hidden rounded-[24px] pointer-events-none">
+                  <Quote className="absolute -top-10 -right-10 w-64 h-64 rotate-12 text-primary/5" />
+                </div>
 
-              {/* Content */}
-              <div className="relative z-10">
-                <div className="flex flex-col md:flex-row gap-5 sm:gap-8 md:gap-12 items-center md:items-start group">
-                  
-                  {/* Avatar Side */}
-                  <div className="shrink-0 relative">
-                    <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36">
-                      <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full scale-110 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700" />
-                      <img
-                        src={currentTestimonial.avatar}
-                        alt={currentTestimonial.name}
-                        className="relative w-full h-full rounded-full object-cover border-4 border-white shadow-xl ring-1 ring-border/50"
-                      />
-                    </div>
-                    {/* Floating Quote Badge */}
-                    <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 bg-accent p-2.5 md:p-3 rounded-full shadow-lg text-white ring-4 ring-white transition-transform duration-500 group-hover:scale-110">
-                      <Quote className="h-4 w-4 md:h-5 md:w-5 fill-white" />
-                    </div>
-                  </div>
-
-                  {/* Review Content */}
-                  <div className="flex-1 text-center md:text-left pt-2">
-                    <div className="flex justify-center md:justify-start mb-6">
-                      <StarRating rating={currentTestimonial.rating} />
-                    </div>
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row gap-5 sm:gap-8 md:gap-12 items-center md:items-start group">
                     
-                    <p className="text-foreground text-base sm:text-xl md:text-2xl leading-relaxed mb-5 sm:mb-8 font-display italic text-balance font-medium">
-                      "{currentTestimonial.text}"
-                    </p>
-
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-t border-border/40 pt-4 sm:pt-6">
-                      <div>
-                        <h4 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 sm:mb-1">
-                          {currentTestimonial.name}
-                        </h4>
-                        <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wider font-semibold">
-                          {currentTestimonial.location}
-                        </p>
+                    {/* Avatar Side */}
+                    <div className="shrink-0 relative">
+                      <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full scale-110 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700" />
+                        <img
+                          src={currentTestimonial.avatar}
+                          alt={currentTestimonial.name}
+                          className="relative w-full h-full rounded-full object-cover border-4 border-white shadow-xl ring-1 ring-border/50"
+                        />
                       </div>
-                      <span className="inline-flex items-center justify-center px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-[11px] sm:text-xs font-bold rounded-full uppercase tracking-wider self-center md:self-end">
-                        {currentTestimonial.tourType}
-                      </span>
+                      {/* Floating Quote Badge */}
+                      <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 bg-accent p-2.5 md:p-3 rounded-full shadow-lg text-white ring-4 ring-white transition-transform duration-500 group-hover:scale-110">
+                        <Quote className="h-4 w-4 md:h-5 md:w-5 fill-white" />
+                      </div>
+                    </div>
+
+                    {/* Review Content */}
+                    <div className="flex-1 text-center md:text-left pt-2">
+                      <div className="flex justify-center md:justify-start mb-6">
+                        <StarRating rating={currentTestimonial.rating} />
+                      </div>
+                      
+                      <p className="text-foreground text-base sm:text-xl md:text-2xl leading-relaxed mb-5 sm:mb-8 font-display italic text-balance font-medium">
+                        "{currentTestimonial.text}"
+                      </p>
+
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-t border-border/40 pt-4 sm:pt-6">
+                        <div>
+                          <h4 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 sm:mb-1">
+                            {currentTestimonial.name}
+                          </h4>
+                          <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wider font-semibold">
+                            {currentTestimonial.location}
+                          </p>
+                        </div>
+                        <span className="inline-flex items-center justify-center px-4 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors duration-300 text-[11px] sm:text-xs font-bold rounded-full uppercase tracking-wider self-center md:self-end">
+                          {currentTestimonial.tourType}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Navigation Arrows */}
-              <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none px-2 sm:px-4 md:px-0">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={goToPrev}
-                  className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border-white/50 shadow-[0_4px_14px_0_rgb(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,168,217,0.25)] hover:bg-accent hover:text-white hover:scale-110 transition-all duration-300 md:-translate-x-1/2"
-                >
-                  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={goToNext}
-                  className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border-white/50 shadow-[0_4px_14px_0_rgb(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,168,217,0.25)] hover:bg-accent hover:text-white hover:scale-110 transition-all duration-300 md:translate-x-1/2"
-                >
-                  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-                </Button>
+                {/* Navigation Arrows */}
+                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between pointer-events-none px-2 sm:px-4 md:px-0">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={goToPrev}
+                    className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border-white/50 shadow-[0_4px_14px_0_rgb(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,168,217,0.25)] hover:bg-accent hover:text-white hover:scale-110 transition-all duration-300 md:-translate-x-1/2"
+                  >
+                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={goToNext}
+                    className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border-white/50 shadow-[0_4px_14px_0_rgb(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,168,217,0.25)] hover:bg-accent hover:text-white hover:scale-110 transition-all duration-300 md:translate-x-1/2"
+                  >
+                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2.5 mt-8">
-            {testimonials.map((_, index) => (
-               <button
-                 key={index}
-                 onClick={() => setCurrentIndex(index)}
-                 className={`h-2.5 rounded-full transition-all duration-500 ${
-                   index === currentIndex 
-                     ? "w-10 bg-gradient-to-r from-primary to-accent shadow-sm" 
-                     : "w-2.5 bg-border/80 hover:bg-primary/50"
-                 }`}
-                 aria-label={`Go to testimonial ${index + 1}`}
-               />
-            ))}
+            {/* Dots Indicator */}
+            {displayReviews.length > 1 && (
+              <div className="flex justify-center gap-2.5 mt-8">
+                {displayReviews.map((_, index) => (
+                   <button
+                     key={index}
+                     onClick={() => setCurrentIndex(index)}
+                     className={`h-2.5 rounded-full transition-all duration-500 ${
+                       index === currentIndex 
+                         ? "w-10 bg-gradient-to-r from-primary to-accent shadow-sm" 
+                         : "w-2.5 bg-border/80 hover:bg-primary/50"
+                     }`}
+                     aria-label={`Go to testimonial ${index + 1}`}
+                   />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        ) : (
+          <div className="text-center text-muted-foreground py-12">
+            Waiting for travelers to share their experiences...
+          </div>
+        )}
 
         {/* Modern Trust Indicators */}
         <div 
