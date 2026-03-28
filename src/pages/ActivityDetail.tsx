@@ -2,7 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { 
   ChevronLeft, 
   MapPin, 
@@ -12,250 +14,64 @@ import {
   Check,
   Calendar,
   Sun,
-  Camera
+  Camera,
+  Info
 } from "lucide-react";
-import surfingImg from "@/assets/activity-surfing.jpg";
-import whaleImg from "@/assets/activity-whale.jpg";
-import hikingImg from "@/assets/activity-hiking.jpg";
-import safariImg from "@/assets/activity-safari.jpg";
-import cultureImg from "@/assets/activity-culture.jpg";
-import beachImg from "@/assets/activity-beach.jpg";
-
-const activitiesData: Record<string, {
-  title: string;
-  tagline: string;
-  image: string;
-  description: string[];
-  locations: { name: string; description: string }[];
-  highlights: string[];
-  bestTime: string;
-  duration: string;
-  difficulty: string;
-  groupSize: string;
-  whatsIncluded: string[];
-  tips: string[];
-}> = {
-  "surfing-water-sports": {
-    title: "Surfing & Water Sports",
-    tagline: "Ride the legendary waves of Sri Lanka's coastline",
-    image: surfingImg,
-    description: [
-      "Sri Lanka has emerged as one of Asia's premier surfing destinations, offering consistent waves for riders of all levels throughout the year. The island's diverse coastline provides year-round surfing opportunities, with the southwest coast best from November to April and the east coast from May to October.",
-      "Beyond surfing, Sri Lanka offers an incredible array of water sports including kitesurfing in Kalpitiya, diving in Trincomalee, and snorkeling in Hikkaduwa. The warm tropical waters and abundant marine life make every aquatic adventure unforgettable.",
-      "Whether you're a complete beginner looking for gentle waves and patient instructors, or an experienced surfer seeking challenging reef breaks, Sri Lanka has the perfect spot for you."
-    ],
-    locations: [
-      { name: "Arugam Bay", description: "World-famous right-hand point break, perfect for intermediate to advanced surfers. Best from May to October." },
-      { name: "Hikkaduwa", description: "Beginner-friendly beach breaks with surf schools and a vibrant beach scene. Best from November to April." },
-      { name: "Weligama", description: "Gentle waves ideal for learning, with numerous surf camps and a laid-back atmosphere." },
-      { name: "Mirissa", description: "Mix of beach and reef breaks suitable for all levels, with stunning sunset sessions." }
-    ],
-    highlights: ["World-class surf breaks", "Year-round waves", "Affordable surf schools", "Warm tropical waters", "Vibrant surf culture"],
-    bestTime: "November - April (West/South) | May - October (East)",
-    duration: "Half day to multi-day surf camps",
-    difficulty: "Beginner to Advanced",
-    groupSize: "Private or group lessons available",
-    whatsIncluded: [
-      "Professional surf instructors",
-      "Quality surfboards and equipment",
-      "Rash guards and reef booties",
-      "Beach photography sessions",
-      "Transport to surf spots"
-    ],
-    tips: [
-      "Book lessons during low tide for gentler waves",
-      "Apply reef-safe sunscreen liberally",
-      "Stay hydrated - surfing is exhausting!",
-      "Respect local surfers and follow lineup etiquette",
-      "Consider travel insurance with water sports coverage"
-    ]
-  },
-  "whale-watching": {
-    title: "Whale Watching",
-    tagline: "Witness the giants of the deep in their natural habitat",
-    image: whaleImg,
-    description: [
-      "Sri Lanka offers one of the world's best whale watching experiences, with Mirissa being the gateway to seeing the magnificent blue whale - the largest animal on Earth. The continental shelf drops dramatically close to shore, allowing whales to be spotted just a few kilometers from the coast.",
-      "From November to April, the waters off Mirissa come alive with blue whales, sperm whales, and pods of playful dolphins. The sight of a 30-meter blue whale breaching the surface is a truly humbling experience that stays with you forever.",
-      "Responsible whale watching practices are prioritized, with strict guidelines ensuring minimal disturbance to these gentle giants while providing unforgettable encounters for visitors."
-    ],
-    locations: [
-      { name: "Mirissa", description: "The whale watching capital of Sri Lanka. Best chances to see blue whales from November to April." },
-      { name: "Trincomalee", description: "East coast alternative, excellent for sperm whales and dolphins from May to October." },
-      { name: "Kalpitiya", description: "Growing destination known for large pods of spinner dolphins year-round." },
-      { name: "Dondra Point", description: "Southernmost tip of Sri Lanka, occasional sightings of migrating whales." }
-    ],
-    highlights: ["Blue whale sightings", "Sperm whale encounters", "Dolphin pods", "Professional guides", "Sunrise departures"],
-    bestTime: "November - April (Mirissa) | May - October (Trincomalee)",
-    duration: "4-6 hours (early morning departure)",
-    difficulty: "Easy (boat trip)",
-    groupSize: "Small group boats (max 15-20 passengers)",
-    whatsIncluded: [
-      "Expert marine biologist guide",
-      "Comfortable boat with shade",
-      "Life jackets and safety equipment",
-      "Light breakfast and refreshments",
-      "Hotel pickup and drop-off"
-    ],
-    tips: [
-      "Take motion sickness tablets before departure",
-      "Bring binoculars for distant sightings",
-      "Wear layers - early mornings can be cool",
-      "Charge your camera - you'll take hundreds of photos!",
-      "Book with operators who follow whale watching guidelines"
-    ]
-  },
-  "hiking-trekking": {
-    title: "Hiking & Trekking",
-    tagline: "Conquer misty peaks and discover hidden waterfalls",
-    image: hikingImg,
-    description: [
-      "Sri Lanka's hill country offers some of the most rewarding hiking experiences in Asia. From the sacred pilgrimage up Adam's Peak to the dramatic vistas of World's End at Horton Plains, every trail reveals the island's stunning natural beauty.",
-      "The central highlands, a UNESCO World Heritage site, feature lush cloud forests, cascading waterfalls, and tea plantations that seem to roll endlessly across the landscape. The cool mountain air and misty mornings create a mystical atmosphere.",
-      "Whether you're seeking a challenging sunrise climb or a leisurely walk through tea estates, Sri Lanka's diverse terrain caters to hikers of all abilities and preferences."
-    ],
-    locations: [
-      { name: "Adam's Peak", description: "Sacred mountain with 5,500 steps. Climb overnight for an unforgettable sunrise at 2,243m." },
-      { name: "Ella Rock", description: "Moderate 3-hour hike through tea plantations with panoramic views of Ella Gap." },
-      { name: "Horton Plains", description: "9km loop to World's End cliff and Baker's Falls through cloud forest." },
-      { name: "Knuckles Range", description: "Multi-day treks through pristine wilderness and remote villages." }
-    ],
-    highlights: ["Sunrise at Adam's Peak", "World's End viewpoint", "Tea plantation walks", "Waterfall discoveries", "Wildlife spotting"],
-    bestTime: "January - April (Adam's Peak season) | Year-round (other trails)",
-    duration: "3 hours to multi-day treks",
-    difficulty: "Easy to Challenging",
-    groupSize: "Solo, couples, or guided groups",
-    whatsIncluded: [
-      "Experienced local guides",
-      "Trail permits and entrance fees",
-      "Packed breakfast/lunch",
-      "First aid kit",
-      "Transport to trailheads"
-    ],
-    tips: [
-      "Start Adam's Peak climb at 2am for sunrise",
-      "Bring warm layers - highlands can be cold",
-      "Wear sturdy hiking shoes with grip",
-      "Carry plenty of water and snacks",
-      "Hire a guide for remote trails"
-    ]
-  },
-  "wildlife-safari": {
-    title: "Wildlife Safari",
-    tagline: "Track leopards and elephants in their natural kingdom",
-    image: safariImg,
-    description: [
-      "Sri Lanka boasts the highest density of leopards in the world, making it one of the best places on Earth to spot these elusive big cats. Yala National Park is the crown jewel, but the island offers numerous wildlife sanctuaries each with unique experiences.",
-      "Beyond leopards, Sri Lanka's national parks are home to Asian elephants, sloth bears, sambar deer, crocodiles, and over 400 bird species. The diverse ecosystems range from dry zone forests to wetlands and coastal lagoons.",
-      "Safari experiences here are intimate and personal, with experienced trackers who know every corner of the parks and can predict animal movements based on years of observation."
-    ],
-    locations: [
-      { name: "Yala National Park", description: "Highest leopard density in the world. Also home to elephants, bears, and diverse birdlife." },
-      { name: "Udawalawe", description: "Best for elephant sightings - herds of 50+ are common. Visit the Elephant Transit Home." },
-      { name: "Wilpattu", description: "Largest national park with scenic lakes (villus). Less crowded, excellent leopard sightings." },
-      { name: "Minneriya", description: "Famous for 'The Gathering' - up to 300 elephants congregate August-September." }
-    ],
-    highlights: ["Leopard tracking", "Elephant herds", "Bird watching", "Sunrise safaris", "Expert naturalists"],
-    bestTime: "February - July (dry season for best wildlife viewing)",
-    duration: "Half-day (3-4 hours) or full-day safaris",
-    difficulty: "Easy (jeep safari)",
-    groupSize: "Private jeep (up to 6 passengers)",
-    whatsIncluded: [
-      "4x4 safari jeep with expert driver",
-      "Professional naturalist guide",
-      "National park entrance fees",
-      "Refreshments and snacks",
-      "Binoculars available"
-    ],
-    tips: [
-      "Book the first morning slot (6am) for best sightings",
-      "Wear neutral colors (khaki, olive, brown)",
-      "Bring a good zoom camera or binoculars",
-      "Be patient - wildlife spotting takes time",
-      "Stay quiet and respect animal space"
-    ]
-  },
-  "cultural-experiences": {
-    title: "Cultural Experiences",
-    tagline: "Journey through 2,500 years of living history",
-    image: cultureImg,
-    description: [
-      "Sri Lanka's cultural heritage spans over 2,500 years, with ancient cities, sacred temples, and living traditions that continue to thrive today. The Cultural Triangle, home to eight UNESCO World Heritage sites, offers a journey through time.",
-      "From the ancient rock fortress of Sigiriya to the sacred city of Kandy, every destination tells stories of powerful kings, devoted monks, and skilled artisans. The island's Buddhist heritage is particularly profound, with temples and dagobas that have been places of worship for millennia.",
-      "Cultural experiences extend beyond monuments to include traditional dance performances, craft villages, spice gardens, and the warm hospitality of Sri Lankan homes where visitors are always welcome."
-    ],
-    locations: [
-      { name: "Kandy", description: "Sacred city with the Temple of the Tooth Relic. Watch traditional Kandyan dance performances." },
-      { name: "Anuradhapura", description: "Ancient capital with massive dagobas and the sacred Bodhi Tree, grown from a cutting 2,300 years ago." },
-      { name: "Polonnaruwa", description: "Medieval capital with impressive stone Buddha statues and the famous Gal Vihara." },
-      { name: "Galle", description: "Colonial fort city with Dutch architecture, boutique shops, and stunning rampart walks." }
-    ],
-    highlights: ["UNESCO heritage sites", "Temple ceremonies", "Traditional dance", "Colonial history", "Local crafts"],
-    bestTime: "Year-round (cultural sites accessible anytime)",
-    duration: "Half-day to multi-day cultural tours",
-    difficulty: "Easy to Moderate (some climbing at Sigiriya)",
-    groupSize: "Private or group tours available",
-    whatsIncluded: [
-      "Licensed cultural guide",
-      "All entrance fees",
-      "Air-conditioned transport",
-      "Traditional lunch experience",
-      "Temple-appropriate attire if needed"
-    ],
-    tips: [
-      "Dress modestly for temples (cover shoulders and knees)",
-      "Remove shoes before entering sacred areas",
-      "Ask permission before photographing monks",
-      "Climb Sigiriya early to avoid heat",
-      "Stay for evening puja ceremonies at temples"
-    ]
-  },
-  "beach-relaxation": {
-    title: "Beach & Relaxation",
-    tagline: "Unwind on pristine shores under swaying palms",
-    image: beachImg,
-    description: [
-      "Sri Lanka is blessed with over 1,600 kilometers of coastline, offering some of the most beautiful and unspoiled beaches in Asia. From the golden sands of the south coast to the secluded coves of the east, there's a perfect beach for every traveler.",
-      "Beyond just sunbathing, Sri Lanka's beach destinations offer Ayurvedic spa treatments, yoga retreats, and wellness experiences that have been practiced on the island for thousands of years. The combination of sea, sun, and ancient healing creates the ultimate relaxation experience.",
-      "Whether you seek a lively beach scene with restaurants and nightlife or a remote stretch of sand with just the sound of waves, Sri Lanka's diverse coastline delivers paradise on every level."
-    ],
-    locations: [
-      { name: "Unawatuna", description: "Crescent-shaped bay with calm waters, beachfront cafes, and excellent snorkeling." },
-      { name: "Tangalle", description: "Secluded beaches with luxury resorts and traditional fishing villages nearby." },
-      { name: "Nilaveli", description: "Pristine white sand beach near Trincomalee, perfect for diving at Pigeon Island." },
-      { name: "Bentota", description: "Water sports hub with river safaris, turtle hatcheries, and upscale resorts." }
-    ],
-    highlights: ["Pristine beaches", "Ayurvedic spas", "Yoga retreats", "Sunset views", "Fresh seafood"],
-    bestTime: "November - April (South/West) | May - September (East)",
-    duration: "Day trips to extended beach stays",
-    difficulty: "Easy (pure relaxation!)",
-    groupSize: "Solo travelers to families",
-    whatsIncluded: [
-      "Beachfront accommodation options",
-      "Ayurvedic treatment sessions",
-      "Yoga and meditation classes",
-      "Fresh coconut water on the beach",
-      "Sunset cruise experiences"
-    ],
-    tips: [
-      "Check which coast is in season before booking",
-      "Book beachfront properties in advance during peak season",
-      "Try a traditional Ayurvedic massage",
-      "Sample the fresh seafood at beach shacks",
-      "Watch for sea turtles nesting (November-April)"
-    ]
-  }
-};
+import { useThingToDoBySlug } from "@/hooks/use-public-api";
+import activitiesHero from "@/assets/activities-hero.jpg";
 
 const ActivityDetail = () => {
   const { slug } = useParams();
-  const activity = slug ? activitiesData[slug] : null;
+  const { data: activity, isLoading, isError } = useThingToDoBySlug(slug || "");
+
+  if (isError) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="pt-32 pb-20 text-center container mx-auto px-4">
+          <Info className="h-16 w-16 text-muted-foreground mx-auto mb-6" />
+          <h1 className="text-3xl font-bold text-foreground mb-4">Activity Not Found</h1>
+          <p className="text-muted-foreground mb-8">The activity you are looking for could not be loaded.</p>
+          <Link to="/things-to-do">
+            <Button>Back to Things To Do</Button>
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <section className="relative h-[60vh] min-h-[400px]">
+          <Skeleton className="absolute inset-0 w-full h-full" />
+        </section>
+        <div className="container mx-auto px-4 py-12 space-y-12">
+          <Skeleton className="h-10 w-1/3" />
+          <div className="grid lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2 space-y-8">
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-6 w-full" />
+              <Skeleton className="h-40 w-full" />
+            </div>
+            <div className="lg:col-span-1">
+              <Skeleton className="h-64 w-full" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!activity) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="pt-32 pb-20 text-center">
+        <div className="pt-32 pb-20 text-center container mx-auto px-4">
+          <Info className="h-16 w-16 text-muted-foreground mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-foreground mb-4">Activity Not Found</h1>
           <Link to="/things-to-do">
             <Button>Back to Things To Do</Button>
@@ -274,11 +90,11 @@ const ActivityDetail = () => {
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={activity.image} 
+            src={activity.coverImage || activity.image || activitiesHero} 
             alt={activity.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
         </div>
         
         <div className="relative z-10 container mx-auto px-4 text-center">
@@ -289,143 +105,158 @@ const ActivityDetail = () => {
             <ChevronLeft className="h-5 w-5" />
             Back to Things To Do
           </Link>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold mb-4">
             <span className="text-primary">{activity.title.split(' ')[0]}</span>{' '}
-            <span className="text-accent">{activity.title.split(' ').slice(1).join(' ')}</span>
+            <span className="text-white">{activity.title.split(' ').slice(1).join(' ')}</span>
           </h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">{activity.tagline}</p>
+          {activity.tagline && <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto font-medium">{activity.tagline}</p>}
         </div>
       </section>
 
       {/* Quick Info Bar */}
-      <section className="bg-card border-b border-border">
+      <section className="bg-card border-b border-border shadow-sm sticky top-20 z-20">
         <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="flex flex-col items-center gap-2">
-              <Calendar className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Best Time</span>
-              <span className="text-sm font-medium text-foreground">{activity.bestTime.split('|')[0].trim()}</span>
+              <MapPin className="h-5 w-5 text-primary" />
+              <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Location</span>
+              <span className="text-sm font-bold text-foreground">{activity.location || "Multiple"}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Clock className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Duration</span>
-              <span className="text-sm font-medium text-foreground">{activity.duration}</span>
+              <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Duration</span>
+              <span className="text-sm font-bold text-foreground">{activity.duration || "Self-paced"}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
               <Sun className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Difficulty</span>
-              <span className="text-sm font-medium text-foreground">{activity.difficulty}</span>
+              <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Difficulty</span>
+              <span className="text-sm font-bold text-foreground">{activity.difficulty || "Easy"}</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              <span className="text-xs text-muted-foreground">Group Size</span>
-              <span className="text-sm font-medium text-foreground">{activity.groupSize}</span>
+              <Calendar className="h-5 w-5 text-primary" />
+              <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Type</span>
+              <span className="text-sm font-bold text-foreground">{activity.category || "Adventure"}</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-16">
+      <section className="py-20 lg:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="grid lg:grid-cols-3 gap-16">
             {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-2 space-y-16">
               {/* Description */}
               <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  About This Experience
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  {activity.description.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
+                <div className="mb-8">
+                  <span className="section-label">Overview</span>
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-4">
+                    Experience the Magic
+                  </h2>
+                </div>
+                <div className="prose prose-lg prose-slate dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  {/* Handling content as string (split by newlines if needed) */}
+                  {(activity.content || activity.description || "No description available.").split('\n').map((paragraph, index) => (
+                    paragraph.trim() ? <p key={index} className="mb-6">{paragraph}</p> : null
                   ))}
                 </div>
               </div>
 
               {/* Highlights */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Highlights
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {activity.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-center gap-3 bg-card p-4 rounded-lg">
-                      <Star className="h-5 w-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Locations */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Best Locations
-                </h2>
-                <div className="space-y-4">
-                  {activity.locations.map((location, index) => (
-                    <div key={index} className="bg-card p-6 rounded-xl border border-border">
-                      <div className="flex items-start gap-4">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <MapPin className="h-5 w-5 text-primary" />
+              {activity.highlights && activity.highlights.length > 0 && (
+                <div>
+                  <div className="mb-8">
+                    <span className="section-label">Features</span>
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-4">
+                      Activity Highlights
+                    </h2>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {activity.highlights.map((highlight, index) => (
+                      <div key={index} className="bg-card p-8 rounded-2xl border border-border shadow-sm group hover:border-primary/50 transition-colors">
+                        <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                           <Star className="h-6 w-6" />
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-foreground text-lg mb-2">{location.name}</h3>
-                          <p className="text-muted-foreground">{location.description}</p>
+                        <h3 className="font-bold text-xl mb-3 text-foreground">{highlight.title}</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{highlight.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Experience Highlights / Pictures */}
+              {(activity.experienceHighlight || activity.vision) && (
+                <div>
+                  <div className="mb-8">
+                    <span className="section-label">Visuals</span>
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-4">
+                      Captured Moments
+                    </h2>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {(activity.experienceHighlight || activity.vision || []).map((item, index) => (
+                      <div key={index} className="relative aspect-square rounded-2xl overflow-hidden group">
+                        <img 
+                          src={item.image} 
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                          <h4 className="text-white font-bold text-lg">{item.title}</h4>
+                          <p className="text-white/80 text-sm">{item.description}</p>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tips */}
-              <div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
-                  Insider Tips
-                </h2>
-                <div className="bg-accent/10 p-6 rounded-xl">
-                  <ul className="space-y-3">
-                    {activity.tips.map((tip, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Camera className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground">{tip}</span>
-                      </li>
                     ))}
-                  </ul>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Right Column - Sidebar */}
             <div className="lg:col-span-1">
-              <div className="sticky top-28 space-y-6">
+              <div className="sticky top-40 space-y-8">
                 {/* What's Included */}
-                <div className="bg-card rounded-xl p-6 shadow-sm">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-4">What's Included</h3>
-                  <ul className="space-y-3">
-                    {activity.whatsIncluded.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-palm flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {activity.whatsIncluded && activity.whatsIncluded.length > 0 && (
+                  <div className="bg-card rounded-2xl p-8 shadow-sm border border-border">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                       <Check className="h-5 w-5 text-palm" />
+                       What's Included
+                    </h3>
+                    <ul className="space-y-4">
+                      {activity.whatsIncluded.map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-palm/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="h-3 w-3 text-palm" />
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 {/* CTA Card */}
-                <div className="bg-primary/10 rounded-xl p-6">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2">Ready to Experience?</h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Let us help you plan the perfect {activity.title.toLowerCase()} adventure in Sri Lanka.
+                <div className="bg-primary rounded-2xl p-8 text-primary-foreground shadow-xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+                  
+                  <h3 className="font-display text-2xl font-bold mb-4">Start Your Adventure</h3>
+                  <p className="text-primary-foreground/80 text-sm mb-8 leading-relaxed">
+                    Ready to experience {activity.title}? Our team is ready to help you plan the perfect trip!
                   </p>
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
-                    Book This Experience
-                  </Button>
-                  <Button variant="outline" className="w-full mt-3 border-primary text-primary">
-                    Ask a Question
-                  </Button>
+                  <div className="space-y-4">
+                    <Link to="/contact">
+                      <Button className="w-full bg-white text-primary hover:bg-white/90 font-bold py-6 rounded-xl shadow-lg" size="lg">
+                        Enquire Now
+                      </Button>
+                    </Link>
+                    <Link to="/contact">
+                      <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 font-bold py-6 rounded-xl">
+                        Ask a Question
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -435,6 +266,7 @@ const ActivityDetail = () => {
 
       <Footer />
       <WhatsAppButton />
+      <ScrollToTop />
     </div>
   );
 };

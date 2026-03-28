@@ -1,5 +1,4 @@
 import apiClient from './index';
-import { API_ENDPOINTS } from './endpoints';
 
 // You can create a unified service here, or split them into the 'services' folder (e.g., public.ts, storage.ts)
 export const ApiService = {
