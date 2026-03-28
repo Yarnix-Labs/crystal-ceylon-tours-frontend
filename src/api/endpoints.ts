@@ -9,7 +9,7 @@ export const ENDPOINTS = {
 
   // Blogs
   blogs: '/blogs',
-  blogList: (page: number = 1) => `/blogs/summary/list?page=${page}`,
+  blogList: (page: number = 1) => `/blogs/published/list?page=${page}`,
   blogBySlugClient: (slug: string) => `/blogs/published/${slug}`,
 
   // Things To Do

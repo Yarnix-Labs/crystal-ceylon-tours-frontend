@@ -12,6 +12,7 @@ export interface BlogPost {
   createdAt: string;
   updatedAt: string;
   authorName:string;
+  categoryName?: string;
 }
 
 
