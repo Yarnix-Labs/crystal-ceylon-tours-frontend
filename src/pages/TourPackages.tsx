@@ -1,103 +1,57 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight } from "lucide-react";
-import packagesHero from "@/assets/packages-hero.jpg";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import yalaImg from "@/assets/yala.jpg";
-import galleImg from "@/assets/galle.jpg";
-import kandyImg from "@/assets/kandy.jpg";
-import mirissaImg from "@/assets/mirissa.jpg";
-
-const packages = [
-  {
-    slug: "cultural-triangle-explorer",
-    title: "Cultural Triangle Explorer",
-    duration: "7 Days / 6 Nights",
-    groupSize: "2-8 People",
-    rating: 4.9,
-    reviews: 128,
-    price: 899,
-    image: sigiriyaImg,
-    highlights: ["Sigiriya Rock Fortress", "Ancient Polonnaruwa", "Dambulla Cave Temple", "Kandy Temple"],
-    includes: ["Accommodation", "Private Transport", "English Guide", "Entrance Fees"],
-  },
-  {
-    slug: "hill-country-adventure",
-    title: "Hill Country Adventure",
-    duration: "5 Days / 4 Nights",
-    groupSize: "2-6 People",
-    rating: 4.8,
-    reviews: 96,
-    price: 649,
-    image: ellaImg,
-    highlights: ["Nine Arch Bridge", "Tea Plantations", "Little Adam's Peak", "Train Ride"],
-    includes: ["Boutique Hotels", "All Transport", "Trekking Guide", "Tea Factory Tour"],
-  },
-  {
-    slug: "wildlife-safari-experience",
-    title: "Wildlife Safari Experience",
-    duration: "4 Days / 3 Nights",
-    groupSize: "2-10 People",
-    rating: 4.9,
-    reviews: 154,
-    price: 549,
-    image: yalaImg,
-    highlights: ["Yala National Park", "Leopard Spotting", "Elephant Safari", "Bird Watching"],
-    includes: ["Safari Lodge", "Jeep Safari", "Expert Tracker", "All Meals"],
-  },
-  {
-    slug: "southern-coast-discovery",
-    title: "Southern Coast Discovery",
-    duration: "6 Days / 5 Nights",
-    groupSize: "2-8 People",
-    rating: 4.7,
-    reviews: 89,
-    price: 749,
-    image: galleImg,
-    highlights: ["Galle Fort", "Whale Watching", "Beach Relaxation", "Stilt Fishermen"],
-    includes: ["Beach Resorts", "Boat Tours", "Private Driver", "Breakfast"],
-  },
-  {
-    slug: "complete-sri-lanka-tour",
-    title: "Complete Sri Lanka Tour",
-    duration: "14 Days / 13 Nights",
-    groupSize: "2-6 People",
-    rating: 5.0,
-    reviews: 67,
-    price: 1899,
-    image: kandyImg,
-    highlights: ["All Major Sites", "Beach & Mountains", "Wildlife Safari", "Cultural Shows"],
-    includes: ["Luxury Hotels", "All Transport", "All Meals", "Activities"],
-  },
-  {
-    slug: "tropical-beach-escape",
-    title: "Tropical Beach Escape",
-    duration: "5 Days / 4 Nights",
-    groupSize: "2-4 People",
-    rating: 4.8,
-    reviews: 112,
-    price: 599,
-    image: mirissaImg,
-    highlights: ["Mirissa Beach", "Whale Watching", "Surfing Lessons", "Sunset Cruises"],
-    includes: ["Beach Villa", "Water Sports", "Spa Treatment", "Breakfast"],
-  },
-];
+import { Skeleton } from "@/components/ui/skeleton";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious,
+  PaginationEllipsis
+} from "@/components/ui/pagination";
+import { Calendar, ArrowRight, Info } from "lucide-react";
+import projectsHero from "@/assets/packages-hero.jpg";
+import { useTourPackages } from "@/hooks/use-public-api";
 
 const TourPackages = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
+  const initialPage = pageParam ? parseInt(pageParam) : 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  const { data: response, isLoading, isError } = useTourPackages(currentPage);
+
+  useEffect(() => {
+    // If URL page changes (e.g. via back button), update state
+    if (pageParam && parseInt(pageParam) !== currentPage) {
+      setCurrentPage(parseInt(pageParam));
+    }
+  }, [pageParam, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ page: page.toString() });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const tours = response?.items || [];
+  const meta = response?.meta;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       
       <PageHero
         title="Tour Packages"
         subtitle="Carefully crafted itineraries that showcase the very best of Sri Lanka's wonders"
-        backgroundImage={packagesHero}
+        backgroundImage={projectsHero}
         breadcrumb="Tour Packages"
       />
 
@@ -126,54 +80,157 @@ const TourPackages = () => {
       {/* Packages Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {packages.map((pkg, index) => (
-              <Link
-                key={pkg.title}
-                to={`/tour-packages/${pkg.slug}`}
-                className="group bg-card rounded-lg border border-border overflow-hidden shadow:shadow-md hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-400 opacity-0 animate-fade-in-up flex flex-col"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Image */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.title}
-                    className="w-full aspect-[3/2] object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute top-3 left-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold">
-                    {pkg.duration.split(" / ")[0].replace(" Days", "").replace(" Day", "")} Days
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 flex flex-col flex-1">
-                  {/* Duration + Price row */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4 text-accent" />
-                      <span>{pkg.duration.split(" / ")[0]}</span>
+          {isError ? (
+            <div className="text-center py-20 bg-muted/20 rounded-xl border border-dashed border-border">
+              <Info className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-bold mb-2">Failed to load packages</h3>
+              <p className="text-muted-foreground mb-6">There was an error connecting to the server. Please try again later.</p>
+              <Button onClick={() => window.location.reload()}>Retry</Button>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {isLoading ? (
+                  // Loading Skeletons
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="bg-card rounded-lg border border-border overflow-hidden flex flex-col h-[400px]">
+                      <Skeleton className="w-full aspect-[3/2]" />
+                      <div className="p-4 space-y-3 flex-1">
+                        <div className="flex justify-between">
+                          <Skeleton className="h-4 w-24" />
+                          <Skeleton className="h-4 w-12" />
+                        </div>
+                        <Skeleton className="h-6 w-3/4" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-full" />
+                        <div className="mt-auto pt-4 flex justify-between">
+                          <Skeleton className="h-4 w-20" />
+                          <Skeleton className="h-4 w-4" />
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-base font-bold text-foreground">${pkg.price}</span>
-                  </div>
+                  ))
+                ) : tours.length > 0 ? (
+                  tours.map((pkg, index) => (
+                    <Link
+                      key={pkg.id}
+                      to={`/tour-packages/${pkg.slug}`}
+                      className="group bg-card rounded-lg border border-border overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-300 opacity-0 animate-fade-in-up flex flex-col"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      {/* Image */}
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={pkg.heroImage}
+                          alt={pkg.name}
+                          className="w-full aspect-[3/2] object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute top-3 left-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                          {pkg.totalDays} Days
+                        </div>
+                      </div>
 
-                  <h3 className="font-display text-base font-bold text-accent mb-1 group-hover:text-primary transition-colors duration-300">
-                    {pkg.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                    {pkg.highlights.join(", ")}
-                  </p>
+                      {/* Content */}
+                      <div className="p-4 flex flex-col flex-1">
+                        {/* Duration + Price row */}
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                            <Calendar className="h-4 w-4 text-accent" />
+                            <span>{pkg.packageDuration || `${pkg.totalDays} Days`}</span>
+                          </div>
+                          <span className="text-base font-bold text-primary">${pkg.price}</span>
+                        </div>
 
-                  {/* CTA */}
-                  <div className="mt-auto flex items-center justify-between text-primary font-semibold text-sm pt-2 border-t border-border/50">
-                    <span>View Details</span>
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
+                        <h3 className="font-display text-base font-bold text-accent mb-1 group-hover:text-primary transition-colors duration-300 line-clamp-1">
+                          {pkg.name}
+                        </h3>
+                        <p className="text-muted-foreground text-sm line-clamp-2 mb-4 leading-relaxed">
+                          {pkg.shortDescription}
+                        </p>
+
+                        {/* CTA */}
+                        <div className="mt-auto flex items-center justify-between text-primary font-semibold text-sm pt-4 border-t border-border/50">
+                          <span>View Details</span>
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-20">
+                    <p className="text-muted-foreground">No tour packages found.</p>
                   </div>
+                )}
+              </div>
+
+              {/* Pagination */}
+              {meta && meta.totalPages > 1 && (
+                <div className="mt-12">
+                  <Pagination>
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious 
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (currentPage > 1) handlePageChange(currentPage - 1);
+                          }}
+                          className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                      
+                      {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map((page) => {
+                        // Show first, last, current, and pages around current
+                        if (
+                          page === 1 || 
+                          page === meta.totalPages || 
+                          (page >= currentPage - 1 && page <= currentPage + 1)
+                        ) {
+                          return (
+                            <PaginationItem key={page}>
+                              <PaginationLink
+                                href="#"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handlePageChange(page);
+                                }}
+                                isActive={currentPage === page}
+                                className="cursor-pointer"
+                              >
+                                {page}
+                              </PaginationLink>
+                            </PaginationItem>
+                          );
+                        } else if (
+                          page === currentPage - 2 || 
+                          page === currentPage + 2
+                        ) {
+                          return (
+                            <PaginationItem key={page}>
+                              <PaginationEllipsis />
+                            </PaginationItem>
+                          );
+                        }
+                        return null;
+                      })}
+
+                      <PaginationItem>
+                        <PaginationNext 
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (currentPage < meta.totalPages) handlePageChange(currentPage + 1);
+                          }}
+                          className={currentPage === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
                 </div>
-              </Link>
-            ))}
-          </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
