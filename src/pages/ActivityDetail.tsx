@@ -198,6 +198,7 @@ const ActivityDetail = () => {
                 </div>
               </div>
               )}
+
             </div>
           </div>
         </div>

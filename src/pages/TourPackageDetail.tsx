@@ -296,9 +296,11 @@ const TourPackageDetail = () => {
 
                   {/* CTA */}
                   <div className="border-t border-border/50 pt-4 sm:pt-5 mt-4 sm:mt-5">
-                    <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full h-auto py-3 text-sm sm:text-base font-bold tracking-wide" size="lg">
-                      Customize This Tour
-                    </Button>
+                    <Link to={`/book-now/tour/${slug}`}>
+                      <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-full h-auto py-3 text-sm sm:text-base font-bold tracking-wide" size="lg">
+                        Book This Tour
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -430,19 +432,22 @@ const TourPackageDetail = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-10 sm:py-16 bg-primary/10">
+
+      {/* Legacy CTA Section (Optional, could be removed if redundant) */}
+      <section className="py-10 sm:py-16 bg-primary/5">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2 sm:mb-4">
-            Ready to Start Your Adventure?
+            Customise Your Experience
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl mx-auto font-normal">
             Contact us today to customize this tour or create your own unique Sri Lanka experience.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-auto py-3 px-6 text-xs sm:text-sm font-bold tracking-wide">
-              Customize This Tour
-            </Button>
+            <Link to={`/book-now/tour/${slug}`}>
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-auto py-3 px-6 text-xs sm:text-sm font-bold tracking-wide">
+                Book This Tour
+              </Button>
+            </Link>
             <Link to="/contact">
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full h-auto py-3 px-6 text-xs sm:text-sm font-bold tracking-wide w-full sm:w-auto">
                 Contact Us
