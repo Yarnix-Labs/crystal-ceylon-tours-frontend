@@ -28,5 +28,5 @@ export const ENDPOINTS = {
   contactSubscribe: '/contact/subscribe',
   
   // Booking
-  createBooking: '/bookings/create',
+  createBooking: '/bookings',
 };

@@ -78,6 +78,7 @@ const BookNow = () => {
               </div>
 
               <BookingEnquiryForm 
+                tourId={item?.id}
                 tourName={isTour ? tour?.name : activity?.title}
                 duration={isTour ? tour?.packageDuration : activity?.duration}
                 capacity={isTour ? `${tour?.minPeople} Persons` : "Standard"}

@@ -31,7 +31,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateBookingMutation } from "@/hooks/use-public-api";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
+import { format } from "date-fns";
 
 const formSchema = z.object({
   arrivalDate: z.string().min(1, "Arrival date is required"),
@@ -53,18 +54,20 @@ interface BookingEnquiryFormProps {
 }
 
 const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
+  tourId,
   tourName,
   referenceNo,
   duration,
   capacity,
 }) => {
+  const { toast } = useToast();
   const createBookingMutation = useCreateBookingMutation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       arrivalDate: "",
-      numPax: "",
+      numPax: "1",
       title: "Mr.",
       fullName: "",
       contactNo: "",
@@ -76,21 +79,30 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      console.log("Submitting booking for tourId:", tourId);
+      
       await createBookingMutation.mutateAsync({
-        ...values,
-        tourName: tourName || "General Enquiry",
-        paxCount: parseInt(values.numPax),
-        status: "PENDING",
+        tourPackageId: tourId ? Number(tourId) : 0,
+        name: values.fullName,
+        email: values.email,
+        phoneNumber: values.contactNo,
+        whatsapp: values.contactNo,
+        country: values.country,
+        passengers: parseInt(values.numPax),
+        clientMessage: values.message || `Inquiry for ${tourName || 'Tour'}`,
+        arrivalDate: new Date(values.arrivalDate).toISOString(),
       });
+
       toast({
-        title: "Enquiry Sent",
-        description: "We have received your enquiry and will get back to you soon.",
+        title: "Booking Enquiry Sent!",
+        description: "We have received your request and will contact you shortly.",
+        className: "bg-green-50 border-green-200 text-green-800",
       });
       form.reset();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to send enquiry. Please try again later.",
+        title: "Submission Failed",
+        description: "Something went wrong. Please try again or contact us directly.",
         variant: "destructive",
       });
     }
