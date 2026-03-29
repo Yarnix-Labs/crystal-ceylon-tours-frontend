@@ -105,18 +105,38 @@ const ActivityDetail = () => {
                 </div>
               </div>
 
-              {/* Description */}
+              {/* Description & Overview */}
               <div>
                 <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
                   About This Experience
                 </h2>
                 <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
                   <div className="space-y-3 sm:space-y-4">
-                    {(activity.description || activity.content || "").split('\n').filter(p => p.trim()).map((paragraph, index) => (
-                      <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
-                        {paragraph}
-                      </p>
-                    ))}
+                    {/* Overview as a highlighted first section if exists */}
+                    {activity.overview && (
+                      <div className="mb-6 pb-6 border-b border-border/50">
+                        {activity.overview
+                          .replace(/<p>\s*<\/p>/g, "")
+                          .split('\n')
+                          .filter(p => p.trim())
+                          .map((paragraph, index) => (
+                            <p key={`ov-${index}`} className="text-sm sm:text-base md:text-[18px] text-foreground/90 font-semibold leading-[1.8] text-justify sm:text-left italic">
+                              {paragraph}
+                            </p>
+                          ))}
+                      </div>
+                    )}
+                    
+                    {/* Main Description */}
+                    {(activity.description || activity.content || "")
+                      .replace(/<p>\s*<\/p>/g, "")
+                      .split('\n')
+                      .filter(p => p.trim())
+                      .map((paragraph, index) => (
+                        <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                          {paragraph}
+                        </p>
+                      ))}
                   </div>
                 </div>
               </div>
