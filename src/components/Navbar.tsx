@@ -20,7 +20,6 @@ const navLinks = [
   { name: "About Us", href: "/about" },
   { name: "Blog", href: "/blog" },
   { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
 ];
 
 const languages = [
@@ -260,6 +259,15 @@ const Navbar = () => {
                   }`} />
                 </Link>
               ))}
+              
+              {/* Separate Contact Us Button */}
+              <div className="ml-4 lg:ml-6 flex-shrink-0">
+                <Link to="/contact">
+                  <Button className="bg-accent hover:bg-accent/90 text-white font-bold rounded-full px-4 py-1.5 shadow-md transition-all hover:scale-105 active:scale-95 text-[12px] uppercase tracking-wide h-9">
+                    Contact Us
+                  </Button>
+                </Link>
+              </div>
             </div>
 
 
@@ -292,6 +300,13 @@ const Navbar = () => {
                   {link.name}
                 </Link>
               ))}
+              <div className="px-4 py-1.5">
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-white font-bold rounded-lg py-2.5 shadow-md h-10 text-sm">
+                    Contact Us
+                  </Button>
+                </Link>
+              </div>
               <div className="pt-4 border-t border-primary-foreground/20 mt-4">
                 <a href="tel:+94771234567" className="flex items-center gap-3 py-2 text-primary-foreground/80">
                   <Phone className="h-4 w-4" />

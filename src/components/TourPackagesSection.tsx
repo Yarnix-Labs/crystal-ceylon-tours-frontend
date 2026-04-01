@@ -1,38 +1,22 @@
 import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import yalaImg from "@/assets/yala.jpg";
+import { useTourPackages } from "@/hooks/use-public-api";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const packages = [
-  {
-    slug: "cultural-triangle-explorer",
-    title: "Cultural Triangle Explorer",
-    duration: "7 Days",
-    price: 899,
-    image: sigiriyaImg,
-    description: "Explore ancient rock fortresses, cave temples, and sacred cities across Sri Lanka's Cultural Triangle.",
-  },
-  {
-    slug: "hill-country-adventure",
-    title: "Hill Country Adventure",
-    duration: "5 Days",
-    price: 649,
-    image: ellaImg,
-    description: "Discover misty mountains, tea plantations, and the iconic Nine Arch Bridge in Sri Lanka's hill country.",
-  },
-  {
-    slug: "wildlife-safari-experience",
-    title: "Wildlife Safari Experience",
-    duration: "4 Days",
-    price: 549,
-    image: yalaImg,
-    description: "Spot leopards, elephants, and exotic birds in Yala National Park's stunning wilderness.",
-  },
-];
+
 
 const TourPackagesSection = () => {
+  const { data: response, isLoading } = useTourPackages(1);
+  const apiPackages = (response?.items || []).slice(0, 3).map((pkg) => ({
+    slug: pkg.slug,
+    title: pkg.name,
+    duration: pkg.packageDuration || `${pkg.totalDays || 1} Days`,
+    price: pkg.price || 0,
+    image: pkg.heroImage || "",
+    description: pkg.shortDescription || pkg.description?.replace(/<[^>]+>/g, "").substring(0, 100) + "..." || ""
+  }));
+
   return (
     <section id="packages" className="py-16 sm:py-24 bg-gradient-to-b from-background to-secondary/30 relative overflow-hidden">
       {/* Decorative background elements */}
@@ -65,9 +49,13 @@ const TourPackagesSection = () => {
 
         {/* Packages Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {packages.map((pkg) => (
+          {isLoading ? (
+            [...Array(3)].map((_, i) => (
+              <Skeleton key={i} className="w-full h-[450px] rounded-[28px]" />
+            ))
+          ) : apiPackages.map((pkg) => (
             <Link
-              key={pkg.title}
+              key={pkg.slug}
               to={`/tour-packages/${pkg.slug}`}
               className="group relative flex flex-col rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
             >

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Send, Mail, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNewsletterSubscribeMutation } from "@/hooks/use-public-api";
+import { useToast } from "@/components/ui/use-toast";
 
 const NewsletterCTASection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,9 +27,32 @@ const NewsletterCTASection = () => {
     return () => observer.disconnect();
   }, []);
 
+  const { toast } = useToast();
+  const { mutate: subscribe, isPending } = useNewsletterSubscribeMutation();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setEmail("");
+    if (!email) return;
+
+    subscribe(
+      { email },
+      {
+        onSuccess: () => {
+          setEmail("");
+          toast({
+            title: "Success!",
+            description: "You have successfully subscribed to our newsletter.",
+          });
+        },
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to subscribe. Please try again later.",
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -118,11 +143,12 @@ const NewsletterCTASection = () => {
                       </div>
                       <Button
                         type="submit"
+                        disabled={isPending}
                         className="w-full h-11 sm:h-12 rounded-xl bg-accent hover:bg-ocean-light text-white text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 shadow-lg shadow-accent/15 hover:shadow-accent/30 hover:-translate-y-0.5 group"
                       >
                         <span className="flex items-center gap-2">
-                          Subscribe to Newsletter
-                          <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          {isPending ? "Subscribing..." : "Subscribe to Newsletter"}
+                          {!isPending && <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
                         </span>
                       </Button>
                     </form>

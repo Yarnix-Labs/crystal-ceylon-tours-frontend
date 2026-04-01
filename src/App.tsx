@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import CustomPackage from "./pages/CustomPackage";
 import Gallery from "./pages/Gallery";
+import BookNow from "./pages/BookNow";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,8 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/custom-package" element={<CustomPackage />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/book-now/:type/:slug" element={<BookNow />} />
+          <Route path="/book-now" element={<BookNow />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -2,79 +2,32 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, ZoomIn, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGalleryImages } from "@/hooks/use-public-api";
 
 // Gallery images
-import gallerySigiriya from "@/assets/gallery-sigiriya.png";
-import galleryNineArch from "@/assets/gallery-nine-arch.png";
-import galleryLeopard from "@/assets/gallery-leopard.png";
-import galleryKandyTemple from "@/assets/gallery-kandy-temple.png";
-import galleryMirissaBeach from "@/assets/gallery-mirissa-beach.png";
-import galleryTeaPlantation from "@/assets/gallery-tea-plantation.png";
-import galleryGalleFort from "@/assets/gallery-galle-fort.png";
-import galleryElephants from "@/assets/gallery-elephants.png";
-
-const galleryPreviewImages = [
-  {
-    src: gallerySigiriya,
-    alt: "Sigiriya Rock Fortress",
-    title: "Sigiriya",
-    location: "Central Province",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    src: galleryNineArch,
-    alt: "Nine Arch Bridge",
-    title: "Nine Arch Bridge",
-    location: "Ella",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: galleryLeopard,
-    alt: "Yala Leopard Safari",
-    title: "Wildlife Safari",
-    location: "Yala",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: galleryKandyTemple,
-    alt: "Temple of the Tooth",
-    title: "Kandy Temple",
-    location: "Kandy",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    src: galleryMirissaBeach,
-    alt: "Mirissa Beach Paradise",
-    title: "Mirissa Beach",
-    location: "Southern Coast",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: galleryTeaPlantation,
-    alt: "Tea Plantation Heritage",
-    title: "Tea Country",
-    location: "Nuwara Eliya",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: galleryGalleFort,
-    alt: "Galle Fort Lighthouse",
-    title: "Galle Fort",
-    location: "Galle",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    src: galleryElephants,
-    alt: "Wild Elephants",
-    title: "Elephant Safari",
-    location: "Minneriya",
-    span: "col-span-1 row-span-1",
-  },
-];
+// Note: Mock images removed to ensure pure API data rendering
 
 const GallerySection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  
+  const { data: response, isLoading } = useGalleryImages(1);
+
+  // Map the API response preserving correct mosaic spans
+  const displayImages = (response?.items || []).slice(0, 8).map((img, idx) => {
+    let span = "col-span-1 row-span-1";
+    if (idx === 0) span = "col-span-2 row-span-2";
+    else if (idx === 3) span = "col-span-1 row-span-2";
+    
+    return {
+      src: img.imageUrl,
+      alt: img.title,
+      title: img.title,
+      location: (img as any).location || "Sri Lanka",
+      span
+    };
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -148,7 +101,11 @@ const GallerySection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
-          {galleryPreviewImages.map((image, index) => (
+          {isLoading ? (
+            [...Array(8)].map((_, i) => (
+              <Skeleton key={i} className={`w-full h-full rounded-[16px] sm:rounded-[20px] ${i === 0 ? "col-span-2 row-span-2" : i === 3 ? "col-span-1 row-span-2" : "col-span-1 row-span-1"}`} />
+            ))
+          ) : displayImages.map((image, index) => (
             <Link
               key={index}
               to="/gallery"

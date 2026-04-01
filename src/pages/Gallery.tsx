@@ -1,154 +1,37 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight, ZoomIn, Camera, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import destinationsHero from "@/assets/destinations-hero.jpg";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { useGalleryImages } from "@/hooks/use-public-api";
+import type { GalleryImage as ApiGalleryImage } from "@/api/services/public";
 
-// Gallery images
-import gallerySigiriya from "@/assets/gallery-sigiriya.png";
-import galleryNineArch from "@/assets/gallery-nine-arch.png";
-import galleryLeopard from "@/assets/gallery-leopard.png";
-import galleryKandyTemple from "@/assets/gallery-kandy-temple.png";
-import galleryMirissaBeach from "@/assets/gallery-mirissa-beach.png";
-import galleryTeaPlantation from "@/assets/gallery-tea-plantation.png";
-import galleryGalleFort from "@/assets/gallery-galle-fort.png";
-import galleryElephants from "@/assets/gallery-elephants.png";
-import galleryWhale from "@/assets/gallery-whale.png";
-import galleryDambulla from "@/assets/gallery-dambulla.png";
-import galleryStiltFishermen from "@/assets/gallery-stilt-fishermen.png";
-import gallerySurfing from "@/assets/gallery-surfing.png";
-
-interface GalleryImage {
-  id: number;
+// Gallery image wrapper for UI state
+interface GalleryImageUI extends ApiGalleryImage {
   src: string;
   alt: string;
-  category: string;
-  location: string;
-  title: string;
   span: "normal" | "tall" | "wide" | "featured";
 }
 
-const galleryImages: GalleryImage[] = [
-  {
-    id: 1,
-    src: gallerySigiriya,
-    alt: "Sigiriya Lion Rock at golden hour",
-    category: "Culture",
-    location: "Central Province",
-    title: "Sigiriya Rock Fortress",
-    span: "featured",
-  },
-  {
-    id: 2,
-    src: galleryNineArch,
-    alt: "Nine Arch Bridge in Ella with train",
-    category: "Nature",
-    location: "Uva Province",
-    title: "Nine Arch Bridge",
-    span: "tall",
-  },
-  {
-    id: 3,
-    src: galleryLeopard,
-    alt: "Wild leopard in Yala National Park",
-    category: "Wildlife",
-    location: "Southern Province",
-    title: "Yala Leopard Safari",
-    span: "normal",
-  },
-  {
-    id: 4,
-    src: galleryKandyTemple,
-    alt: "Temple of the Tooth in Kandy",
-    category: "Culture",
-    location: "Central Province",
-    title: "Temple of the Tooth",
-    span: "wide",
-  },
-  {
-    id: 5,
-    src: galleryMirissaBeach,
-    alt: "Pristine beach in Mirissa",
-    category: "Beach",
-    location: "Southern Province",
-    title: "Mirissa Paradise",
-    span: "normal",
-  },
-  {
-    id: 6,
-    src: galleryTeaPlantation,
-    alt: "Tea picker in Nuwara Eliya",
-    category: "Nature",
-    location: "Central Province",
-    title: "Tea Country Heritage",
-    span: "tall",
-  },
-  {
-    id: 7,
-    src: galleryGalleFort,
-    alt: "Galle Fort lighthouse at sunset",
-    category: "Culture",
-    location: "Southern Province",
-    title: "Galle Fort Sunset",
-    span: "normal",
-  },
-  {
-    id: 8,
-    src: galleryElephants,
-    alt: "Elephants crossing a lake",
-    category: "Wildlife",
-    location: "North Central Province",
-    title: "Elephant Gathering",
-    span: "wide",
-  },
-  {
-    id: 9,
-    src: galleryWhale,
-    alt: "Blue whale breaching in Mirissa",
-    category: "Wildlife",
-    location: "Southern Province",
-    title: "Whale Watching",
-    span: "normal",
-  },
-  {
-    id: 10,
-    src: galleryDambulla,
-    alt: "Dambulla Cave Temple Buddha statues",
-    category: "Culture",
-    location: "Central Province",
-    title: "Dambulla Cave Temple",
-    span: "tall",
-  },
-  {
-    id: 11,
-    src: galleryStiltFishermen,
-    alt: "Stilt fishermen at sunset",
-    category: "Beach",
-    location: "Southern Province",
-    title: "Stilt Fishermen",
-    span: "normal",
-  },
-  {
-    id: 12,
-    src: gallerySurfing,
-    alt: "Surfer riding wave at Arugam Bay",
-    category: "Adventure",
-    location: "Eastern Province",
-    title: "Arugam Bay Surfing",
-    span: "wide",
-  },
-];
-
-// Lightbox component
 const Lightbox = ({
   image,
   onClose,
   onPrev,
   onNext,
 }: {
-  image: GalleryImage;
+  image: GalleryImageUI;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
@@ -215,12 +98,6 @@ const Lightbox = ({
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
             {image.title}
           </h3>
-          <div className="flex items-center justify-center gap-2 text-white/70 text-sm">
-            <MapPin className="h-4 w-4" />
-            <span>{image.location}</span>
-            <span className="w-1 h-1 rounded-full bg-white/40" />
-            <span>{image.category}</span>
-          </div>
         </div>
       </div>
     </div>
@@ -228,7 +105,42 @@ const Lightbox = ({
 };
 
 const Gallery = () => {
-  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
+  const [currentPage, setCurrentPage] = useState(pageParam ? parseInt(pageParam) : 1);
+
+  const { data: response, isLoading, isError } = useGalleryImages(currentPage);
+  const meta = response?.meta;
+  
+  // Transform API data to UI structure
+  const galleryImages: GalleryImageUI[] = (response?.items || []).map((img, idx) => {
+    let span: GalleryImageUI["span"] = "normal";
+    const patternPos = idx % 12;
+    if (patternPos === 0) span = "featured";
+    else if (patternPos === 1 || patternPos === 5 || patternPos === 9) span = "tall";
+    else if (patternPos === 3 || patternPos === 7 || patternPos === 11) span = "wide";
+    
+    return {
+      ...img,
+      src: img.imageUrl,
+      alt: img.title,
+      span
+    };
+  });
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ page: page.toString() });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam));
+    }
+  }, [pageParam]);
+
+  const [lightboxImage, setLightboxImage] = useState<GalleryImageUI | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -243,7 +155,7 @@ const Gallery = () => {
     return () => observer.disconnect();
   }, []);
 
-  const openLightbox = useCallback((image: GalleryImage) => {
+  const openLightbox = useCallback((image: GalleryImageUI) => {
     setLightboxImage(image);
   }, []);
 
@@ -266,7 +178,7 @@ const Gallery = () => {
   }, [lightboxImage]);
 
   // Get grid span classes based on image span type
-  const getSpanClasses = (span: GalleryImage["span"]) => {
+  const getSpanClasses = (span: GalleryImageUI["span"]) => {
     switch (span) {
       case "featured":
         return "md:col-span-2 md:row-span-2";
@@ -278,6 +190,27 @@ const Gallery = () => {
         return "";
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <section className="relative h-[30vh] sm:h-[40vh] min-h-[250px] sm:min-h-[300px] flex items-center justify-center bg-muted/20">
+          <Skeleton className="absolute inset-0 w-full h-full" />
+        </section>
+        
+        <section className="py-20 container mx-auto px-4">
+          <Skeleton className="h-6 w-64 mx-auto mb-10" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-[280px] gap-4 sm:gap-5">
+            {[...Array(8)].map((_, i) => (
+              <Skeleton key={i} className="w-full h-full rounded-[20px]" />
+            ))}
+          </div>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -339,13 +272,6 @@ const Gallery = () => {
                 {/* Permanent gradient overlay at bottom */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Category badge - top left */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-xl border border-white/20 text-white text-[11px] font-bold uppercase tracking-wider">
-                    {image.category}
-                  </span>
-                </div>
-
                 {/* Zoom icon - top right, appears on hover */}
                 <div className="absolute top-4 right-4 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white hover:bg-white/30 transition-colors">
@@ -358,10 +284,6 @@ const Gallery = () => {
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-1.5 drop-shadow-lg">
                     {image.title}
                   </h3>
-                  <div className="flex items-center gap-1.5 text-white/80 text-xs font-medium">
-                    <MapPin className="h-3.5 w-3.5" />
-                    {image.location}
-                  </div>
 
                   {/* Animated line */}
                   <div className="w-8 h-0.5 rounded-full bg-white/40 mt-3 transition-all duration-500 group-hover:w-16 group-hover:bg-primary" />
@@ -372,6 +294,52 @@ const Gallery = () => {
               </div>
             ))}
           </div>
+
+          {/* Pagination */}
+          {meta && meta.totalPages > 1 && (
+            <div className="mt-12">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) handlePageChange(currentPage - 1);
+                      }}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                  
+                  {Array.from({ length: meta.totalPages }).map((_, i) => (
+                    <PaginationItem key={i}>
+                      <PaginationLink 
+                        href="#"
+                        isActive={currentPage === i + 1}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(i + 1);
+                        }}
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+
+                  <PaginationItem>
+                    <PaginationNext 
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < meta.totalPages) handlePageChange(currentPage + 1);
+                      }}
+                      className={currentPage === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
 
           {/* Bottom CTA */}
           <div className="text-center mt-20">

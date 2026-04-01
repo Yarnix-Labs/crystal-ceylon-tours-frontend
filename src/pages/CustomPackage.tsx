@@ -1,5 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  createCustomBooking,
+  getPublicDestinationsList,
+  getPublicThingsToDoList,
+} from "@/api/services/public";
+import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
@@ -46,83 +51,85 @@ import {
 import { cn } from "@/lib/utils";
 import packagesHero from "@/assets/packages-hero.jpg";
 
-const existingDestinations = [
-  "Sigiriya",
-  "Kandy",
-  "Ella",
-  "Galle",
-  "Mirissa",
-  "Yala National Park",
-  "Nuwara Eliya",
-  "Polonnaruwa",
-  "Anuradhapura",
-  "Dambulla",
-  "Trincomalee",
-  "Arugam Bay",
-  "Jaffna",
-  "Bentota",
-  "Hikkaduwa",
-  "Unawatuna",
-  "Colombo",
-  "Negombo",
-  "Habarana",
-  "Udawalawe",
-];
+/** Shape of a destination option fetched from the API */
+interface ApiDestination {
+  id: number;
+  title: string;
+}
 
-const accommodationTypes = [
-  { value: "budget", label: "Budget Friendly" },
-  { value: "standard", label: "Standard (3-Star)" },
-  { value: "superior", label: "Superior (4-Star)" },
-  { value: "luxury", label: "Luxury (5-Star)" },
-  { value: "boutique", label: "Boutique Hotels" },
-];
+/** Shape of an activity option fetched from the API */
+interface ApiActivity {
+  id: number;
+  title: string;
+}
 
-const activities = [
-  "Wildlife Safari",
-  "Whale Watching",
-  "Hiking & Trekking",
-  "Temple & Cultural Tours",
-  "Beach Activities",
-  "Train Journeys",
-  "Water Sports",
-  "Tea Plantation Visit",
-  "Cooking Class",
-  "Ayurveda & Spa",
-  "Photography Tour",
-  "Village Experience",
-];
-
+/** A destination the user has added to their itinerary */
 interface DestinationEntry {
-  id: string;
+  id: string;          // local unique key (Date.now)
+  destinationId: number; // real backend ID
   name: string;
   days: number;
 }
 
 const CustomPackage = () => {
+  // ── API data ──────────────────────────────────────────────────────────────
+  const [apiDestinations, setApiDestinations] = useState<ApiDestination[]>([]);
+  const [apiActivities, setApiActivities] = useState<ApiActivity[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const [destResult, activResult] = await Promise.all([
+          getPublicDestinationsList(1),
+          getPublicThingsToDoList(1),
+        ]);
+        setApiDestinations(
+          (destResult.items ?? []).map((d) => ({ id: d.id, title: d.title }))
+        );
+        setApiActivities(
+          (activResult.items ?? []).map((a) => ({ id: Number(a.id), title: a.title }))
+        );
+      } catch {
+        // Non-blocking: fallback to empty lists
+      } finally {
+        setDataLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  // ── Form state ────────────────────────────────────────────────────────────
   const [destinations, setDestinations] = useState<DestinationEntry[]>([]);
   const [currentDestination, setCurrentDestination] = useState("");
+  const [currentDestinationId, setCurrentDestinationId] = useState<number | null>(null);
   const [currentDays, setCurrentDays] = useState(1);
   const [comboOpen, setComboOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
   const [travelers, setTravelers] = useState("2");
-  const [accommodation, setAccommodation] = useState("");
-  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
+
+  const [selectedActivityIds, setSelectedActivityIds] = useState<number[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [specialRequests, setSpecialRequests] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const addDestination = () => {
-    if (currentDestination.trim()) {
+    if (currentDestination.trim() && currentDestinationId !== null) {
       setDestinations([
         ...destinations,
         {
           id: Date.now().toString(),
+          destinationId: currentDestinationId,
           name: currentDestination.trim(),
           days: currentDays,
         },
       ]);
       setCurrentDestination("");
+      setCurrentDestinationId(null);
       setCurrentDays(1);
       setComboOpen(false);
     }
@@ -132,11 +139,11 @@ const CustomPackage = () => {
     setDestinations(destinations.filter((d) => d.id !== id));
   };
 
-  const toggleActivity = (activity: string) => {
-    setSelectedActivities((prev) =>
-      prev.includes(activity)
-        ? prev.filter((a) => a !== activity)
-        : [...prev, activity]
+  const toggleActivity = (activityId: number) => {
+    setSelectedActivityIds((prev) =>
+      prev.includes(activityId)
+        ? prev.filter((id) => id !== activityId)
+        : [...prev, activityId]
     );
   };
 
@@ -147,14 +154,15 @@ const CustomPackage = () => {
       .map((d) => `• ${d.name} (${d.days} ${d.days === 1 ? "day" : "days"})`)
       .join("\n");
 
+    const selectedActivityTitles = apiActivities
+      .filter((a) => selectedActivityIds.includes(a.id))
+      .map((a) => a.title);
     const activitiesList =
-      selectedActivities.length > 0
-        ? selectedActivities.join(", ")
+      selectedActivityTitles.length > 0
+        ? selectedActivityTitles.join(", ")
         : "Not specified";
 
-    const accommodationLabel =
-      accommodationTypes.find((a) => a.value === accommodation)?.label ||
-      "Not specified";
+
 
     const message = `
 🌴 *CUSTOM TOUR PACKAGE REQUEST*
@@ -170,9 +178,6 @@ ${destinationsList || "Not specified"}
 📅 *Trip Details:*
 • Start Date: ${startDate ? format(startDate, "PPP") : "Flexible"}
 • Duration: ${totalDays} ${totalDays === 1 ? "day" : "days"}
-• Travelers: ${travelers}
-• Accommodation: ${accommodationLabel}
-
 🎯 *Activities:*
 ${activitiesList}
 
@@ -185,16 +190,49 @@ Looking forward to your response!
     return encodeURIComponent(message);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim() || !email.trim() || destinations.length === 0) {
       return;
     }
-    const message = generateWhatsAppMessage();
-    window.open(`https://wa.me/94771234567?text=${message}`, "_blank");
+
+    setIsSubmitting(true);
+    const loadingToastId = toast.loading("Submitting your request...", {
+      description: "Please wait while we send your custom package inquiry.",
+    });
+    try {
+      await createCustomBooking({
+        destinations: destinations.map((d) => d.destinationId),
+        startDate: startDate ? startDate.toISOString().split("T")[0] : "",
+        travelers: parseInt(travelers) || 1,
+        activities: selectedActivityIds,
+        fullName: name.trim(),
+        email: email.trim(),
+        phoneNumber: phone.trim(),
+        whatsappNumber: (whatsapp || phone).trim(),
+        specialRequests: specialRequests.trim() || undefined,
+      });
+
+      toast.dismiss(loadingToastId);
+      setIsSuccess(true);
+      toast.success("Request Submitted Successfully! 🎉", {
+        description:
+          "We've received your custom package inquiry. Our team will get back to you within 24 hours with a personalised itinerary and quote.",
+      });
+    } catch (error: any) {
+      toast.dismiss(loadingToastId);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong. Please try again or contact us directly.";
+      toast.error("Submission Failed", {
+        description: message,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid =
-    name.trim() && email.trim() && destinations.length > 0;
+    name.trim() && email.trim() && destinations.length > 0 && !!startDate;
 
   return (
     <div className="min-h-screen bg-background">
@@ -283,41 +321,40 @@ Looking forward to your response!
                     <PopoverContent className="w-full p-0" align="start">
                       <Command>
                         <CommandInput
-                          placeholder="Search or type new destination..."
+                          placeholder="Search destination..."
                           value={currentDestination}
                           onValueChange={setCurrentDestination}
                         />
                         <CommandList>
-                          <CommandEmpty>
-                            <button
-                              onClick={addDestination}
-                              className="flex items-center gap-2 w-full p-2 hover:bg-accent rounded text-left"
-                            >
-                              <Plus className="h-4 w-4" />
-                              Add "{currentDestination}" as new destination
-                            </button>
-                          </CommandEmpty>
-                          <CommandGroup heading="Popular Destinations">
-                            {existingDestinations
-                              .filter((dest) =>
-                                dest
-                                  .toLowerCase()
-                                  .includes(currentDestination.toLowerCase())
-                              )
-                              .map((dest) => (
-                                <CommandItem
-                                  key={dest}
-                                  value={dest}
-                                  onSelect={() => {
-                                    setCurrentDestination(dest);
-                                    setComboOpen(false);
-                                  }}
-                                >
-                                  <MapPin className="mr-2 h-4 w-4" />
-                                  {dest}
-                                </CommandItem>
-                              ))}
-                          </CommandGroup>
+                          {dataLoading ? (
+                            <div className="p-3 text-sm text-muted-foreground text-center">Loading destinations…</div>
+                          ) : (
+                            <>
+                              <CommandEmpty>No destinations found.</CommandEmpty>
+                              <CommandGroup heading="Destinations">
+                                {apiDestinations
+                                  .filter((dest) =>
+                                    dest.title
+                                      .toLowerCase()
+                                      .includes(currentDestination.toLowerCase())
+                                  )
+                                  .map((dest) => (
+                                    <CommandItem
+                                      key={dest.id}
+                                      value={dest.title}
+                                      onSelect={() => {
+                                        setCurrentDestination(dest.title);
+                                        setCurrentDestinationId(dest.id);
+                                        setComboOpen(false);
+                                      }}
+                                    >
+                                      <MapPin className="mr-2 h-4 w-4" />
+                                      {dest.title}
+                                    </CommandItem>
+                                  ))}
+                              </CommandGroup>
+                            </>
+                          )}
                         </CommandList>
                       </Command>
                     </PopoverContent>
@@ -342,7 +379,7 @@ Looking forward to your response!
                 </div>
                 <Button
                   onClick={addDestination}
-                  disabled={!currentDestination.trim()}
+                  disabled={!currentDestination.trim() || currentDestinationId === null}
                   className="h-12 gap-2"
                 >
                   <Plus className="h-4 w-4" />
@@ -409,23 +446,6 @@ Looking forward to your response!
                     </SelectContent>
                   </Select>
                 </div>
-
-                {/* Accommodation */}
-                <div className="space-y-2 md:col-span-2">
-                  <Label>Accommodation Preference</Label>
-                  <Select value={accommodation} onValueChange={setAccommodation}>
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select accommodation type..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {accommodationTypes.map((type) => (
-                        <SelectItem key={type.value} value={type.value}>
-                          {type.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
             </div>
 
@@ -444,34 +464,40 @@ Looking forward to your response!
                 Select activities you'd like to include (optional)
               </p>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {activities.map((activity) => (
-                  <button
-                    key={activity}
-                    onClick={() => toggleActivity(activity)}
-                    className={cn(
-                      "flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left",
-                      selectedActivities.includes(activity)
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-border hover:border-primary/50"
-                    )}
-                  >
-                    <div
+              {dataLoading ? (
+                <div className="text-sm text-muted-foreground">Loading activities...</div>
+              ) : apiActivities.length === 0 ? (
+                <div className="text-sm text-muted-foreground">No activities available.</div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {apiActivities.map((activity) => (
+                    <button
+                      key={activity.id}
+                      onClick={() => toggleActivity(activity.id)}
                       className={cn(
-                        "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
-                        selectedActivities.includes(activity)
-                          ? "border-primary bg-primary"
-                          : "border-muted-foreground"
+                        "flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left",
+                        selectedActivityIds.includes(activity.id)
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border hover:border-primary/50"
                       )}
                     >
-                      {selectedActivities.includes(activity) && (
-                        <Check className="h-3 w-3 text-primary-foreground" />
-                      )}
-                    </div>
-                    <span className="text-sm font-medium">{activity}</span>
-                  </button>
-                ))}
-              </div>
+                      <div
+                        className={cn(
+                          "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
+                          selectedActivityIds.includes(activity.id)
+                            ? "border-primary bg-primary"
+                            : "border-muted-foreground"
+                        )}
+                      >
+                        {selectedActivityIds.includes(activity.id) && (
+                          <Check className="h-3 w-3 text-primary-foreground" />
+                        )}
+                      </div>
+                      <span className="text-sm font-medium">{activity.title}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Step 4: Contact Details */}
@@ -514,12 +540,23 @@ Looking forward to your response!
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone / WhatsApp</Label>
+                  <Label htmlFor="phone">Phone Number <span className="text-destructive">*</span></Label>
                   <Input
                     id="phone"
-                    placeholder="+1 234 567 8900"
+                    placeholder="+94712345678"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    className="h-12"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp">WhatsApp Number</Label>
+                  <Input
+                    id="whatsapp"
+                    placeholder="Same as phone if blank"
+                    value={whatsapp}
+                    onChange={(e) => setWhatsapp(e.target.value)}
                     className="h-12"
                   />
                 </div>
@@ -568,26 +605,49 @@ Looking forward to your response!
                 <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
                   <Plane className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
                   <div className="text-xl sm:text-2xl font-bold text-foreground">
-                    {selectedActivities.length}
+                    {selectedActivityIds.length}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground">Activities</div>
                 </div>
               </div>
 
-              <Button
-                onClick={handleSubmit}
-                disabled={!isFormValid}
-                className="w-full h-12 sm:h-14 text-base sm:text-lg gap-2 sm:gap-3"
-                size="lg"
-              >
-                <Send className="h-4 w-4 sm:h-5 sm:w-5" />
-                Send Request via WhatsApp
-              </Button>
+              {isSuccess ? (
+                <div className="text-center py-4 px-6 bg-primary/10 rounded-2xl border border-primary/20">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center mx-auto mb-3">
+                    <Check className="h-6 w-6" />
+                  </div>
+                  <h4 className="font-display text-lg font-bold text-foreground mb-1">Request Submitted!</h4>
+                  <p className="text-foreground/70 text-sm">
+                    We've received your custom package inquiry and will get back to you within 24 hours with a personalised itinerary and quote.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={!isFormValid || isSubmitting}
+                    className="w-full h-12 sm:h-14 text-base sm:text-lg gap-2 sm:gap-3"
+                    size="lg"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 sm:h-5 sm:w-5" />
+                        Submit Custom Package Request
+                      </>
+                    )}
+                  </Button>
 
-              <p className="text-foreground/80 font-medium text-xs sm:text-sm text-center mt-4">
-                We'll review your request and get back to you within 24 hours with
-                a personalized itinerary and quote.
-              </p>
+                  <p className="text-foreground/80 font-medium text-xs sm:text-sm text-center mt-4">
+                    We'll review your request and get back to you within 24 hours with
+                    a personalized itinerary and quote.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>

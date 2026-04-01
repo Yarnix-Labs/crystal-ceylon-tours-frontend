@@ -1,51 +1,17 @@
 import { Link } from "react-router-dom";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import galleImg from "@/assets/galle.jpg";
-import kandyImg from "@/assets/kandy.jpg";
-import yalaImg from "@/assets/yala.jpg";
-import mirissaImg from "@/assets/mirissa.jpg";
+import { ArrowRight } from "lucide-react";
+import { useDestinations } from "@/hooks/use-public-api";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
-const destinations = [
-  {
-    name: "Sigiriya",
-    province: "Central Province",
-    description: "Ancient rock fortress rising dramatically from the jungle, offering breathtaking panoramic views.",
-    image: sigiriyaImg,
-  },
-  {
-    name: "Ella",
-    province: "Uva Province",
-    description: "Picturesque hill country town surrounded by tea plantations and misty mountains.",
-    image: ellaImg,
-  },
-  {
-    name: "Galle",
-    province: "Southern Province",
-    description: "Historic Dutch colonial fort city with cobblestone streets and ocean views.",
-    image: galleImg,
-  },
-  {
-    name: "Kandy",
-    province: "Central Province",
-    description: "Sacred city home to the Temple of the Tooth, surrounded by lush green hills.",
-    image: kandyImg,
-  },
-  {
-    name: "Yala National Park",
-    province: "Southern Province",
-    description: "Premier wildlife sanctuary famous for its leopard population and diverse ecosystems.",
-    image: yalaImg,
-  },
-  {
-    name: "Mirissa",
-    province: "Southern Province",
-    description: "Pristine tropical beach paradise perfect for whale watching and relaxation.",
-    image: mirissaImg,
-  },
-];
+
 
 const DestinationsSection = () => {
+  const { data: response, isLoading } = useDestinations(1);
+
+  // Take exactly 6 items to match mock data count
+  const displayedDestinations = response?.items?.slice(0, 6) || [];
+
   return (
     <section id="destinations" className="py-16 sm:py-24 bg-gradient-to-b from-secondary/50 to-secondary relative overflow-hidden">
       {/* Decorative background elements */}
@@ -77,17 +43,21 @@ const DestinationsSection = () => {
 
         {/* Destinations Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {destinations.map((destination) => (
+          {isLoading ? (
+            [...Array(6)].map((_, i) => (
+              <Skeleton key={i} className="w-full h-[380px] rounded-[28px]" />
+            ))
+          ) : displayedDestinations.map((destination) => (
             <Link
-              key={destination.name}
-              to={`/destinations/${destination.name.toLowerCase().replace(/\\s+/g, "-")}`}
+              key={destination.id}
+              to={`/destinations/${destination.slug || destination.title.toLowerCase().replace(/\s+/g, "-")}`}
               className="group relative flex flex-col rounded-[28px] bg-white p-2.5 sm:p-3 shadow-lg shadow-black/[0.03] hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 border border-white/60 ring-1 ring-border/30"
             >
               {/* Image Container */}
               <div className="relative overflow-hidden rounded-[16px] sm:rounded-[20px] mb-3 sm:mb-5 bg-muted">
                 <img
-                  src={destination.image}
-                  alt={destination.name}
+                  src={((destination as any).image || destination.coverImage || "")}
+                  alt={destination.title}
                   className="w-full aspect-video sm:aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 
@@ -109,15 +79,15 @@ const DestinationsSection = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
-                  {destination.province}
+                  {((destination as any).location || "Sri Lanka")}
                 </div>
                 
                 <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2.5 group-hover:text-primary transition-colors duration-300">
-                  {destination.name}
+                  {destination.title}
                 </h3>
 
                 <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed font-normal mb-6">
-                  {destination.description}
+                  {((destination as any).description || destination.content?.replace(/<[^>]+>/g, '') || "")}
                 </p>
                 
                 {/* Visual read more indicator */}
@@ -131,6 +101,20 @@ const DestinationsSection = () => {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-12 sm:mt-16 relative z-10 transition-all duration-1000">
+          <Link to="/destinations">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-accent/40 text-accent hover:bg-accent hover:text-white rounded-full px-5 py-3 sm:px-8 sm:py-6 h-auto text-xs sm:text-sm md:text-base font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-accent/20 hover:shadow-lg hover:-translate-y-1 group"
+            >
+              View All Destinations
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1.5 sm:ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
