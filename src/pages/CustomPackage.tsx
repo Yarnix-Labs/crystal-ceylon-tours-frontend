@@ -51,14 +51,6 @@ import {
 import { cn } from "@/lib/utils";
 import packagesHero from "@/assets/packages-hero.jpg";
 
-const accommodationTypes = [
-  { value: "budget", label: "Budget Friendly" },
-  { value: "standard", label: "Standard (3-Star)" },
-  { value: "superior", label: "Superior (4-Star)" },
-  { value: "luxury", label: "Luxury (5-Star)" },
-  { value: "boutique", label: "Boutique Hotels" },
-];
-
 /** Shape of a destination option fetched from the API */
 interface ApiDestination {
   id: number;
@@ -115,7 +107,7 @@ const CustomPackage = () => {
   const [comboOpen, setComboOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
   const [travelers, setTravelers] = useState("2");
-  const [accommodation, setAccommodation] = useState("");
+
   const [selectedActivityIds, setSelectedActivityIds] = useState<number[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -170,9 +162,7 @@ const CustomPackage = () => {
         ? selectedActivityTitles.join(", ")
         : "Not specified";
 
-    const accommodationLabel =
-      accommodationTypes.find((a) => a.value === accommodation)?.label ||
-      "Not specified";
+
 
     const message = `
 🌴 *CUSTOM TOUR PACKAGE REQUEST*
@@ -188,9 +178,6 @@ ${destinationsList || "Not specified"}
 📅 *Trip Details:*
 • Start Date: ${startDate ? format(startDate, "PPP") : "Flexible"}
 • Duration: ${totalDays} ${totalDays === 1 ? "day" : "days"}
-• Travelers: ${travelers}
-• Accommodation: ${accommodationLabel}
-
 🎯 *Activities:*
 ${activitiesList}
 
@@ -209,6 +196,9 @@ Looking forward to your response!
     }
 
     setIsSubmitting(true);
+    const loadingToastId = toast.loading("Submitting your request...", {
+      description: "Please wait while we send your custom package inquiry.",
+    });
     try {
       await createCustomBooking({
         destinations: destinations.map((d) => d.destinationId),
@@ -222,13 +212,20 @@ Looking forward to your response!
         specialRequests: specialRequests.trim() || undefined,
       });
 
+      toast.dismiss(loadingToastId);
       setIsSuccess(true);
-      toast.success("Your custom package request has been submitted! We'll get back to you within 24 hours.");
+      toast.success("Request Submitted Successfully! 🎉", {
+        description:
+          "We've received your custom package inquiry. Our team will get back to you within 24 hours with a personalised itinerary and quote.",
+      });
     } catch (error: any) {
+      toast.dismiss(loadingToastId);
       const message =
         error?.response?.data?.message ||
         "Something went wrong. Please try again or contact us directly.";
-      toast.error(message);
+      toast.error("Submission Failed", {
+        description: message,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -446,23 +443,6 @@ Looking forward to your response!
                         </SelectItem>
                       ))}
                       <SelectItem value="10+">10+ Travelers</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Accommodation */}
-                <div className="space-y-2 md:col-span-2">
-                  <Label>Accommodation Preference</Label>
-                  <Select value={accommodation} onValueChange={setAccommodation}>
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select accommodation type..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {accommodationTypes.map((type) => (
-                        <SelectItem key={type.value} value={type.value}>
-                          {type.label}
-                        </SelectItem>
-                      ))}
                     </SelectContent>
                   </Select>
                 </div>
