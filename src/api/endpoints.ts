@@ -29,4 +29,7 @@ export const ENDPOINTS = {
   
   // Booking
   createBooking: '/bookings',
+
+  // Custom Booking Inquiry
+  createCustomBooking: '/custom-bookings/create',
 };
