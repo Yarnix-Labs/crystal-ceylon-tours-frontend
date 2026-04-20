@@ -13,6 +13,7 @@ import {
   Mail,
   Phone,
   User,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -113,6 +115,7 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNo, setMobileNo] = useState("");
+  const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [pickupSuggestions, setPickupSuggestions] = useState<string[]>([]);
@@ -152,6 +155,7 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
     setName("");
     setEmail("");
     setMobileNo("");
+    setMessage("");
     setPickupSuggestions([]);
     setDropoffSuggestions([]);
   };
@@ -183,7 +187,7 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
     const vehicleLabel =
       vehicleTypes.find((v) => v.id === vehicleType)?.label || vehicleType;
 
-    const message =
+    const whatsappMessage =
       `🚗 *Quick Transfer Booking Request*\n\n` +
       `📋 *Transfer Type:* ${transferLabel}\n` +
       `📍 *Pickup:* ${pickupLocation}\n` +
@@ -194,10 +198,10 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
       `🕐 *Time:* ${time}\n` +
       `👤 *Name:* ${name}\n` +
       `📧 *Email:* ${email || "Not provided"}\n` +
-      `📞 *Mobile:* ${mobileNo}`;
+      `📞 *Mobile:* ${mobileNo}${message ? `\n\n💬 *Message:* ${message}` : ""}`;
 
     const phoneNumber = "+94771234567";
-    const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(whatsappMessage)}`;
 
     // Small delay for UX
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -222,9 +226,9 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[620px] max-h-[92vh] overflow-y-auto p-0 gap-0 rounded-[24px] border-0 shadow-2xl">
+      <DialogContent className="sm:max-w-[620px] max-h-[92vh] flex flex-col p-0 gap-0 rounded-[24px] border-0 shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-accent via-accent to-ocean-dark p-5 sm:p-6 rounded-t-[24px] overflow-hidden">
+        <div className="relative bg-gradient-to-r from-accent via-accent to-ocean-dark p-7 sm:p-9 rounded-t-[24px] overflow-hidden">
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -242,22 +246,22 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
           </svg>
 
           <DialogHeader className="relative z-10">
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                <Zap className="h-4.5 w-4.5 text-white" />
+            <div className="flex items-center gap-3.5 mb-1.5">
+              <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/10">
+                <Zap className="h-5 w-5 text-white" />
               </div>
-              <DialogTitle className="text-xl sm:text-2xl font-display font-bold text-white">
+              <DialogTitle className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
                 Quick Transfer
               </DialogTitle>
             </div>
-            <DialogDescription className="text-white/80 text-xs sm:text-[13px] pl-12">
+            <DialogDescription className="text-white text-[14px] sm:text-[15px] font-medium pl-13.5 opacity-100 leading-relaxed max-w-[400px]">
               Fill in the details below to book your transfer instantly
             </DialogDescription>
           </DialogHeader>
         </div>
 
         {/* Body — Single Page Form */}
-        <div className="p-5 sm:p-6 space-y-4">
+        <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1 custom-scrollbar">
           {/* Transfer Type — Dropdown */}
           <div className="space-y-1.5">
             <label className="flex items-center gap-2 text-sm font-bold text-foreground/90">
@@ -513,6 +517,20 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
                 className="h-11 bg-muted/20 border-border/40 focus:bg-white rounded-xl transition-all"
               />
             </div>
+          </div>
+
+          {/* Message Field */}
+          <div className="space-y-1.5">
+            <label className="flex items-center gap-2 text-sm font-bold text-foreground/90">
+              <MessageSquare className="h-4 w-4 text-accent" />
+              Additional Message
+            </label>
+            <Textarea
+              placeholder="Any special requests or details..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              className="min-h-[100px] bg-muted/20 border-border/40 focus:bg-white rounded-xl transition-all resize-none"
+            />
           </div>
 
           {/* Submit Button */}

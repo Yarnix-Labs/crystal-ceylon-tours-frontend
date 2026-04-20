@@ -174,4 +174,20 @@
   .text-gradient-accent {
     @apply bg-gradient-to-r from-accent to-sunset-light bg-clip-text text-transparent;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full border-2 border-transparent bg-clip-padding;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent/60;
+  }
 }
