@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, MapPin, ArrowRight } from "lucide-react";
+import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import QuickTransferModal from "@/components/QuickTransferModal";
 
 import heroVideo from "@/assets/hero-video.mp4";
 import customTravelers from "@/assets/custom-travelers.jpg";
@@ -9,6 +11,7 @@ import customTravelers from "@/assets/custom-travelers.jpg";
 
 
 const HeroSection = () => {
+  const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
   const phoneNumber = "+94771234567";
   const message = "Hello! I'm interested in booking a tour to Sri Lanka.";
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
@@ -29,15 +32,21 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 mt-3">
         <div className="text-center max-w-3xl mx-auto">
-          {/* Location Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary/90 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
-            <MapPin className="h-3.5 w-3.5 text-primary-foreground" />
-            <span className="text-xs text-primary-foreground font-medium">
-              Sigiriya • Ella • Galle • Kandy • Mirissa
+          {/* Quick Transfer Button */}
+          <button
+            onClick={() => setIsTransferModalOpen(true)}
+            className="group inline-flex items-center gap-2.5 bg-accent/90 hover:bg-accent backdrop-blur-sm rounded-full px-5 py-2 mb-3 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/30 cursor-pointer"
+          >
+            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <Zap className="h-3.5 w-3.5 text-white" />
+            </div>
+            <span className="text-sm text-white font-semibold">
+              Quick Transfer Booking
             </span>
-          </div>
+            <ArrowRight className="h-3.5 w-3.5 text-white/80 group-hover:translate-x-0.5 transition-transform" />
+          </button>
 
           {/* Heading */}
           <h1 className="font-display text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
@@ -164,6 +173,12 @@ const HeroSection = () => {
 
         </div>
       </div>
+
+      {/* Quick Transfer Modal */}
+      <QuickTransferModal
+        open={isTransferModalOpen}
+        onOpenChange={setIsTransferModalOpen}
+      />
     </section>
   );
 };
