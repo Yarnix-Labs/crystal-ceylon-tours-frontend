@@ -11,6 +11,7 @@ import type { BlogPost } from "@/lib/data/blogPosts";
 import type { ThingToDo } from "@/lib/data/thingsToDo";
 import type { ContactMessage, ContactMessageResponse, SubscribePayload, SubscribeResponse } from "@/lib/data/contactus";
 import type { CreateBooking, CreateBookingResponse } from "@/lib/data/booking";
+import type { CreateCustomBookingPayload, CreateCustomBookingResponse } from "@/lib/data/customBooking";
 
 /** Public (approved) review for testimonials */
 export interface PublicReview {
@@ -328,6 +329,33 @@ export async function createBooking(
         console.error("❌ Error status:", error?.response?.status);
 
         // Log validation field errors if present
+        if (error?.response?.data?.error?.fields) {
+            console.error("❌ Validation field errors:", JSON.stringify(error.response.data.error.fields, null, 2));
+        }
+
+        throw error;
+    }
+}
+
+export async function createCustomBooking(
+    payload: CreateCustomBookingPayload
+): Promise<CreateCustomBookingResponse> {
+    try {
+        console.log("📤 Submitting custom booking inquiry to:", ENDPOINTS.createCustomBooking);
+        console.log("📤 Payload:", JSON.stringify(payload, null, 2));
+
+        const { data } = await axiosInstance.post<CreateCustomBookingResponse>(
+            ENDPOINTS.createCustomBooking,
+            payload
+        );
+
+        console.log("✅ Custom booking inquiry submitted successfully:", data);
+        return data;
+    } catch (error: any) {
+        console.error("❌ Error submitting custom booking inquiry:", error);
+        console.error("❌ Error response:", error?.response?.data);
+        console.error("❌ Error status:", error?.response?.status);
+
         if (error?.response?.data?.error?.fields) {
             console.error("❌ Validation field errors:", JSON.stringify(error.response.data.error.fields, null, 2));
         }
