@@ -4,6 +4,8 @@ import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import QuickTransferModal from "@/components/QuickTransferModal";
+import TripAdvisorRatedBadge from "./TripAdvisorRatedBadge";
+
 
 import heroVideo from "@/assets/hero-video.mp4";
 import customTravelers from "@/assets/custom-travelers.jpg";
@@ -168,6 +170,16 @@ const HeroSection = () => {
                 </div>
               </div>
             </Link>
+          </div>
+
+          {/* TripAdvisor Rated Badge - Desktop Floating */}
+          <div className="hidden lg:block absolute -left-12 bottom-0 z-20 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+            <TripAdvisorRatedBadge />
+          </div>
+
+          {/* TripAdvisor Rated Badge - Mobile/Tablet Centered */}
+          <div className="lg:hidden mt-8 flex justify-center animate-fade-in" style={{ animationDelay: '1.2s' }}>
+            <TripAdvisorRatedBadge />
           </div>
 
 
