@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
+import TripAdvisorRatedBadge from "./TripAdvisorRatedBadge";
+
 
 
 
@@ -32,6 +34,9 @@ const Footer = () => {
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors" aria-label="YouTube">
                 <Youtube className="h-5 w-5" />
               </a>
+            </div>
+            <div className="pt-4">
+              <TripAdvisorRatedBadge />
             </div>
           </div>
 
@@ -88,6 +93,9 @@ const Footer = () => {
               <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors" aria-label="YouTube">
                 <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
+            </div>
+            <div className="pt-4">
+              <TripAdvisorRatedBadge />
             </div>
           </div>
 
