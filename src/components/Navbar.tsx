@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo.png";
 import whatsappIcon from "@/assets/whatsapp-icon.png";
+import TripAdvisorSocialWidget from "./TripAdvisorSocialWidget";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -153,6 +154,11 @@ const Navbar = () => {
 
               {/* Social Icons */}
               <div className="flex items-center gap-1.5">
+                {/* TripAdvisor Social Button */}
+                <div className="mr-0.5">
+                  <TripAdvisorSocialWidget />
+                </div>
+                
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white flex items-center justify-center transition-all">
                   <Facebook className="h-3.5 w-3.5" />
                 </a>

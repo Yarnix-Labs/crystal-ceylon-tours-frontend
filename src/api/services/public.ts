@@ -12,6 +12,8 @@ import type { ThingToDo } from "@/lib/data/thingsToDo";
 import type { ContactMessage, ContactMessageResponse, SubscribePayload, SubscribeResponse } from "@/lib/data/contactus";
 import type { CreateBooking, CreateBookingResponse } from "@/lib/data/booking";
 import type { CreateCustomBookingPayload, CreateCustomBookingResponse } from "@/lib/data/customBooking";
+import type { Vehicle } from "@/lib/data/vehicle";
+import type { QuickBookingPayload, QuickBookingResponse } from "@/lib/data/quickBooking";
 
 /** Public (approved) review for testimonials */
 export interface PublicReview {
@@ -360,6 +362,33 @@ export async function createCustomBooking(
             console.error("❌ Validation field errors:", JSON.stringify(error.response.data.error.fields, null, 2));
         }
 
+        throw error;
+    }
+}
+
+// --- Vehicles & Quick Bookings ---
+
+export async function getPublicVehicles(): Promise<Vehicle[]> {
+    try {
+        const { data } = await axiosInstance.get(ENDPOINTS.vehicles);
+        return data.data;
+    } catch (error) {
+        console.error("❌ Error fetching vehicles:", error);
+        throw error;
+    }
+}
+
+export async function createQuickBooking(payload: QuickBookingPayload): Promise<QuickBookingResponse> {
+    try {
+        console.log("📤 Submitting quick booking to:", ENDPOINTS.quickBookings);
+        const { data } = await axiosInstance.post<QuickBookingResponse>(
+            ENDPOINTS.quickBookings,
+            payload
+        );
+        console.log("✅ Quick booking submitted successfully:", data);
+        return data;
+    } catch (error: any) {
+        console.error("❌ Error submitting quick booking:", error);
         throw error;
     }
 }
