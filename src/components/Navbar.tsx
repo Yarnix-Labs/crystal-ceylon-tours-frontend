@@ -154,6 +154,11 @@ const Navbar = () => {
 
               {/* Social Icons */}
               <div className="flex items-center gap-1.5">
+                {/* TripAdvisor Social Button */}
+                <div className="mr-0.5">
+                  <TripAdvisorSocialWidget />
+                </div>
+                
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white flex items-center justify-center transition-all">
                   <Facebook className="h-3.5 w-3.5" />
                 </a>
@@ -166,11 +171,6 @@ const Navbar = () => {
                 <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#000000]/10 hover:bg-[#000000] text-[#000000] hover:text-white flex items-center justify-center transition-all">
                   <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 448 512"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
                 </a>
-                
-                {/* TripAdvisor Social Button */}
-                <div className="ml-0.5">
-                  <TripAdvisorSocialWidget />
-                </div>
               </div>
             </div>
           </div>
