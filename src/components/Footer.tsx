@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
 import TripAdvisorRatedBadge from "./TripAdvisorRatedBadge";
+import TripAdvisorLinkingWidget from "./TripAdvisorLinkingWidget";
 
 
 
@@ -14,9 +15,9 @@ const Footer = () => {
       
       <div className="container mx-auto px-4 py-10 sm:py-16">
         {/* Desktop: 4 columns side by side | Mobile: company info on top, then 3 link columns */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-10">
+        <div className="hidden lg:grid lg:grid-cols-12 gap-6">
           {/* Company Info */}
-          <div className="space-y-6">
+          <div className="col-span-3 space-y-6">
             <Link to="/" className="flex items-center gap-3">
               <img src={logo} alt="Crystal Ceylon" className="h-16 w-auto bg-white rounded-lg p-1" />
             </Link>
@@ -35,13 +36,10 @@ const Footer = () => {
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
-            <div className="pt-4">
-              <TripAdvisorRatedBadge />
-            </div>
           </div>
 
           {/* Company */}
-          <div>
+          <div className="col-span-2">
             <h3 className="font-display text-lg font-semibold text-white mb-6">Company</h3>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-footer-foreground/80 hover:text-primary transition-colors">About Us</Link></li>
@@ -51,7 +49,7 @@ const Footer = () => {
           </div>
 
           {/* Explore */}
-          <div>
+          <div className="col-span-2">
             <h3 className="font-display text-lg font-semibold text-white mb-6">Explore</h3>
             <ul className="space-y-3">
               <li><Link to="/tour-packages" className="text-footer-foreground/80 hover:text-primary transition-colors">Tour Packages</Link></li>
@@ -61,7 +59,7 @@ const Footer = () => {
           </div>
 
           {/* Follow Us */}
-          <div>
+          <div className="col-span-2">
             <h3 className="font-display text-lg font-semibold text-white mb-6">Follow Us</h3>
             <ul className="space-y-3">
               <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">Facebook</a></li>
@@ -69,6 +67,13 @@ const Footer = () => {
               <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">TikTok</a></li>
               <li><a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">Pinterest</a></li>
             </ul>
+          </div>
+
+          {/* Widget */}
+          <div className="col-span-3">
+            <h3 className="font-display text-lg font-semibold text-white mb-6">Reviews</h3>
+            <TripAdvisorRatedBadge />
+            <TripAdvisorLinkingWidget />
           </div>
         </div>
 
@@ -93,9 +98,6 @@ const Footer = () => {
               <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-colors" aria-label="YouTube">
                 <Youtube className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
-            </div>
-            <div className="pt-4">
-              <TripAdvisorRatedBadge />
             </div>
           </div>
 
@@ -130,6 +132,15 @@ const Footer = () => {
                 <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">TikTok</a></li>
                 <li><a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">Pinterest</a></li>
               </ul>
+            </div>
+          </div>
+
+          {/* Widget - Mobile */}
+          <div className="mt-8 sm:mt-10 pt-8 border-t border-white/10">
+            <h3 className="font-display text-xs sm:text-sm font-bold text-white uppercase tracking-wider mb-4 sm:mb-5 text-center sm:text-left">Reviews</h3>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start sm:justify-start gap-4">
+              <TripAdvisorRatedBadge />
+              <TripAdvisorLinkingWidget />
             </div>
           </div>
         </div>
