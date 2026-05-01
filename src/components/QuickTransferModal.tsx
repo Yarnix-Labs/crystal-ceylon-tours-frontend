@@ -324,8 +324,25 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
                 Vehicle Type
               </label>
               <Select value={vehicleType} onValueChange={setVehicleType}>
-                <SelectTrigger className="h-11 bg-muted/20 border-border/40 focus:bg-white rounded-xl">
-                  <SelectValue placeholder={isLoadingVehicles ? "Loading vehicles..." : "Select vehicle"} />
+                <SelectTrigger className="h-14 bg-muted/20 border-border/40 focus:bg-white rounded-xl">
+                  <SelectValue placeholder={isLoadingVehicles ? "Loading vehicles..." : "Select vehicle"}>
+                    {(() => {
+                      const selected = vehicles.find(v => v.id.toString() === vehicleType);
+                      if (!selected) return null;
+                      return (
+                        <div className="flex items-center gap-3">
+                          {selected.images?.[0] && (
+                            <img
+                              src={selected.images[0]}
+                              alt={selected.type}
+                              className="w-8 h-8 rounded-md object-cover"
+                            />
+                          )}
+                          <span>{selected.type} ({selected.passengers} pax)</span>
+                        </div>
+                      );
+                    })()}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {isLoadingVehicles ? (
@@ -338,13 +355,20 @@ const QuickTransferModal: React.FC<QuickTransferModalProps> = ({
                     </div>
                   ) : (
                     vehicles.map((v) => (
-                      <SelectItem key={v.id.toString()} value={v.id.toString()}>
-                        <span className="flex items-center gap-2">
-                          {v.type}
-                          <span className="text-muted-foreground text-xs">
-                            ({v.model} — Max {v.passengers})
-                          </span>
-                        </span>
+                      <SelectItem key={v.id.toString()} value={v.id.toString()} className="h-16">
+                        <div className="flex items-center gap-3 py-1">
+                          {v.images?.[0] && (
+                            <img
+                              src={v.images[0]}
+                              alt={v.type}
+                              className="w-10 h-10 rounded-md object-cover flex-shrink-0"
+                            />
+                          )}
+                          <div className="flex flex-col">
+                            <span className="font-medium">{v.type}</span>
+                            <span className="text-xs text-muted-foreground">{v.passengers} passengers</span>
+                          </div>
+                        </div>
                       </SelectItem>
                     ))
                   )}

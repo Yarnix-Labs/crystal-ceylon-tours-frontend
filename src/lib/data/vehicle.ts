@@ -2,6 +2,7 @@ export interface Vehicle {
     id: number;
     name: string;
     type: string;
+    price: number;
     model: string;
     passengers: number;
     features: string[];

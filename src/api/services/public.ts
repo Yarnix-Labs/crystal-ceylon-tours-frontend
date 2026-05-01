@@ -20,11 +20,17 @@ export interface PublicReview {
     id: number | string;
     name?: string;
     customerName?: string;
+    email?: string;
     rating: number;
     title?: string;
     comment: string;
+    imageUrl?: string;
     tourName?: string;
+    tourType?: string;
+    status?: string;
+    location?: string;
     createdAt?: string;
+    updatedAt?: string;
     image?: string;
     customerImage?: string;
 }
@@ -168,7 +174,7 @@ export async function getPublicReviewsList(page: number = 1): Promise<ReviewList
         raw.items = raw.items.map((r: PublicReview) => ({
             ...r,
             name: r.name ?? r.customerName ?? "",
-            image: r.image ?? r.customerImage ?? "",
+            image: r.imageUrl ?? r.image ?? r.customerImage ?? "",
         }));
     }
     return raw;

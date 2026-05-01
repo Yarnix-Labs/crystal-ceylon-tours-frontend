@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import {
   createCustomBooking,
-  getPublicDestinationsList,
-  getPublicThingsToDoList,
+  getPublicVehicles,
 } from "@/api/services/public";
+import { Vehicle } from "@/lib/data/vehicle";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
@@ -27,69 +27,30 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { format } from "date-fns";
 import {
-  MapPin,
-  Plus,
-  X,
   Calendar as CalendarIcon,
   Users,
   Clock,
-  Plane,
   Send,
   Check,
-  ChevronsUpDown,
+  Car,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import packagesHero from "@/assets/packages-hero.jpg";
 
-/** Shape of a destination option fetched from the API */
-interface ApiDestination {
-  id: number;
-  title: string;
-}
 
-/** Shape of an activity option fetched from the API */
-interface ApiActivity {
-  id: number;
-  title: string;
-}
-
-/** A destination the user has added to their itinerary */
-interface DestinationEntry {
-  id: string;          // local unique key (Date.now)
-  destinationId: number; // real backend ID
-  name: string;
-  days: number;
-}
 
 const CustomPackage = () => {
   // ── API data ──────────────────────────────────────────────────────────────
-  const [apiDestinations, setApiDestinations] = useState<ApiDestination[]>([]);
-  const [apiActivities, setApiActivities] = useState<ApiActivity[]>([]);
+  const [apiVehicles, setApiVehicles] = useState<Vehicle[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [destResult, activResult] = await Promise.all([
-          getPublicDestinationsList(1),
-          getPublicThingsToDoList(1),
-        ]);
-        setApiDestinations(
-          (destResult.items ?? []).map((d) => ({ id: d.id, title: d.title }))
-        );
-        setApiActivities(
-          (activResult.items ?? []).map((a) => ({ id: Number(a.id), title: a.title }))
-        );
+        const vehiclesResult = await getPublicVehicles();
+        setApiVehicles(vehiclesResult || []);
       } catch {
         // Non-blocking: fallback to empty lists
       } finally {
@@ -100,15 +61,12 @@ const CustomPackage = () => {
   }, []);
 
   // ── Form state ────────────────────────────────────────────────────────────
-  const [destinations, setDestinations] = useState<DestinationEntry[]>([]);
-  const [currentDestination, setCurrentDestination] = useState("");
-  const [currentDestinationId, setCurrentDestinationId] = useState<number | null>(null);
-  const [currentDays, setCurrentDays] = useState(1);
-  const [comboOpen, setComboOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
+  const [numberOfDays, setNumberOfDays] = useState("1");
   const [travelers, setTravelers] = useState("2");
+  const [country, setCountry] = useState("");
+  const [vehicleId, setVehicleId] = useState<string>("");
 
-  const [selectedActivityIds, setSelectedActivityIds] = useState<number[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -117,52 +75,8 @@ const CustomPackage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const addDestination = () => {
-    if (currentDestination.trim() && currentDestinationId !== null) {
-      setDestinations([
-        ...destinations,
-        {
-          id: Date.now().toString(),
-          destinationId: currentDestinationId,
-          name: currentDestination.trim(),
-          days: currentDays,
-        },
-      ]);
-      setCurrentDestination("");
-      setCurrentDestinationId(null);
-      setCurrentDays(1);
-      setComboOpen(false);
-    }
-  };
-
-  const removeDestination = (id: string) => {
-    setDestinations(destinations.filter((d) => d.id !== id));
-  };
-
-  const toggleActivity = (activityId: number) => {
-    setSelectedActivityIds((prev) =>
-      prev.includes(activityId)
-        ? prev.filter((id) => id !== activityId)
-        : [...prev, activityId]
-    );
-  };
-
-  const totalDays = destinations.reduce((sum, d) => sum + d.days, 0);
-
   const generateWhatsAppMessage = () => {
-    const destinationsList = destinations
-      .map((d) => `• ${d.name} (${d.days} ${d.days === 1 ? "day" : "days"})`)
-      .join("\n");
-
-    const selectedActivityTitles = apiActivities
-      .filter((a) => selectedActivityIds.includes(a.id))
-      .map((a) => a.title);
-    const activitiesList =
-      selectedActivityTitles.length > 0
-        ? selectedActivityTitles.join(", ")
-        : "Not specified";
-
-
+    const selectedVehicle = apiVehicles.find(v => v.id.toString() === vehicleId);
 
     const message = `
 🌴 *CUSTOM TOUR PACKAGE REQUEST*
@@ -172,14 +86,12 @@ Name: ${name}
 Email: ${email}
 Phone: ${phone}
 
-📍 *Destinations:*
-${destinationsList || "Not specified"}
-
 📅 *Trip Details:*
 • Start Date: ${startDate ? format(startDate, "PPP") : "Flexible"}
-• Duration: ${totalDays} ${totalDays === 1 ? "day" : "days"}
-🎯 *Activities:*
-${activitiesList}
+• Duration: ${numberOfDays} ${parseInt(numberOfDays) === 1 ? "day" : "days"}
+• Country: ${country || "Not specified"}
+• Vehicle: ${selectedVehicle ? selectedVehicle.type : "Not specified"}
+• Travelers: ${travelers}
 
 📝 *Special Requests:*
 ${specialRequests || "None"}
@@ -191,7 +103,7 @@ Looking forward to your response!
   };
 
   const handleSubmit = async () => {
-    if (!name.trim() || !email.trim() || destinations.length === 0) {
+    if (!name.trim() || !email.trim() || !country.trim() || !vehicleId || !startDate) {
       return;
     }
 
@@ -201,14 +113,15 @@ Looking forward to your response!
     });
     try {
       await createCustomBooking({
-        destinations: destinations.map((d) => d.destinationId),
-        startDate: startDate ? startDate.toISOString().split("T")[0] : "",
-        travelers: parseInt(travelers) || 1,
-        activities: selectedActivityIds,
         fullName: name.trim(),
         email: email.trim(),
         phoneNumber: phone.trim(),
         whatsappNumber: (whatsapp || phone).trim(),
+        country: country.trim(),
+        vehicleId: parseInt(vehicleId),
+        numberOfDays: parseInt(numberOfDays),
+        startDate: startDate ? startDate.toISOString().split("T")[0] : "",
+        travelers: parseInt(travelers) || 1,
         specialRequests: specialRequests.trim() || undefined,
       });
 
@@ -232,7 +145,11 @@ Looking forward to your response!
   };
 
   const isFormValid =
-    name.trim() && email.trim() && destinations.length > 0 && !!startDate;
+    name.trim() && 
+    email.trim() && 
+    !!startDate && 
+    country.trim() && 
+    vehicleId;
 
   return (
     <div className="min-h-screen bg-background">
@@ -240,7 +157,7 @@ Looking forward to your response!
 
       <PageHero
         title="Create Your Dream Tour"
-        subtitle="Design your perfect Sri Lanka adventure from scratch - choose destinations, activities, and let us handle the rest"
+        subtitle="Plan your perfect Sri Lanka journey with ease - tell us your preferences and we'll handle the rest"
         backgroundImage={packagesHero}
         breadcrumb="Custom Package"
       />
@@ -248,151 +165,11 @@ Looking forward to your response!
       <section className="py-16 lg:py-20 bg-muted/40">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Step 1: Destinations */}
+            {/* Step 1: Trip Details */}
             <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                   1
-                </div>
-                <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-                  Choose Your Destinations
-                </h2>
-              </div>
-
-              {/* Added destinations */}
-              {destinations.length > 0 && (
-                <div className="space-y-3 mb-6">
-                  {destinations.map((dest, index) => (
-                    <div
-                      key={dest.id}
-                      className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 bg-secondary/50 rounded-xl p-3 sm:p-4 animate-fade-in"
-                    >
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-semibold text-xs sm:text-sm shrink-0">
-                        {index + 1}
-                      </div>
-                      <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-primary hidden sm:block" />
-                      <div className="flex-1 min-w-0">
-                        <span className="font-medium text-foreground text-sm sm:text-base truncate block">
-                          {dest.name}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-background rounded-lg px-2 sm:px-3 py-1 sm:py-1.5">
-                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
-                        <span className="text-xs sm:text-sm font-medium">
-                          {dest.days}d
-                        </span>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeDestination(dest.id)}
-                        className="h-7 w-7 sm:h-8 sm:w-8 text-muted-foreground hover:text-destructive shrink-0"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  <div className="flex items-center justify-between pt-2 border-t border-border">
-                    <span className="text-sm text-muted-foreground">
-                      Total Duration
-                    </span>
-                    <span className="font-bold text-primary">
-                      {totalDays} {totalDays === 1 ? "Day" : "Days"}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {/* Add destination form */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex-1">
-                  <Popover open={comboOpen} onOpenChange={setComboOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={comboOpen}
-                        className="w-full justify-between h-12"
-                      >
-                        {currentDestination || "Select or type destination..."}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0" align="start">
-                      <Command>
-                        <CommandInput
-                          placeholder="Search destination..."
-                          value={currentDestination}
-                          onValueChange={setCurrentDestination}
-                        />
-                        <CommandList>
-                          {dataLoading ? (
-                            <div className="p-3 text-sm text-muted-foreground text-center">Loading destinations…</div>
-                          ) : (
-                            <>
-                              <CommandEmpty>No destinations found.</CommandEmpty>
-                              <CommandGroup heading="Destinations">
-                                {apiDestinations
-                                  .filter((dest) =>
-                                    dest.title
-                                      .toLowerCase()
-                                      .includes(currentDestination.toLowerCase())
-                                  )
-                                  .map((dest) => (
-                                    <CommandItem
-                                      key={dest.id}
-                                      value={dest.title}
-                                      onSelect={() => {
-                                        setCurrentDestination(dest.title);
-                                        setCurrentDestinationId(dest.id);
-                                        setComboOpen(false);
-                                      }}
-                                    >
-                                      <MapPin className="mr-2 h-4 w-4" />
-                                      {dest.title}
-                                    </CommandItem>
-                                  ))}
-                              </CommandGroup>
-                            </>
-                          )}
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                <div className="w-full sm:w-32">
-                  <Select
-                    value={currentDays.toString()}
-                    onValueChange={(v) => setCurrentDays(parseInt(v))}
-                  >
-                    <SelectTrigger className="h-12">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                        <SelectItem key={d} value={d.toString()}>
-                          {d} {d === 1 ? "day" : "days"}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button
-                  onClick={addDestination}
-                  disabled={!currentDestination.trim() || currentDestinationId === null}
-                  className="h-12 gap-2"
-                >
-                  <Plus className="h-4 w-4" />
-                  Add
-                </Button>
-              </div>
-            </div>
-
-            {/* Step 2: Trip Details */}
-            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
-              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
-                  2
                 </div>
                 <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
                   Trip Details
@@ -428,6 +205,24 @@ Looking forward to your response!
                   </Popover>
                 </div>
 
+                {/* Duration */}
+                <div className="space-y-2">
+                  <Label>Duration (Days)</Label>
+                  <Select value={numberOfDays} onValueChange={setNumberOfDays}>
+                    <SelectTrigger className="h-12">
+                      <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30].map((d) => (
+                        <SelectItem key={d} value={d.toString()}>
+                          {d} {d === 1 ? "Day" : "Days"}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Number of Travelers */}
                 <div className="space-y-2">
                   <Label>Number of Travelers</Label>
@@ -446,65 +241,73 @@ Looking forward to your response!
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Country */}
+                <div className="space-y-2">
+                  <Label htmlFor="country">Your Country</Label>
+                  <Input
+                    id="country"
+                    placeholder="e.g. United Kingdom"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    className="h-12"
+                  />
+                </div>
+
+                {/* Vehicle Selection */}
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Preferred Vehicle</Label>
+                  <Select value={vehicleId} onValueChange={setVehicleId}>
+                    <SelectTrigger className="h-14">
+                      <Car className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <SelectValue placeholder="Select a vehicle...">
+                        {(() => {
+                          const selected = apiVehicles.find(v => v.id.toString() === vehicleId);
+                          if (!selected) return null;
+                          return (
+                            <div className="flex items-center gap-3">
+                              {selected.images?.[0] && (
+                                <img
+                                  src={selected.images[0]}
+                                  alt={selected.type}
+                                  className="w-8 h-8 rounded-md object-cover"
+                                />
+                              )}
+                              <span>{selected.type} ({selected.passengers} pax)</span>
+                            </div>
+                          );
+                        })()}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {apiVehicles.map((vehicle) => (
+                        <SelectItem key={vehicle.id} value={vehicle.id.toString()} className="h-16">
+                          <div className="flex items-center gap-3 py-1">
+                            {vehicle.images?.[0] && (
+                              <img
+                                src={vehicle.images[0]}
+                                alt={vehicle.type}
+                                className="w-10 h-10 rounded-md object-cover flex-shrink-0"
+                              />
+                            )}
+                            <div className="flex flex-col">
+                              <span className="font-medium">{vehicle.type}</span>
+                              <span className="text-xs text-muted-foreground">{vehicle.passengers} passengers</span>
+                            </div>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
 
-            {/* Step 3: Activities */}
+            {/* Step 2: Contact Details */}
             <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
               <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
-                  3
-                </div>
-                <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-                  Activities & Experiences
-                </h2>
-              </div>
-
-              <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-4">
-                Select activities you'd like to include (optional)
-              </p>
-
-              {dataLoading ? (
-                <div className="text-sm text-muted-foreground">Loading activities...</div>
-              ) : apiActivities.length === 0 ? (
-                <div className="text-sm text-muted-foreground">No activities available.</div>
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {apiActivities.map((activity) => (
-                    <button
-                      key={activity.id}
-                      onClick={() => toggleActivity(activity.id)}
-                      className={cn(
-                        "flex items-center gap-2 p-3 rounded-xl border-2 transition-all text-left",
-                        selectedActivityIds.includes(activity.id)
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border hover:border-primary/50"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
-                          selectedActivityIds.includes(activity.id)
-                            ? "border-primary bg-primary"
-                            : "border-muted-foreground"
-                        )}
-                      >
-                        {selectedActivityIds.includes(activity.id) && (
-                          <Check className="h-3 w-3 text-primary-foreground" />
-                        )}
-                      </div>
-                      <span className="text-sm font-medium">{activity.title}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Step 4: Contact Details */}
-            <div className="bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-6 lg:p-8 shadow-lg shadow-black/[0.03] border border-white/60 ring-1 ring-border/30 mb-8">
-              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
-                  4
+                  2
                 </div>
                 <h2 className="font-display text-xl sm:text-2xl font-bold text-foreground">
                   Your Contact Details
@@ -580,18 +383,11 @@ Looking forward to your response!
                 Package Summary
               </h3>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
-                <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
-                  <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-foreground">
-                    {destinations.length}
-                  </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Destinations</div>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
                 <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
                   <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
                   <div className="text-xl sm:text-2xl font-bold text-foreground">
-                    {totalDays}
+                    {numberOfDays}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground">Days</div>
                 </div>
@@ -603,11 +399,11 @@ Looking forward to your response!
                   <div className="text-xs sm:text-sm text-muted-foreground">Travelers</div>
                 </div>
                 <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
-                  <Plane className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-foreground">
-                    {selectedActivityIds.length}
+                  <Car className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
+                  <div className="text-xl sm:text-2xl font-bold text-foreground text-xs sm:text-sm truncate px-1">
+                    {apiVehicles.find(v => v.id.toString() === vehicleId)?.type || "Not selected"}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Activities</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Vehicle</div>
                 </div>
               </div>
 
