@@ -410,6 +410,17 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
                 )}
               />
 
+              {/* Estimated Price Display */}
+              <div className="space-y-2">
+                <FormLabel className="flex items-center gap-2 text-foreground/90 font-bold text-sm">
+                  <DollarSign className="h-4 w-4 text-primary" />
+                  Estimated Price
+                </FormLabel>
+                <div className="h-12 bg-primary/5 border border-primary/20 rounded-xl flex items-center px-4 font-bold text-xl text-primary">
+                  ${totalPrice?.toLocaleString() || "0.00"}
+                </div>
+              </div>
+
             </div>
 
             {/* Message */}
