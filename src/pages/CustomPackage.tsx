@@ -90,7 +90,7 @@ Phone: ${phone}
 • Start Date: ${startDate ? format(startDate, "PPP") : "Flexible"}
 • Duration: ${numberOfDays} ${parseInt(numberOfDays) === 1 ? "day" : "days"}
 • Country: ${country || "Not specified"}
-• Vehicle: ${selectedVehicle ? selectedVehicle.name : "Not specified"}
+• Vehicle: ${selectedVehicle ? selectedVehicle.type : "Not specified"}
 • Travelers: ${travelers}
 
 📝 *Special Requests:*
@@ -258,14 +258,43 @@ Looking forward to your response!
                 <div className="space-y-2 md:col-span-2">
                   <Label>Preferred Vehicle</Label>
                   <Select value={vehicleId} onValueChange={setVehicleId}>
-                    <SelectTrigger className="h-12">
+                    <SelectTrigger className="h-14">
                       <Car className="mr-2 h-4 w-4 text-muted-foreground" />
-                      <SelectValue placeholder="Select a vehicle..." />
+                      <SelectValue placeholder="Select a vehicle...">
+                        {(() => {
+                          const selected = apiVehicles.find(v => v.id.toString() === vehicleId);
+                          if (!selected) return null;
+                          return (
+                            <div className="flex items-center gap-3">
+                              {selected.images?.[0] && (
+                                <img
+                                  src={selected.images[0]}
+                                  alt={selected.type}
+                                  className="w-8 h-8 rounded-md object-cover"
+                                />
+                              )}
+                              <span>{selected.type} ({selected.passengers} pax)</span>
+                            </div>
+                          );
+                        })()}
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       {apiVehicles.map((vehicle) => (
-                        <SelectItem key={vehicle.id} value={vehicle.id.toString()}>
-                          {vehicle.name} ({vehicle.passengers} pax)
+                        <SelectItem key={vehicle.id} value={vehicle.id.toString()} className="h-16">
+                          <div className="flex items-center gap-3 py-1">
+                            {vehicle.images?.[0] && (
+                              <img
+                                src={vehicle.images[0]}
+                                alt={vehicle.type}
+                                className="w-10 h-10 rounded-md object-cover flex-shrink-0"
+                              />
+                            )}
+                            <div className="flex flex-col">
+                              <span className="font-medium">{vehicle.type}</span>
+                              <span className="text-xs text-muted-foreground">{vehicle.passengers} passengers</span>
+                            </div>
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -372,7 +401,7 @@ Looking forward to your response!
                 <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
                   <Car className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
                   <div className="text-xl sm:text-2xl font-bold text-foreground text-xs sm:text-sm truncate px-1">
-                    {apiVehicles.find(v => v.id.toString() === vehicleId)?.name || "Not selected"}
+                    {apiVehicles.find(v => v.id.toString() === vehicleId)?.type || "Not selected"}
                   </div>
                   <div className="text-xs sm:text-sm text-muted-foreground">Vehicle</div>
                 </div>
