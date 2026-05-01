@@ -85,7 +85,8 @@ const TourPackages = () => {
                     <Skeleton className="h-4 w-24 mb-2" />
                     <Skeleton className="h-6 w-3/4 mb-2.5" />
                     <Skeleton className="h-4 w-full mb-6" />
-                    <Skeleton className="h-4 w-20 mt-auto" />
+                    <Skeleton className="h-8 w-24 mb-4 mt-auto" />
+                    <Skeleton className="h-4 w-20" />
                   </div>
                 </div>
               ))
@@ -127,6 +128,13 @@ const TourPackages = () => {
                     <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed font-normal mb-6">
                       {pkg.shortDescription}
                     </p>
+
+                    <div className="flex items-baseline gap-1.5 mt-auto mb-4">
+                      <span className="text-xs text-muted-foreground font-medium">From</span>
+                      <span className="text-xl sm:text-2xl font-bold text-primary">
+                        ${pkg.price?.toLocaleString() || "0"}
+                      </span>
+                    </div>
 
                     {/* CTA */}
                     <div className="mt-auto flex items-center justify-between text-primary font-semibold text-sm pt-4 border-t border-border/40">
