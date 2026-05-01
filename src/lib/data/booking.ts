@@ -1,6 +1,8 @@
 export interface CreateBooking {
     id?: number;
     tourPackageId: number;
+    vehicleId: number;
+    price: number;
     name: string;
     country: string;
     phoneNumber: string;
@@ -9,7 +11,7 @@ export interface CreateBooking {
     whatsapp: string;
     clientMessage: string;
     createdAt?: string;
-    arrivalDate:string;
+    arrivalDate: string;
 }
 
 export interface CreateBookingResponse {

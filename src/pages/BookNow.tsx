@@ -83,6 +83,7 @@ const BookNow = () => {
                 duration={isTour ? tour?.packageDuration : activity?.duration}
                 capacity={isTour ? `${tour?.minPeople} Persons` : "Standard"}
                 referenceNo={isTour ? tour?.tourRefNumber : activity?.id?.toString()}
+                basePrice={isTour ? tour?.price : (activity?.price ? parseFloat(activity.price.replace(/[^0-9.]/g, '')) : 0)}
               />
             </div>
           )}
