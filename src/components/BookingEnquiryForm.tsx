@@ -59,17 +59,17 @@ interface BookingEnquiryFormProps {
   capacity?: string;
   basePrice?: number;
 }
-
 const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
   tourId,
   tourName,
   referenceNo,
   duration,
   capacity,
-  basePrice,
+  basePrice = 0,
 }) => {
   const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
   const [isLoadingVehicles, setIsLoadingVehicles] = React.useState(true);
+  
   const { toast } = useToast();
   const createBookingMutation = useCreateBookingMutation();
 
@@ -88,6 +88,10 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
       message: "",
     },
   });
+
+  const selectedVehicleId = form.watch("vehicleId");
+  const selectedVehicle = vehicles.find(v => v.id.toString() === selectedVehicleId);
+  const totalPrice = selectedVehicle ? basePrice * (selectedVehicle.price || 1) : basePrice;
 
   React.useEffect(() => {
     const fetchVehicles = async () => {
@@ -110,7 +114,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
       await createBookingMutation.mutateAsync({
         tourPackageId: tourId ? Number(tourId) : 0,
         vehicleId: parseInt(values.vehicleId),
-        price: basePrice || 0,
+        price: totalPrice,
         name: values.fullName,
         email: values.email,
         phoneNumber: values.contactNo,
@@ -182,7 +186,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Est. Price</div>
-            <div className="text-sm font-bold text-primary">${basePrice?.toLocaleString() || "0.00"}</div>
+            <div className="text-sm font-bold text-primary">${totalPrice?.toLocaleString() || "0.00"}</div>
           </div>
         </div>
       </div>
