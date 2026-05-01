@@ -48,9 +48,10 @@ const TestimonialsSection = () => {
     name: rev.name || rev.customerName || "Satisfied Traveler",
     location: rev.location || "Sri Lanka",
     rating: rev.rating || 5,
+    title: rev.title || "",
     text: rev.comment || rev.text || "",
     tourType: rev.tourType || rev.tourName || "Featured Tour",
-    avatar: rev.avatar || rev.image || rev.customerImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+    avatar: rev.imageUrl || rev.avatar || rev.image || rev.customerImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
   }));
 
   // Auto-rotate testimonials
