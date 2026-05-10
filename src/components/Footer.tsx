@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
+import TripAdvisorLinkingWidget from "./TripAdvisorLinkingWidget";
+import TripAdvisorRatedBadge from "./TripAdvisorRatedBadge";
 
 
 
@@ -16,7 +18,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="Crystal Ceylon" className="h-16 w-auto bg-white rounded-lg p-1" />
+              <img src={logo} alt="Crystal Ceylon" className="h-20 w-auto" />
             </Link>
             <p className="text-footer-foreground/80 leading-relaxed">
               Discover the wonders of Sri Lanka with personalized private tours. 
@@ -55,15 +57,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Follow Us */}
+          {/* Reviews */}
           <div>
-            <h3 className="font-display text-lg font-semibold text-white mb-6">Follow Us</h3>
-            <ul className="space-y-3">
-              <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">Facebook</a></li>
-              <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">Instagram</a></li>
-              <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">TikTok</a></li>
-              <li><a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors">Pinterest</a></li>
-            </ul>
+            <h3 className="font-display text-lg font-semibold text-white mb-6">Reviews</h3>
+            <div className="flex flex-col gap-1 items-start">
+              <TripAdvisorRatedBadge />
+              <TripAdvisorLinkingWidget />
+            </div>
           </div>
         </div>
 
@@ -72,7 +72,7 @@ const Footer = () => {
           {/* Company Info - full width on top */}
           <div className="space-y-5 mb-8 sm:mb-10">
             <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="Crystal Ceylon" className="h-14 sm:h-16 w-auto bg-white rounded-lg p-1" />
+              <img src={logo} alt="Crystal Ceylon" className="h-16 sm:h-20 w-auto" />
             </Link>
             <p className="text-footer-foreground/80 text-sm sm:text-base leading-relaxed max-w-md">
               Discover the wonders of Sri Lanka with personalized private tours. 
@@ -113,15 +113,13 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Follow Us */}
+            {/* Reviews */}
             <div>
-              <h3 className="font-display text-xs sm:text-sm font-bold text-white uppercase tracking-wider mb-3 sm:mb-5">Follow Us</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">Facebook</a></li>
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">Instagram</a></li>
-                <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">TikTok</a></li>
-                <li><a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="text-footer-foreground/80 hover:text-primary transition-colors text-xs sm:text-sm">Pinterest</a></li>
-              </ul>
+              <h3 className="font-display text-xs sm:text-sm font-bold text-white uppercase tracking-wider mb-3 sm:mb-5">Reviews</h3>
+              <div className="flex flex-col gap-1 items-start">
+                <TripAdvisorRatedBadge />
+                <TripAdvisorLinkingWidget />
+              </div>
             </div>
           </div>
         </div>

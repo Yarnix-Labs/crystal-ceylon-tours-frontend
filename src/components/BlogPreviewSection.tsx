@@ -4,48 +4,7 @@ import { ArrowRight, Calendar, Clock, User, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBlogsList } from "@/hooks/use-public-api";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import galleImg from "@/assets/galle.jpg";
 
-const blogPosts = [
-  {
-    slug: "ultimate-guide-sri-lanka",
-    title: "The Ultimate Guide to Sri Lanka: Everything You Need to Know",
-    excerpt:
-      "From ancient ruins to pristine beaches, discover why Sri Lanka is the must-visit destination of 2026.",
-    image: sigiriyaImg,
-    author: "Chamara Fernando",
-    date: "Jan 28, 2026",
-    readTime: "12 min",
-    category: "Travel Guide",
-    featured: true,
-  },
-  {
-    slug: "hidden-gems-hill-country",
-    title: "10 Hidden Gems in Sri Lanka's Hill Country",
-    excerpt:
-      "Escape the crowds and discover secret waterfalls, charming villages, and breathtaking viewpoints.",
-    image: ellaImg,
-    author: "Nimal Silva",
-    date: "Jan 25, 2026",
-    readTime: "8 min",
-    category: "Destinations",
-    featured: false,
-  },
-  {
-    slug: "food-journey-colombo",
-    title: "A Food Lover's Journey Through Colombo",
-    excerpt:
-      "From street food to fine dining, explore the vibrant culinary scene of Sri Lanka's capital.",
-    image: galleImg,
-    author: "Priya Mendis",
-    date: "Jan 22, 2026",
-    readTime: "6 min",
-    category: "Food & Culture",
-    featured: false,
-  },
-];
 
 const BlogPreviewSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -65,10 +24,7 @@ const BlogPreviewSection = () => {
     featured: idx === 0
   }));
   
-  // Maintain exact count of 3 blogs
-  const displayBlogs = apiBlogs.length === 3 
-    ? apiBlogs 
-    : [...apiBlogs, ...blogPosts].slice(0, 3);
+  const displayBlogs = apiBlogs;
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -152,7 +108,7 @@ const BlogPreviewSection = () => {
                 <Skeleton className="w-full h-[190px] rounded-[28px]" />
               </div>
             </div>
-          ) : (
+          ) : displayBlogs.length > 0 ? (
           <>
             {/* Featured Post - Large Card */}
             <Link
@@ -267,6 +223,12 @@ const BlogPreviewSection = () => {
               ))}
             </div>
           </>
+          ) : (
+            <div className="lg:col-span-2 flex flex-col items-center justify-center py-16 text-muted-foreground text-center bg-white/50 backdrop-blur-sm rounded-[28px] border border-white/60">
+              <BookOpen className="h-12 w-12 mb-4 opacity-20" />
+              <p className="text-lg font-medium text-foreground">No stories published yet.</p>
+              <p className="text-sm mt-1">Check back soon for expert insights and travel tips.</p>
+            </div>
           )}
         </div>
 
