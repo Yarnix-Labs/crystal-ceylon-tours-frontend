@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -196,7 +195,6 @@ const TourPackages = () => {
 
       <Footer />
       <WhatsAppButton />
-      <ScrollToTop />
     </div>
   );
 };

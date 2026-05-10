@@ -18,6 +18,7 @@ import CustomPackage from "./pages/CustomPackage";
 import Gallery from "./pages/Gallery";
 import BookNow from "./pages/BookNow";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <ScrollToTop />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

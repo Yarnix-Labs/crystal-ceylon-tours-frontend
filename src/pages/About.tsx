@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import ScrollToTop from "@/components/ScrollToTop";
 import { Award, Users, Heart, Globe } from "lucide-react";
 import aboutHero from "@/assets/about-hero.jpg";
 
@@ -205,7 +204,6 @@ const About = () => {
 
       <Footer />
       <WhatsAppButton />
-      <ScrollToTop />
     </div>
   );
 };
