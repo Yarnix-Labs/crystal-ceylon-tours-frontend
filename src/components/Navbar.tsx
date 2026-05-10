@@ -77,94 +77,151 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Top info bar */}
       <div className={`transition-all duration-500 ease-in-out bg-white ${
-        isScrolled ? "max-h-0 opacity-0 overflow-hidden border-b-0" : "max-h-10 opacity-100 border-b border-border/30"
+        isScrolled ? "max-h-0 opacity-0 overflow-hidden border-b-0" : "max-h-12 opacity-100 border-b border-border/30"
       }`}>
-        <div className="px-2 sm:px-4 lg:px-8 bg-white">
-          <div className="flex items-center justify-between py-1.5 sm:py-2 text-[11px] sm:text-[13px] font-medium text-foreground/80 w-full min-h-[40px]">
-            {/* Left side info */}
-            <div className="hidden lg:flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5 text-primary" />
-                <span className="leading-none mt-0.5">Local Time: {formatTime(currentTime)}</span>
+        <div className="px-2 sm:px-4 lg:px-8 bg-white/80 backdrop-blur-md">
+          <div className="flex items-center justify-between py-1 sm:py-2 text-[10px] sm:text-[12px] font-medium text-foreground/80 w-full min-h-[36px] sm:min-h-[42px]">
+            {/* Left side info - Horizontal scroll on mobile */}
+            <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto scrollbar-hide pr-4 -mr-4 sm:mr-0 sm:pr-0">
+              <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Clock className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-primary" />
+                </div>
+                <span className="hidden sm:inline">Local Time:</span>
+                <span className="font-bold text-foreground">{formatTime(currentTime)}</span>
               </div>
               
-              <div className="h-3 w-px bg-border/80" />
+              <div className="h-4 w-px bg-border/60 shrink-0" />
               
-              <div className="flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5 text-primary" />
-                <span className="leading-none mt-0.5">Date: {formatDate(currentTime)}</span>
+              <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Calendar className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-primary" />
+                </div>
+                <span className="hidden sm:inline">Date:</span>
+                <span className="font-bold text-foreground">{formatDate(currentTime)}</span>
               </div>
 
-              <div className="h-3 w-px bg-border/80" />
+              <div className="h-4 w-px bg-border/60 shrink-0" />
 
-              <a href="mailto:info@crystalceylon.com" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-                <Mail className="h-3.5 w-3.5 text-primary" />
-                <span className="leading-none mt-0.5 text-foreground hover:text-primary transition-colors">info@crystalceylon.com</span>
+              <a href="mailto:crystalceylon76@gmail.com" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <Mail className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-accent" />
+                </div>
+                <span className="text-foreground group-hover:text-primary transition-colors">crystalceylon76@gmail.com</span>
               </a>
 
-              <div className="h-3 w-px bg-border/80" />
+              <div className="h-4 w-px bg-border/60 shrink-0 hidden sm:block" />
 
-              <a href="tel:+94771234567" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-                <Phone className="h-3.5 w-3.5 text-primary" />
-                <span className="leading-none mt-0.5 text-foreground hover:text-primary transition-colors">+94 77 123 4567</span>
+              <a href="tel:+94771234567" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors hidden sm:flex">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <Phone className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-accent" />
+                </div>
+                <span className="text-foreground group-hover:text-primary transition-colors">+94 77 123 4567</span>
               </a>
             </div>
 
             {/* Right side - language selector, flag and social icons */}
-            <div className="flex items-center gap-3 sm:gap-4 md:ml-auto">
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0 bg-white sm:bg-transparent pl-4 sm:pl-0 z-10">
               {/* Language Selector */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1.5 rounded-md hover:text-primary transition-colors ring-0 focus:ring-0 outline-none">
-                  <Globe className="h-3.5 w-3.5 text-primary" />
-                  <span className="font-semibold hidden sm:inline leading-none mt-0.5">{currentLanguage.code.toUpperCase()}</span>
-                  <ChevronDown className="h-3 w-3" />
+                <DropdownMenuTrigger className="flex items-center gap-1 sm:gap-1.5 rounded-full px-2 py-1 bg-muted/50 hover:bg-muted transition-colors ring-0 focus:ring-0 outline-none border border-border/40">
+                  <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary" />
+                  <span className="font-bold">{currentLanguage.code.toUpperCase()}</span>
+                  <ChevronDown className="h-2.5 w-2.5 opacity-50" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-border/50 backdrop-blur-xl">
                   {languages.map((lang) => (
                     <DropdownMenuItem
                       key={lang.code}
                       onClick={() => setCurrentLanguage(lang)}
-                      className={`flex items-center gap-2 cursor-pointer font-medium ${
-                        currentLanguage.code === lang.code ? "bg-accent/10 text-accent font-semibold" : ""
+                      className={`flex items-center gap-3 cursor-pointer py-2 px-3 rounded-lg my-0.5 mx-1 transition-all ${
+                        currentLanguage.code === lang.code ? "bg-primary/10 text-primary font-bold" : "hover:bg-muted"
                       }`}
                     >
-                      <span className="text-base">{lang.flag}</span>
-                      <span>{lang.name}</span>
+                      <span className="text-lg leading-none">{lang.flag}</span>
+                      <span className="text-xs">{lang.name}</span>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="h-3 w-px bg-border/80 hidden sm:block" />
+              <div className="h-4 w-px bg-border/60" />
 
-              {/* Currency Selector Dummy */}
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-primary transition-colors pt-0.5">
+              {/* Currency Selector (Static) */}
+              <div className="flex items-center gap-1 sm:gap-1.5 py-1">
                 <img 
                   src="https://flagcdn.com/w20/lk.png" 
-                  srcSet="https://flagcdn.com/w40/lk.png 2x" 
-                  width="18" 
+                  width="16" 
                   alt="Sri Lanka" 
-                  className="rounded-sm shadow-sm opacity-90"
+                  className="rounded-[2px] shadow-sm opacity-90"
                 />
-                <span className="font-semibold leading-none">LK</span>
+                <span className="font-bold">LKR</span>
               </div>
 
-              <div className="h-3 w-px bg-border/80 hidden sm:block" />
+              <div className="h-4 w-px bg-border/60 hidden sm:block" />
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-1.5">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white flex items-center justify-center transition-all">
-                  <Facebook className="h-3.5 w-3.5" />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#E1306C]/10 hover:bg-[#E1306C] text-[#E1306C] hover:text-white flex items-center justify-center transition-all">
-                  <Instagram className="h-3.5 w-3.5" />
-                </a>
-                <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#E60023]/10 hover:bg-[#E60023] text-[#E60023] hover:text-white flex items-center justify-center transition-all">
-                  <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256c0 105.57 66.08 195.04 159.03 234.61-2.18-19.66-4.14-49.87.86-71.11 4.53-19.14 29.15-120.35 29.15-120.35s-7.46-14.92-7.46-36.96c0-34.64 20.09-60.48 45.14-60.48 21.28 0 31.55 15.98 31.55 35.12 0 21.41-13.62 53.4-20.67 83.05-5.91 24.81 12.45 45.06 36.97 45.06 44.33 0 78.43-46.74 78.43-114.28 0-59.78-43-101.55-104.34-101.55-69.58 0-110.39 52.26-110.39 106.12 0 21.48 8.28 44.57 18.6 57.08 2.05 2.48 2.34 4.67 1.54 7.64-2.52 9.5-8.2 31.42-9.35 36.14-1.63 6.64-5.45 7.9-12.21 4.75-45.56-21.21-74.05-87.7-74.05-141.28 0-114.99 83.5-220.62 241.06-220.62 131.52 0 233.7 93.7 233.7 218.84 0 131.05-82.55 236.46-197.35 236.46-38.56 0-74.83-20.04-87.21-43.76 0 0-19.11 72.82-23.72 90.6-8.54 32.88-31.58 74.02-47.05 99.1A246.33 246.33 0 0 0 248 504c136.97 0 248-111.03 248-248S384.97 8 248 8z"/></svg>
-                </a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-[#000000]/10 hover:bg-[#000000] text-[#000000] hover:text-white flex items-center justify-center transition-all">
-                  <svg className="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 448 512"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
-                </a>
+              {/* Social Icons - Exact Image Match Style */}
+              <div className="flex items-center gap-2">
+                {[
+                  { 
+                    name: "tripadvisor", 
+                    bgColor: "bg-[#34E0A1]", 
+                    iconColor: "text-black", 
+                    link: "https://www.tripadvisor.com/Attraction_Review-g616035-d34041386-Reviews-Crystal_Ceylon_Tours-Ella_Uva_Province.html" 
+                  },
+                  { 
+                    name: "facebook", 
+                    bgColor: "bg-[#E7F3FF]", 
+                    iconColor: "text-[#1877F2]", 
+                    link: "https://facebook.com" 
+                  },
+                  { 
+                    name: "instagram", 
+                    bgColor: "bg-[#FFF0F5]", 
+                    iconColor: "text-[#E1306C]", 
+                    link: "https://instagram.com" 
+                  },
+                  { 
+                    name: "pinterest", 
+                    bgColor: "bg-[#FDECEC]", 
+                    iconColor: "text-[#E60023]", 
+                    link: "https://pinterest.com" 
+                  },
+                  { 
+                    name: "tiktok", 
+                    bgColor: "bg-[#EBEBEB]", 
+                    iconColor: "text-black", 
+                    link: "https://tiktok.com" 
+                  },
+                ].map((social, i) => (
+                  <a 
+                    key={i}
+                    href={social.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className={`w-7 h-7 sm:w-8 sm:h-8 ${social.name === 'tripadvisor' ? 'rounded-full' : 'rounded-xl'} ${social.bgColor} flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm ${social.iconColor}`}
+                  >
+                    {social.name === 'tripadvisor' && (
+                      <img 
+                        src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_logomark.svg" 
+                        alt="TripAdvisor"
+                        className="h-4 w-4 sm:h-5 sm:w-5"
+                      />
+                    )}
+                    {social.name === 'facebook' && (
+                      <Facebook className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                    )}
+                    {social.name === 'instagram' && (
+                      <Instagram className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
+                    )}
+                    {social.name === 'pinterest' && (
+                      <svg className="h-4 w-4 sm:h-4.5 sm:w-4.5" fill="currentColor" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256c0 105.57 66.08 195.04 159.03 234.61-2.18-19.66-4.14-49.87.86-71.11 4.53-19.14 29.15-120.35 29.15-120.35s-7.46-14.92-7.46-36.96c0-34.64 20.09-60.48 45.14-60.48 21.28 0 31.55 15.98 31.55 35.12 0 21.41-13.62 53.4-20.67 83.05-5.91 24.81 12.45 45.06 36.97 45.06 44.33 0 78.43-46.74 78.43-114.28 0-59.78-43-101.55-104.34-101.55-69.58 0-110.39 52.26-110.39 106.12 0 21.48 8.28 44.57 18.6 57.08 2.05 2.48 2.34 4.67 1.54 7.64-2.52 9.5-8.2 31.42-9.35 36.14-1.63 6.64-5.45 7.9-12.21 4.75-45.56-21.21-74.05-87.7-74.05-141.28 0-114.99 83.5-220.62 241.06-220.62 131.52 0 233.7 93.7 233.7 218.84 0 131.05-82.55 236.46-197.35 236.46-38.56 0-74.83-20.04-87.21-43.76 0 0-19.11 72.82-23.72 90.6-8.54 32.88-31.58 74.02-47.05 99.1A246.33 246.33 0 0 0 248 504c136.97 0 248-111.03 248-248S384.97 8 248 8z"/></svg>
+                    )}
+                    {social.name === 'tiktok' && (
+                      <svg className="h-4 w-4 sm:h-4.5 sm:w-4.5" fill="currentColor" viewBox="0 0 448 512"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
+                    )}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -312,9 +369,9 @@ const Navbar = () => {
                   <Phone className="h-4 w-4" />
                   <span>+94 77 123 4567</span>
                 </a>
-                <a href="mailto:info@crystalceylon.com" className="flex items-center gap-3 py-2 text-primary-foreground/80">
+                <a href="mailto:crystalceylon76@gmail.com" className="flex items-center gap-3 py-2 text-primary-foreground/80">
                   <Mail className="h-4 w-4" />
-                  <span>info@crystalceylon.com</span>
+                  <span>crystalceylon76@gmail.com</span>
                 </a>
               </div>
             </div>

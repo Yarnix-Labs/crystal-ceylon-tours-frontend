@@ -3,12 +3,18 @@ import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Button } from "@/components/ui/button";
-import { Award, Users, Heart, Globe, ArrowRight } from "lucide-react";
+import { Award, Users, Heart, Globe } from "lucide-react";
 import aboutHero from "@/assets/about-hero.jpg";
 
+import ammMalinga from "@/assets/aboutusimages/AMM Malinga(Travel Consultant).jpeg";
+import djAnanda from "@/assets/aboutusimages/DJ Ananda(Managing Director).jpeg";
+import jayaniApsara from "@/assets/aboutusimages/Jayani Apsara(Director).jpeg";
+import tharakaWalawage from "@/assets/aboutusimages/Tharaka Walawage(Managing Director).jpeg";
+import uduliAnjana from "@/assets/aboutusimages/Uduli Anjana(Travl Consultant).jpeg";
+import yasithNawanjana from "@/assets/aboutusimages/Yasith Nawanjana(IT Support System Admin).jpeg";
+
 const stats = [
-  { value: "15+", label: "Years Experience" },
+  { value: "4+", label: "Years Experience" },
   { value: "15,000+", label: "Happy Travelers" },
   { value: "50+", label: "Tour Packages" },
   { value: "98%", label: "Satisfaction Rate" },
@@ -38,10 +44,12 @@ const values = [
 ];
 
 const team = [
-  { name: "Chamara Fernando", role: "Founder & CEO", image: "CF" },
-  { name: "Priya Mendis", role: "Head of Operations", image: "PM" },
-  { name: "Nimal Silva", role: "Senior Tour Guide", image: "NS" },
-  { name: "Rohan Jayawardena", role: "Customer Experience", image: "RJ" },
+  { name: "Tharaka Walawage", role: "Managing Director", image: tharakaWalawage },
+  { name: "DJ Ananda", role: "Managing Director", image: djAnanda },
+  { name: "Jayani Apsara", role: "Director", image: jayaniApsara },
+  { name: "AMM Malinga", role: "Travel Consultant", image: ammMalinga },
+  { name: "Uduli Anjana", role: "Travel Consultant", image: uduliAnjana },
+  { name: "Yasith Nawanjana", role: "IT Support System Admin", image: yasithNawanjana },
 ];
 
 const About = () => {
@@ -51,7 +59,7 @@ const About = () => {
       
       <PageHero
         title="About Crystal Ceylon"
-        subtitle="Your trusted partner for authentic Sri Lankan travel experiences since 2010"
+        subtitle="Your trusted partner for authentic Sri Lankan travel experiences since 2022"
         backgroundImage={aboutHero}
         breadcrumb="About Us"
       />
@@ -88,7 +96,7 @@ const About = () => {
             </h2>
             <div className="space-y-4 sm:space-y-6 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
               <p className="text-xs sm:text-sm md:text-base text-foreground/80 font-medium leading-relaxed text-justify">
-                Crystal Ceylon was founded in 2010 by Chamara Fernando, a passionate traveler who wanted to share 
+                Crystal Ceylon was founded in 2022 by Tharaka Walawage, a passionate traveler who wanted to share 
                 the magic of Sri Lanka with the world. What started as a small family operation has grown into 
                 one of the most trusted tour companies on the island.
               </p>
@@ -103,6 +111,58 @@ const About = () => {
                 or spotting leopards in the wild.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <span className="section-label opacity-0 animate-fade-in-up">Our Team</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mt-3 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+              Meet the Experts
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12 max-w-6xl mx-auto">
+            {team.map((member, index) => (
+              <div
+                key={member.name}
+                className="group text-center opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative w-40 h-40 md:w-48 md:h-48 mx-auto mb-6">
+                  {/* Decorative background circle */}
+                  <div className="absolute inset-0 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500 -m-2 md:-m-3" />
+                  
+                  {/* Image container with ring */}
+                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] ring-4 ring-background group-hover:ring-primary/20 transition-all duration-500">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-700"
+                    />
+                  </div>
+                  
+                  {/* Floating badge for role on hover (optional enhancement) */}
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white px-4 py-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 border border-primary/10 hidden md:block">
+                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest whitespace-nowrap">
+                      Expert Team
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="space-y-1">
+                  <h3 className="font-display text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                    {member.name}
+                  </h3>
+                  <p className="text-primary/80 font-semibold text-sm md:text-base uppercase tracking-wider">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -142,53 +202,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="section-label opacity-0 animate-fade-in-up">Our Team</span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mt-3 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-              Meet the Experts
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {team.map((member, index) => (
-              <div
-                key={member.name}
-                className="text-center opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary to-ocean-light flex items-center justify-center mx-auto mb-4 text-2xl md:text-3xl font-display font-bold text-primary-foreground shadow-lg">
-                  {member.image}
-                </div>
-                <h3 className="font-display text-lg font-bold text-foreground">
-                  {member.name}
-                </h3>
-                <p className="text-foreground/80 text-xs sm:text-sm font-medium">
-                  {member.role}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-footer">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 opacity-0 animate-fade-in-up">
-            Ready to Explore Sri Lanka?
-          </h2>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            Let us create your perfect Sri Lankan adventure. Contact us today to start planning.
-          </p>
-          <Button size="lg" className="bg-accent hover:bg-sunset-light text-accent-foreground opacity-0 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            Start Planning Your Trip
-            <ArrowRight className="h-5 w-5 ml-2" />
-          </Button>
-        </div>
-      </section>
 
       <Footer />
       <WhatsAppButton />
