@@ -12,17 +12,25 @@ import type { ThingToDo } from "@/lib/data/thingsToDo";
 import type { ContactMessage, ContactMessageResponse, SubscribePayload, SubscribeResponse } from "@/lib/data/contactus";
 import type { CreateBooking, CreateBookingResponse } from "@/lib/data/booking";
 import type { CreateCustomBookingPayload, CreateCustomBookingResponse } from "@/lib/data/customBooking";
+import type { Vehicle } from "@/lib/data/vehicle";
+import type { QuickBookingPayload, QuickBookingResponse } from "@/lib/data/quickBooking";
 
 /** Public (approved) review for testimonials */
 export interface PublicReview {
     id: number | string;
     name?: string;
     customerName?: string;
+    email?: string;
     rating: number;
     title?: string;
     comment: string;
+    imageUrl?: string;
     tourName?: string;
+    tourType?: string;
+    status?: string;
+    location?: string;
     createdAt?: string;
+    updatedAt?: string;
     image?: string;
     customerImage?: string;
 }
@@ -166,7 +174,7 @@ export async function getPublicReviewsList(page: number = 1): Promise<ReviewList
         raw.items = raw.items.map((r: PublicReview) => ({
             ...r,
             name: r.name ?? r.customerName ?? "",
-            image: r.image ?? r.customerImage ?? "",
+            image: r.imageUrl ?? r.image ?? r.customerImage ?? "",
         }));
     }
     return raw;
@@ -360,6 +368,33 @@ export async function createCustomBooking(
             console.error("❌ Validation field errors:", JSON.stringify(error.response.data.error.fields, null, 2));
         }
 
+        throw error;
+    }
+}
+
+// --- Vehicles & Quick Bookings ---
+
+export async function getPublicVehicles(): Promise<Vehicle[]> {
+    try {
+        const { data } = await axiosInstance.get(ENDPOINTS.vehicles);
+        return data.data;
+    } catch (error) {
+        console.error("❌ Error fetching vehicles:", error);
+        throw error;
+    }
+}
+
+export async function createQuickBooking(payload: QuickBookingPayload): Promise<QuickBookingResponse> {
+    try {
+        console.log("📤 Submitting quick booking to:", ENDPOINTS.quickBookings);
+        const { data } = await axiosInstance.post<QuickBookingResponse>(
+            ENDPOINTS.quickBookings,
+            payload
+        );
+        console.log("✅ Quick booking submitted successfully:", data);
+        return data;
+    } catch (error: any) {
+        console.error("❌ Error submitting quick booking:", error);
         throw error;
     }
 }

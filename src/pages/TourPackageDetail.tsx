@@ -228,6 +228,15 @@ const TourPackageDetail = () => {
                   Tour Details
                 </h2>
                 <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 space-y-4 sm:space-y-5">
+                  {/* Pricing */}
+                  <div className="flex flex-col mb-2">
+                    <span className="text-[10px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Starting From</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-2xl sm:text-3xl font-bold text-primary">${tour.price?.toLocaleString() || "0"}</span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">/ person</span>
+                    </div>
+                  </div>
+
                   {/* Tour Ref */}
                   <div className="flex items-center gap-3 sm:gap-4">
                     <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-accent/10 flex items-center justify-center">

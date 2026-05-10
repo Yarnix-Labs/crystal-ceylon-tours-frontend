@@ -10,8 +10,12 @@ import {
   Mail, 
   Globe, 
   MessageSquare,
-  Hash
+  Hash,
+  Car,
+  DollarSign
 } from "lucide-react";
+import { getPublicVehicles } from "@/api/services/public";
+import { Vehicle } from "@/lib/data/vehicle";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -40,8 +44,10 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   fullName: z.string().min(2, "Full name is required"),
   contactNo: z.string().min(5, "Contact number is required"),
+  whatsapp: z.string().optional(),
   email: z.string().email("Invalid email address"),
   country: z.string().min(1, "Country is required"),
+  vehicleId: z.string().min(1, "Vehicle type is required"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -51,15 +57,19 @@ interface BookingEnquiryFormProps {
   referenceNo?: string;
   duration?: string;
   capacity?: string;
+  basePrice?: number;
 }
-
 const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
   tourId,
   tourName,
   referenceNo,
   duration,
   capacity,
+  basePrice = 0,
 }) => {
+  const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
+  const [isLoadingVehicles, setIsLoadingVehicles] = React.useState(true);
+  
   const { toast } = useToast();
   const createBookingMutation = useCreateBookingMutation();
 
@@ -71,11 +81,31 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
       title: "Mr.",
       fullName: "",
       contactNo: "",
+      whatsapp: "",
       email: "",
       country: "",
+      vehicleId: "",
       message: "",
     },
   });
+
+  const selectedVehicleId = form.watch("vehicleId");
+  const selectedVehicle = vehicles.find(v => v.id.toString() === selectedVehicleId);
+  const totalPrice = selectedVehicle ? basePrice * (selectedVehicle.price || 1) : basePrice;
+
+  React.useEffect(() => {
+    const fetchVehicles = async () => {
+      try {
+        const data = await getPublicVehicles();
+        setVehicles(data || []);
+      } catch (error) {
+        console.error("Failed to fetch vehicles:", error);
+      } finally {
+        setIsLoadingVehicles(false);
+      }
+    };
+    fetchVehicles();
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -83,10 +113,12 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
       
       await createBookingMutation.mutateAsync({
         tourPackageId: tourId ? Number(tourId) : 0,
+        vehicleId: parseInt(values.vehicleId),
+        price: totalPrice,
         name: values.fullName,
         email: values.email,
         phoneNumber: values.contactNo,
-        whatsapp: values.contactNo,
+        whatsapp: values.whatsapp || values.contactNo,
         country: values.country,
         passengers: parseInt(values.numPax),
         clientMessage: values.message || `Inquiry for ${tourName || 'Tour'}`,
@@ -143,6 +175,18 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Reference</div>
             <div className="text-sm font-bold text-foreground">{referenceNo || "N/A"}</div>
+          </div>
+        </div>
+
+        <div className="hidden sm:block h-10 w-px bg-border/40" />
+
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+            <DollarSign className="h-5 w-5" />
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Est. Price</div>
+            <div className="text-sm font-bold text-primary">${totalPrice?.toLocaleString() || "0.00"}</div>
           </div>
         </div>
       </div>
@@ -298,12 +342,85 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
                       Your Country *
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="-- Select country --" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
+                      <Input placeholder="Country" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              {/* WhatsApp Number */}
+              <FormField
+                control={form.control}
+                name="whatsapp"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className="flex items-center gap-2 text-foreground/90 font-bold text-sm">
+                      <Phone className="h-4 w-4 text-primary" />
+                      WhatsApp Number (Optional)
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="+94771234567" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Vehicle Type */}
+              <FormField
+                control={form.control}
+                name="vehicleId"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className="flex items-center gap-2 text-foreground/90 font-bold text-sm">
+                      <Car className="h-4 w-4 text-primary" />
+                      Vehicle Type *
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl">
+                          <SelectValue placeholder={isLoadingVehicles ? "Loading..." : "--select--"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {vehicles.map((v) => (
+                          <SelectItem key={v.id} value={v.id.toString()}>
+                            <div className="flex items-center gap-3">
+                              {v.images && v.images.length > 0 ? (
+                                <img 
+                                  src={v.images[0]} 
+                                  alt={v.name} 
+                                  className="w-8 h-6 rounded bg-muted object-cover flex-shrink-0" 
+                                />
+                              ) : (
+                                <div className="w-8 h-6 rounded bg-muted flex items-center justify-center flex-shrink-0">
+                                  <Car className="h-3 w-3 text-muted-foreground" />
+                                </div>
+                              )}
+                              <span className="font-medium">{v.type}</span>
+                              <span className="text-xs text-muted-foreground">({v.passengers} pax)</span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Estimated Price Display */}
+              <div className="space-y-2">
+                <FormLabel className="flex items-center gap-2 text-foreground/90 font-bold text-sm">
+                  <DollarSign className="h-4 w-4 text-primary" />
+                  Estimated Price
+                </FormLabel>
+                <div className="h-12 bg-primary/5 border border-primary/20 rounded-xl flex items-center px-4 font-bold text-xl text-primary">
+                  ${totalPrice?.toLocaleString() || "0.00"}
+                </div>
+              </div>
+
             </div>
 
             {/* Message */}

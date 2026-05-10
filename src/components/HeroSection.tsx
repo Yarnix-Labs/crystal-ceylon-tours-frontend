@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import QuickTransferModal from "@/components/QuickTransferModal";
 
-import slide1 from "@/assets/hero/1.jpeg";
-import slide2 from "@/assets/hero/2.png";
-import slide3 from "@/assets/hero/3.png";
+
+import heroVideo from "@/assets/hero-video.mp4";
 import customTravelers from "@/assets/custom-travelers.jpg";
 
 
@@ -18,35 +17,19 @@ const HeroSection = () => {
   const message = "Hello! I'm interested in booking a tour to Sri Lanka.";
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [slide1, slide2, slide3];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black overflow-hidden">
-      {/* Background Images Slider */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-        <div 
-          className="flex w-full h-full transition-transform duration-1000 ease-in-out"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className="w-full h-full flex-shrink-0 relative">
-              <img
-                src={slide}
-                alt={`Sri Lanka Hero ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
+    <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="hero-overlay absolute inset-0" />
       </div>
 
       {/* Content */}
@@ -187,6 +170,7 @@ const HeroSection = () => {
               </div>
             </Link>
           </div>
+
 
 
         </div>
