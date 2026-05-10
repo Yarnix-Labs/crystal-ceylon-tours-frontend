@@ -1,57 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const TripAdvisorLinkingWidget = () => {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { 
-            margin: 0; 
-            padding: 0; 
-            background: transparent; 
-            overflow: hidden;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-          }
-          .TA_linkingWidgetRedesign, .TA_links {
-            margin: 0 !important;
-            text-align: left !important;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="TA_linkingWidgetRedesign856" class="TA_linkingWidgetRedesign">
-          <ul id="dqwVYp3a" class="TA_links" style="list-style: none; margin: 0; padding: 0;">
-            <li id="O7DIeJtm" class="iQ784a3mes">
-              <a 
-                target="_blank" 
-                href="https://www.tripadvisor.com/Attraction_Review-g616035-d34041386-Reviews-Crystal_Ceylon_Tours-Ella_Uva_Province.html"
-              >
-                Read reviews of Crystal Ceylon Tours
-              </a>
-            </li>
-          </ul>
-        </div>
-        <script async src="https://www.jscache.com/wejs?wtype=linkingWidgetRedesign&uniq=856&locationId=34041386&lang=en_US&border=true&display_version=2"></script>
-      </body>
-    </html>
-  `;
+  useEffect(() => {
+    // Inject the TripAdvisor widget script provided by the user
+    const scriptUrl = "https://www.jscache.com/wejs?wtype=linkingWidgetRedesign&uniq=856&locationId=34041386&lang=en_US&border=true&display_version=2";
+    
+    const script = document.createElement("script");
+    script.src = scriptUrl;
+    script.async = true;
+    script.setAttribute("data-loadtrk", "");
+    
+    // Explicitly type 'this' as 'any' to allow setting the custom 'loadtrk' property
+    script.onload = function (this: any) {
+      this.loadtrk = true;
+    };
 
-  // The linking widget is horizontal, needs ~210x72 space.
-  // Tightening height to completely remove bottom gap.
+    document.body.appendChild(script);
+
+    // Cleanup: Remove script when component unmounts
+    return () => {
+      const scriptElements = document.querySelectorAll(`script[src="${scriptUrl}"]`);
+      scriptElements.forEach(s => {
+        if (s.parentNode) {
+          s.parentNode.removeChild(s);
+        }
+      });
+    };
+  }, []);
+
   return (
-    <div className="tripadvisor-linking-widget-container w-[210px] h-[72px]">
-      <iframe
-        srcDoc={htmlContent}
-        title="TripAdvisor Linking Widget"
-        className="w-full h-full border-none block m-0 p-0"
-        scrolling="no"
-        frameBorder="0"
-        tabIndex={-1}
-      />
+    <div className="tripadvisor-linking-widget-container animate-fade-in pointer-events-auto mt-4">
+      <div id="TA_linkingWidgetRedesign856" className="TA_linkingWidgetRedesign inline-block border-2 border-[#00AA6C] bg-white p-3">
+        <ul id="dqwVYp3a" className="TA_links Rt8t2nn list-none m-0 p-0">
+          <li id="O7DIeJtm" className="iQ784a3mes flex flex-col gap-2">
+            <a 
+              target="_blank" 
+              rel="noopener noreferrer"
+              href="https://www.tripadvisor.com/Attraction_Review-g616035-d34041386-Reviews-Crystal_Ceylon_Tours-Ella_Uva_Province.html"
+              className="text-[#000000] font-bold text-sm hover:underline leading-tight block"
+            >
+              Read reviews of Crystal<br/>Ceylon Tours
+            </a>
+            <a 
+              target="_blank" 
+              rel="noopener noreferrer"
+              href="https://www.tripadvisor.com/Attraction_Review-g616035-d34041386-Reviews-Crystal_Ceylon_Tours-Ella_Uva_Province.html"
+              className="block mt-1"
+            >
+              <img 
+                src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg" 
+                alt="TripAdvisor"
+                className="h-6 w-auto"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

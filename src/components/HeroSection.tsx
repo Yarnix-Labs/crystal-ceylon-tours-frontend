@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import QuickTransferModal from "@/components/QuickTransferModal";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-import slide1 from "@/assets/hero/1.jpeg";
-import slide2 from "@/assets/hero/2.png";
-import slide3 from "@/assets/hero/3.png";
+gsap.registerPlugin(ScrollTrigger);
+
+import leftImage from "@/assets/hero/left.jpeg";
+import rightImage from "@/assets/hero/right.jpeg";
+import middleImage from "@/assets/hero/middle.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
 
 
@@ -18,33 +23,84 @@ const HeroSection = () => {
   const message = "Hello! I'm interested in booking a tour to Sri Lanka.";
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [slide1, slide2, slide3];
+  const heroRef = useRef<HTMLElement>(null);
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const middlePanelRef = useRef<HTMLDivElement>(null);
+  const middleImageRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroRef.current,
+        start: "top top",
+        end: "+=150%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+      }
+    });
+
+    tl.to(leftPanelRef.current, {
+      xPercent: -100,
+      opacity: 0,
+      ease: "power2.inOut"
+    }, 0)
+    .to(rightPanelRef.current, {
+      xPercent: 100,
+      opacity: 0,
+      ease: "power2.inOut"
+    }, 0)
+    .to(middlePanelRef.current, {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      ease: "power2.inOut"
+    }, 0)
+    .to(middleImageRef.current, {
+      scale: 1.15,
+      ease: "power2.inOut"
+    }, 0);
+  }, { scope: heroRef });
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black overflow-hidden">
-      {/* Background Images Slider */}
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black">
+      {/* Background Images */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        {/* Middle Image - full width but clipped */}
         <div 
-          className="flex w-full h-full transition-transform duration-1000 ease-in-out"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          ref={middlePanelRef} 
+          className="absolute inset-0 z-10"
+          style={{ clipPath: "polygon(25% 0%, 75% 0%, 75% 100%, 25% 100%)" }}
         >
-          {slides.map((slide, index) => (
-            <div key={index} className="w-full h-full flex-shrink-0 relative">
-              <img
-                src={slide}
-                alt={`Sri Lanka Hero ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
+          <img
+            ref={middleImageRef}
+            src={middleImage}
+            alt="Sri Lanka Middle"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Left Image */}
+        <div 
+          ref={leftPanelRef}
+          className="absolute top-0 left-0 w-1/4 h-full z-20"
+        >
+          <img
+            src={leftImage}
+            alt="Sri Lanka Left"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Right Image */}
+        <div 
+          ref={rightPanelRef}
+          className="absolute top-0 right-0 w-1/4 h-full z-20"
+        >
+          <img
+            src={rightImage}
+            alt="Sri Lanka Right"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
       </div>
@@ -187,6 +243,7 @@ const HeroSection = () => {
               </div>
             </Link>
           </div>
+
 
 
         </div>
