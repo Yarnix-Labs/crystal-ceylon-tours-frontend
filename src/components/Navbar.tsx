@@ -199,7 +199,7 @@ const Navbar = () => {
                     href={social.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className={`w-7 h-7 sm:w-8 sm:h-8 ${social.name === 'tripadvisor' ? 'rounded-full' : 'rounded-xl'} ${social.bgColor} flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm ${social.iconColor}`}
+                    className={`w-7 h-7 sm:w-8 sm:h-8 ${social.name === 'tripadvisor' ? 'rounded-full' : 'rounded-[10px]'} ${social.bgColor} flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-md hover:brightness-105 shadow-sm border border-transparent hover:border-black/5 ${social.iconColor}`}
                   >
                     {social.name === 'tripadvisor' && (
                       <img 

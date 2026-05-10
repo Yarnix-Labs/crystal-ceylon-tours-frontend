@@ -9,7 +9,6 @@ import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -655,7 +654,6 @@ Looking forward to your response!
 
       <Footer />
       <WhatsAppButton />
-      <ScrollToTop />
     </div>
   );
 };
