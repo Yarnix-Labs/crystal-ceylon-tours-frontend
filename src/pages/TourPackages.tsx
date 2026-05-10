@@ -19,8 +19,6 @@ import {
 import packagesHero from "@/assets/packages-hero.jpg";
 import { useTourPackages } from "@/hooks/use-public-api";
 
-import customTravelers from "@/assets/custom-travelers.jpg";
-
 const TourPackages = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageParam = searchParams.get("page");
@@ -53,69 +51,23 @@ const TourPackages = () => {
         breadcrumb="Tour Packages"
       />
 
-      {/* Custom Package CTA - Compact Premium Banner */}
-      <section className="py-6 sm:py-10 bg-muted/20">
+      {/* Custom Package CTA */}
+      <section className="py-8 sm:py-12 bg-gradient-to-r from-primary/10 to-accent/10">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <Link to="/custom-package" className="block group">
-              <div className="relative bg-white/60 backdrop-blur-md rounded-[32px] overflow-hidden border border-white/80 shadow-lg ring-1 ring-border/5">
-                {/* Background gradient - more vibrant */}
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/15 via-white/40 to-primary/15" />
-                
-                {/* Wave decorations - slightly more visible */}
-                <svg className="absolute top-0 left-0 w-full h-6 text-accent/30" viewBox="0 0 1200 40" preserveAspectRatio="none">
-                  <path fill="currentColor" d="M0,40 C150,0 350,40 500,20 C650,0 850,40 1000,20 C1100,10 1150,30 1200,20 L1200,0 L0,0 Z" />
-                </svg>
-                
-                <svg className="absolute bottom-0 left-0 w-full h-8 text-primary/30" viewBox="0 0 1200 50" preserveAspectRatio="none">
-                  <path fill="currentColor" d="M0,0 C150,30 350,0 500,20 C650,40 850,10 1000,30 C1100,40 1150,20 1200,30 L1200,50 L0,50 Z" />
-                </svg>
-                
-                {/* Content container - more compact padding */}
-                <div className="relative px-5 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-                  
-                  {/* Image with organic frame - scaled down */}
-                  <div className="relative flex-shrink-0">
-                    <div className="absolute -inset-1.5 bg-accent/20 rounded-[40%_60%_70%_30%/30%_30%_70%_70%] group-hover:rounded-[60%_40%_30%_70%/70%_70%_30%_30%] transition-all duration-700" />
-                    <div className="relative w-32 h-24 sm:w-40 sm:h-28 rounded-xl overflow-hidden border-[3px] border-white shadow-md group-hover:scale-105 transition-transform duration-500">
-                      <img 
-                        src={customTravelers} 
-                        alt="Happy travelers in Sri Lanka" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    
-                    {/* Floating airplane icon - smaller */}
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg animate-bounce-slow">
-                      <svg className="w-4 h-4 text-white rotate-45" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* Text content - refined spacing */}
-                  <div className="flex-1 text-center sm:text-left">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase tracking-wider mb-1.5">
-                      <span className="w-1 h-1 rounded-full bg-accent animate-pulse" />
-                      Custom Experience
-                    </div>
-                    <h3 className="font-display font-bold text-xl sm:text-2xl text-foreground leading-tight">
-                      Design Your Dream Journey
-                    </h3>
-                    <p className="text-muted-foreground text-xs sm:text-sm mt-1 max-w-sm font-medium">
-                      Handcraft your perfect Sri Lanka adventure — choose destinations & activities.
-                    </p>
-                  </div>
-                  
-                  {/* CTA Button - compact but visible */}
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center gap-1.5 bg-accent text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-[20px_8px_20px_8px] font-bold text-xs sm:text-sm group-hover:bg-primary group-hover:rounded-[8px_20px_8px_20px] transition-all duration-500 shadow-lg shadow-accent/20">
-                      <span>Start Planning</span>
-                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 max-w-4xl mx-auto text-center md:text-left">
+            <div>
+              <h2 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-1 sm:mb-2">
+                Can't find what you're looking for?
+              </h2>
+              <p className="text-xs sm:text-sm md:text-base text-muted-foreground font-normal">
+                Create your own custom tour package tailored to your preferences
+              </p>
+            </div>
+            <Link to="/custom-package">
+              <Button size="lg" className="gap-2 whitespace-nowrap w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3 h-auto text-xs sm:text-sm font-bold rounded-full">
+                Build Your Own Package
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </Link>
           </div>
         </div>
