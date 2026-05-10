@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
@@ -215,47 +216,61 @@ const Blog = () => {
 
           {/* Pagination */}
           {meta && meta.totalPages > 1 && (
-            <div className="mt-12">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious 
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (currentPage > 1) handlePageChange(currentPage - 1);
-                      }}
-                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                    />
-                  </PaginationItem>
-                  
-                  {Array.from({ length: meta.totalPages }).map((_, i) => (
-                    <PaginationItem key={i}>
-                      <PaginationLink 
+            <div className="mt-16 sm:mt-24 flex justify-center opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+              <div className="inline-flex p-1.5 sm:p-2.5 bg-white/40 backdrop-blur-md rounded-full border border-white/60 shadow-xl shadow-black/[0.02] ring-1 ring-border/5">
+                <Pagination className="py-0 w-auto mx-0">
+                  <PaginationContent className="gap-2 sm:gap-4">
+                    <PaginationItem>
+                      <PaginationPrevious 
                         href="#"
-                        isActive={currentPage === i + 1}
                         onClick={(e) => {
                           e.preventDefault();
-                          handlePageChange(i + 1);
+                          if (currentPage > 1) handlePageChange(currentPage - 1);
                         }}
-                      >
-                        {i + 1}
-                      </PaginationLink>
+                        className={cn(
+                          "h-10 sm:h-11 rounded-full border-none shadow-none hover:bg-primary hover:text-white transition-all duration-300",
+                          currentPage === 1 ? "pointer-events-none opacity-30 grayscale" : "cursor-pointer"
+                        )}
+                      />
                     </PaginationItem>
-                  ))}
-
-                  <PaginationItem>
-                    <PaginationNext 
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (currentPage < meta.totalPages) handlePageChange(currentPage + 1);
-                      }}
-                      className={currentPage === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
+                    
+                    {Array.from({ length: meta.totalPages }).map((_, i) => (
+                      <PaginationItem key={i}>
+                        <PaginationLink 
+                          href="#"
+                          isActive={currentPage === i + 1}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(i + 1);
+                          }}
+                          className={cn(
+                            "h-10 w-10 sm:h-11 sm:w-11 rounded-full border-none shadow-none transition-all duration-300",
+                            currentPage === i + 1 
+                              ? "bg-primary text-white shadow-md shadow-primary/20 scale-105" 
+                              : "hover:bg-primary/10 hover:text-primary"
+                          )}
+                        >
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+  
+                    <PaginationItem>
+                      <PaginationNext 
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < meta.totalPages) handlePageChange(currentPage + 1);
+                        }}
+                        className={cn(
+                          "h-10 sm:h-11 rounded-full border-none shadow-none hover:bg-primary hover:text-white transition-all duration-300",
+                          currentPage === meta.totalPages ? "pointer-events-none opacity-30 grayscale" : "cursor-pointer"
+                        )}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
             </div>
           )}
         </div>
