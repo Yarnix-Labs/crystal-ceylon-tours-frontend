@@ -1,11 +1,10 @@
 /** Payload sent to POST /custom-bookings/create */
 export interface CreateCustomBookingPayload {
-  fullName: string;
+  destinations: number[];
   startDate: string; // ISO date string, e.g. "2026-06-20"
-  country: string;
-  vehicleId: number;
-  numberOfDays: number;
   travelers: number;
+  activities: number[];
+  fullName: string;
   email: string;
   phoneNumber: string;
   whatsappNumber: string;

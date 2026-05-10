@@ -32,8 +32,4 @@ export const ENDPOINTS = {
 
   // Custom Booking Inquiry
   createCustomBooking: '/custom-bookings/create',
-
-  // Quick Booking & Vehicles
-  vehicles: '/vehicles',
-  quickBookings: '/quick-bookings',
 };
