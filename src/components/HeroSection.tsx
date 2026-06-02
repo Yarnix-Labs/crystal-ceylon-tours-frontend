@@ -29,7 +29,7 @@ const HeroSection = () => {
           100% { transform: scale(1.15); }
         }
         .animate-kenburns {
-          animation: kenburns 12s ease-in-out infinite alternate;
+          animation: kenburns 20s ease-in-out infinite alternate;
         }
       `}</style>
       
