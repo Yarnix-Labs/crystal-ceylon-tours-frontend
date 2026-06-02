@@ -23,12 +23,22 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black">
+      <style>{`
+        @keyframes kenburns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.15); }
+        }
+        .animate-kenburns {
+          animation: kenburns 12s ease-in-out infinite alternate;
+        }
+      `}</style>
+      
       {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
         <img
           src={heroBg}
           alt="Sri Lanka Hero"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover animate-kenburns"
         />
         <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
       </div>
