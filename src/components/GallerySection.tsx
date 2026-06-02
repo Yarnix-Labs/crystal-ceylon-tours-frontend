@@ -132,16 +132,7 @@ const GallerySection = () => {
                 </div>
               </div>
 
-              {/* Content at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 className="font-display text-sm sm:text-lg font-bold text-white drop-shadow-lg">
-                  {image.title}
-                </h3>
-                <div className="flex items-center gap-1 text-white/80 text-[10px] sm:text-xs font-medium mt-0.5">
-                  <MapPin className="h-3 w-3" />
-                  {image.location}
-                </div>
-              </div>
+              {/* Content at bottom removed as requested */}
 
               {/* Hover glow ring */}
               <div className="absolute inset-0 rounded-[16px] sm:rounded-[20px] ring-2 ring-transparent group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />

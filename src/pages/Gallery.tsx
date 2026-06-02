@@ -93,12 +93,7 @@ const Lightbox = ({
           alt={image.alt}
           className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl animate-scale-in"
         />
-        {/* Caption */}
-        <div className="mt-6 text-center animate-fade-in-up">
-          <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
-            {image.title}
-          </h3>
-        </div>
+        {/* Caption removed as requested */}
       </div>
     </div>
   );
@@ -279,15 +274,7 @@ const Gallery = () => {
                   </div>
                 </div>
 
-                {/* Content - bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 z-10 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-1.5 drop-shadow-lg">
-                    {image.title}
-                  </h3>
-
-                  {/* Animated line */}
-                  <div className="w-8 h-0.5 rounded-full bg-white/40 mt-3 transition-all duration-500 group-hover:w-16 group-hover:bg-primary" />
-                </div>
+                {/* Content - bottom removed as requested */}
 
                 {/* Hover glow border effect */}
                 <div className="absolute inset-0 rounded-[20px] ring-2 ring-transparent group-hover:ring-primary/40 transition-all duration-500 pointer-events-none" />
