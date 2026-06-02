@@ -62,7 +62,7 @@ const BlogPost = () => {
       
       {/* Hero Section */}
       {post.coverImage && (
-        <section className="relative h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] flex items-end justify-center overflow-hidden">
+        <section className="relative w-full min-h-[450px] sm:min-h-[500px] flex flex-col justify-end items-center overflow-hidden pt-36 sm:pt-40">
           <div className="absolute inset-0">
             <img 
               src={post.coverImage} 

@@ -377,32 +377,32 @@ Looking forward to your response!
             </div>
 
             {/* Summary & Submit */}
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-6 lg:p-8 border-2 border-primary/20">
+            <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-4 sm:p-6 lg:p-8 border-2 border-primary/20">
               <h3 className="font-display text-xl font-bold text-foreground mb-4">
                 Package Summary
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
-                <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
-                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-foreground">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
+                <div className="bg-background rounded-xl p-2 sm:p-4 text-center flex flex-col items-center justify-center">
+                  <Clock className="h-4 w-4 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2 shrink-0" />
+                  <div className="text-sm sm:text-2xl font-bold text-foreground">
                     {numberOfDays}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Days</div>
+                  <div className="text-[10px] sm:text-sm text-muted-foreground">Days</div>
                 </div>
-                <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
-                  <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-foreground">
+                <div className="bg-background rounded-xl p-2 sm:p-4 text-center flex flex-col items-center justify-center">
+                  <Users className="h-4 w-4 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2 shrink-0" />
+                  <div className="text-sm sm:text-2xl font-bold text-foreground">
                     {travelers}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Travelers</div>
+                  <div className="text-[10px] sm:text-sm text-muted-foreground">Travelers</div>
                 </div>
-                <div className="bg-background rounded-xl p-3 sm:p-4 text-center">
-                  <Car className="h-5 w-5 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <div className="text-xl sm:text-2xl font-bold text-foreground text-xs sm:text-sm truncate px-1">
-                    {apiVehicles.find(v => v.id.toString() === vehicleId)?.type || "Not selected"}
+                <div className="bg-background rounded-xl p-2 sm:p-4 text-center flex flex-col items-center justify-center overflow-hidden">
+                  <Car className="h-4 w-4 sm:h-6 sm:w-6 text-primary mx-auto mb-1 sm:mb-2 shrink-0" />
+                  <div className="text-xs sm:text-xl font-bold text-foreground truncate w-full px-1">
+                    {apiVehicles.find(v => v.id.toString() === vehicleId)?.type || "None"}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Vehicle</div>
+                  <div className="text-[10px] sm:text-sm text-muted-foreground shrink-0">Vehicle</div>
                 </div>
               </div>
 
@@ -421,23 +421,24 @@ Looking forward to your response!
                   <Button
                     onClick={handleSubmit}
                     disabled={!isFormValid || isSubmitting}
-                    className="w-full h-12 sm:h-14 text-base sm:text-lg gap-2 sm:gap-3"
+                    className="w-full h-12 sm:h-14 text-sm sm:text-lg gap-2 sm:gap-3"
                     size="lg"
                   >
                     {isSubmitting ? (
                       <>
-                        <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+                        <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full shrink-0" />
                         Submitting...
                       </>
                     ) : (
                       <>
-                        <Send className="h-4 w-4 sm:h-5 sm:w-5" />
-                        Submit Custom Package Request
+                        <Send className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+                        <span className="hidden sm:inline">Submit Custom Package Request</span>
+                        <span className="sm:hidden">Submit Request</span>
                       </>
                     )}
                   </Button>
 
-                  <p className="text-foreground/80 font-medium text-xs sm:text-sm text-center mt-4">
+                  <p className="text-foreground/80 font-medium text-[11px] sm:text-sm text-center mt-4 px-2 sm:px-0">
                     We'll review your request and get back to you within 24 hours with
                     a personalized itinerary and quote.
                   </p>

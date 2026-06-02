@@ -128,7 +128,7 @@ const ActivityDetail = () => {
                     )}
                     
                     {/* Main Description */}
-                    {(activity.description || activity.content || "")
+                    {(activity.description || activity.excerpt || activity.overview || "Discover incredible experiences in Sri Lanka.")
                       .replace(/<p>\s*<\/p>/g, "")
                       .split('\n')
                       .filter(p => p.trim())
