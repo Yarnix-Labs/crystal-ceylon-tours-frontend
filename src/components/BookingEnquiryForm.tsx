@@ -145,9 +145,9 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8 animate-fade-in">
       {/* Top Info Bar */}
-      <div className="bg-white rounded-[20px] shadow-sm border border-border/40 p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-around gap-4 sm:gap-2">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+      <div className="bg-white rounded-[20px] shadow-sm border border-border/40 p-5 sm:p-6 grid grid-cols-2 sm:flex sm:flex-row items-start sm:items-center justify-between sm:justify-around gap-6 sm:gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
             <Calendar className="h-5 w-5" />
           </div>
           <div>
@@ -158,13 +158,13 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
         
         <div className="hidden sm:block h-10 w-px bg-border/40" />
         
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-ocean/10 flex items-center justify-center text-ocean">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-ocean/10 flex items-center justify-center text-ocean shrink-0">
             <Users className="h-5 w-5" />
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Capacity</div>
-            <div className="text-sm font-bold text-foreground">
+            <div className="text-sm font-bold text-foreground leading-tight">
               {selectedVehicle ? `Max ${selectedVehicle.passengers} Persons` : "0 Persons"}
             </div>
           </div>
@@ -172,8 +172,8 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
 
         <div className="hidden sm:block h-10 w-px bg-border/40" />
 
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-palm/10 flex items-center justify-center text-palm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-palm/10 flex items-center justify-center text-palm shrink-0">
             <Hash className="h-5 w-5" />
           </div>
           <div>
@@ -184,8 +184,8 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
 
         <div className="hidden sm:block h-10 w-px bg-border/40" />
 
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
             <DollarSign className="h-5 w-5" />
           </div>
           <div>

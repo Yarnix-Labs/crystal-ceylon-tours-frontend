@@ -31,7 +31,7 @@ const BookNow = () => {
       
       {/* Hero Section */}
       {!isLoading && item && (
-        <section className="relative h-[25vh] sm:h-[30vh] min-h-[200px] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-[250px] sm:min-h-[300px] flex items-center justify-center overflow-hidden py-24 sm:py-32">
           <div className="absolute inset-0">
             <img 
               src={(isTour ? tour?.heroImage : activity?.image) || activity?.coverImage || activity?.heroImage} 
@@ -41,8 +41,8 @@ const BookNow = () => {
             <div className="absolute inset-0 bg-black/40" />
           </div>
           
-          <div className="relative z-10 text-center px-4 pt-16">
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
+          <div className="relative z-10 text-center px-4 w-full max-w-5xl mx-auto mt-8 sm:mt-0">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg leading-tight sm:leading-tight">
               {isTour ? tour?.name : activity?.title}
             </h1>
           </div>
