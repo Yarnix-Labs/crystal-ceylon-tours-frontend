@@ -233,7 +233,9 @@ const TourPackageDetail = () => {
                     <span className="text-[10px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Starting From</span>
                     <div className="flex items-baseline gap-1">
                       <span className="text-2xl sm:text-3xl font-bold text-primary">${tour.price?.toLocaleString() || "0"}</span>
-                      <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">/ person</span>
+                      <span className="text-[10px] sm:text-xs text-muted-foreground font-medium">
+                        / 3 persons
+                      </span>
                     </div>
                   </div>
 
