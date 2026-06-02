@@ -1,6 +1,8 @@
 export interface CreateBooking {
     id?: number;
     tourPackageId: number;
+    vehicleId?: number;
+    price?: number;
     name: string;
     country: string;
     phoneNumber: string;

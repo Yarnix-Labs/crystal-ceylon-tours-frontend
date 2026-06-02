@@ -56,6 +56,7 @@ interface BookingEnquiryFormProps {
   tourName?: string;
   referenceNo?: string;
   duration?: string;
+  totalDays?: number;
   capacity?: string;
   basePrice?: number;
 }
@@ -64,6 +65,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
   tourName,
   referenceNo,
   duration,
+  totalDays = 1,
   capacity,
   basePrice = 0,
 }) => {
@@ -91,7 +93,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
 
   const selectedVehicleId = form.watch("vehicleId");
   const selectedVehicle = vehicles.find(v => v.id.toString() === selectedVehicleId);
-  const totalPrice = selectedVehicle ? basePrice * (selectedVehicle.price || 1) : basePrice;
+  const totalPrice = selectedVehicle ? (selectedVehicle.price || 0) * totalDays : 0;
 
   React.useEffect(() => {
     const fetchVehicles = async () => {

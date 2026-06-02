@@ -81,8 +81,10 @@ const BookNow = () => {
                 tourId={item?.id}
                 tourName={isTour ? tour?.name : activity?.title}
                 duration={isTour ? tour?.packageDuration : activity?.duration}
+                totalDays={isTour ? tour?.totalDays : 1}
                 capacity={isTour ? `${tour?.minPeople} Persons` : "Standard"}
                 referenceNo={isTour ? tour?.tourRefNumber : activity?.id?.toString()}
+                basePrice={isTour ? tour?.price : Number(String(activity?.price || "0").replace(/[^0-9.-]+/g,""))}
               />
             </div>
           )}
