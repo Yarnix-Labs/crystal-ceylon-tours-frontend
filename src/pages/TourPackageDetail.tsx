@@ -26,12 +26,7 @@ import {
   Mountain,
   TreePine
 } from "lucide-react";
-import sigiriyaImg from "@/assets/sigiriya.jpg";
-import ellaImg from "@/assets/ella.jpg";
-import yalaImg from "@/assets/yala.jpg";
-import galleImg from "@/assets/galle.jpg";
-import kandyImg from "@/assets/kandy.jpg";
-import mirissaImg from "@/assets/mirissa.jpg";
+
 
 const TourPackageDetail = () => {
   const { slug } = useParams<{ slug: string }>();
