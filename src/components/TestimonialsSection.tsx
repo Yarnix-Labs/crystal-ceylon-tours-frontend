@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReviews } from "@/hooks/use-public-api";
 
@@ -45,12 +45,12 @@ const TestimonialsSection = () => {
 
   const displayReviews = (response?.items || []).slice(0, 5).map((rev: any) => ({
     id: rev.id,
-    name: rev.name || rev.customerName || "Satisfied Traveler",
-    location: rev.location || "Sri Lanka",
+    name: rev.name || rev.customerName || "",
+    location: rev.location || "",
     rating: rev.rating || 5,
     text: rev.comment || rev.text || "",
-    tourType: rev.tourType || rev.tourName || "Featured Tour",
-    avatar: rev.avatar || rev.image || rev.customerImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+    tourType: rev.tourType || rev.tourName || "",
+    avatar: rev.avatar || rev.image || rev.customerImage || "",
   }));
 
   // Auto-rotate testimonials
@@ -136,11 +136,17 @@ const TestimonialsSection = () => {
                     <div className="shrink-0 relative">
                       <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36">
                         <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full scale-110 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700" />
-                        <img
-                          src={currentTestimonial.avatar}
-                          alt={currentTestimonial.name}
-                          className="relative w-full h-full rounded-full object-cover border-4 border-white shadow-xl ring-1 ring-border/50"
-                        />
+                        {currentTestimonial.avatar ? (
+                          <img
+                            src={currentTestimonial.avatar}
+                            alt={currentTestimonial.name}
+                            className="relative w-full h-full rounded-full object-cover border-4 border-white shadow-xl ring-1 ring-border/50"
+                          />
+                        ) : (
+                          <div className="relative w-full h-full rounded-full border-4 border-white shadow-xl ring-1 ring-border/50 bg-muted/30 flex items-center justify-center">
+                            <User className="h-10 w-10 sm:h-14 sm:w-14 text-muted-foreground/50" />
+                          </div>
+                        )}
                       </div>
                       {/* Floating Quote Badge */}
                       <div className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 bg-accent p-2.5 md:p-3 rounded-full shadow-lg text-white ring-4 ring-white transition-transform duration-500 group-hover:scale-110">
