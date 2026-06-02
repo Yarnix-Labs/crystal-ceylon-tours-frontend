@@ -129,7 +129,7 @@ const TestimonialsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10">
+                <div className="relative z-10 animate-fade-in-right" key={currentIndex}>
                   <div className="flex flex-col md:flex-row gap-5 sm:gap-8 md:gap-12 items-center md:items-start group">
                     
                     {/* Avatar Side */}

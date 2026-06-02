@@ -97,9 +97,7 @@ const GallerySection = () => {
 
         {/* Gallery Grid - Modern Mosaic Layout */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[160px] md:auto-rows-[200px] gap-2 sm:gap-3 md:gap-4 transition-all duration-1000 delay-200 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          className="grid grid-cols-2 md:grid-cols-4 auto-rows-[120px] sm:auto-rows-[160px] md:auto-rows-[200px] gap-2 sm:gap-3 md:gap-4"
         >
           {isLoading ? (
             [...Array(8)].map((_, i) => (
@@ -109,9 +107,11 @@ const GallerySection = () => {
             <Link
               key={index}
               to="/gallery"
-              className={`group relative rounded-[16px] sm:rounded-[20px] overflow-hidden cursor-pointer ${image.span}`}
+              className={`group relative rounded-[16px] sm:rounded-[20px] overflow-hidden cursor-pointer transition-all duration-1000 ease-out ${image.span} ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
               style={{
-                transitionDelay: `${index * 100}ms`,
+                transitionDelay: `${index * 150 + 200}ms`,
               }}
             >
               {/* Image */}
