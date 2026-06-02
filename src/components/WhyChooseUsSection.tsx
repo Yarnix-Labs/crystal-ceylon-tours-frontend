@@ -1,7 +1,7 @@
 import { ShieldCheck, Compass, HeartHandshake, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-image.jpg";
+import home02 from "@/assets/home-02.jpg";
 
 const WhyChooseUsSection = () => {
   return (
@@ -18,7 +18,7 @@ const WhyChooseUsSection = () => {
               {/* Main Image */}
               <div className="relative rounded-[28px] overflow-hidden shadow-[0_15px_40px_rgb(0,0,0,0.12)] ring-1 ring-border/50">
                 <img
-                  src={heroImage}
+                  src={home02}
                   alt="Wildlife Safari in Sri Lanka"
                   className="w-full aspect-video sm:aspect-[4/3] object-cover transition-transform duration-1000 group-hover:scale-105"
                 />

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Award, Users, Heart, Globe, CheckCircle2 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
-import storyImg1 from "@/assets/sigiriya.jpg";
+import storyImg1 from "@/assets/our-story.jpg";
 import storyImg2 from "@/assets/gallery-tea-plantation.png";
 
 import ammMalinga from "@/assets/aboutusimages/AMM Malinga(Travel Consultant).jpeg";
