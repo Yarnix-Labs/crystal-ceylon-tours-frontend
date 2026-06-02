@@ -1,18 +1,11 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import QuickTransferModal from "@/components/QuickTransferModal";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-import leftImage from "@/assets/hero/left.jpeg";
-import rightImage from "@/assets/hero/right.jpeg";
-import middleImage from "@/assets/hero/middle.png";
+import heroBg from "@/assets/hero/4.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
 
 
@@ -23,85 +16,17 @@ const HeroSection = () => {
   const message = "Hello! I'm interested in booking a tour to Sri Lanka.";
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
 
-  const heroRef = useRef<HTMLElement>(null);
-  const leftPanelRef = useRef<HTMLDivElement>(null);
-  const rightPanelRef = useRef<HTMLDivElement>(null);
-  const middlePanelRef = useRef<HTMLDivElement>(null);
-  const middleImageRef = useRef<HTMLImageElement>(null);
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: "top top",
-        end: "+=150%",
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-      }
-    });
-
-    tl.to(leftPanelRef.current, {
-      xPercent: -100,
-      opacity: 0,
-      ease: "power2.inOut"
-    }, 0)
-    .to(rightPanelRef.current, {
-      xPercent: 100,
-      opacity: 0,
-      ease: "power2.inOut"
-    }, 0)
-    .to(middlePanelRef.current, {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      ease: "power2.inOut"
-    }, 0)
-    .to(middleImageRef.current, {
-      scale: 1.15,
-      ease: "power2.inOut"
-    }, 0);
-  }, { scope: heroRef });
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black">
-      {/* Background Images */}
+    <section className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-8 sm:pb-12 bg-black">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-        {/* Middle Image - full width but clipped */}
-        <div 
-          ref={middlePanelRef} 
-          className="absolute inset-0 z-10"
-          style={{ clipPath: "polygon(25% 0%, 75% 0%, 75% 100%, 25% 100%)" }}
-        >
-          <img
-            ref={middleImageRef}
-            src={middleImage}
-            alt="Sri Lanka Middle"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Left Image */}
-        <div 
-          ref={leftPanelRef}
-          className="absolute top-0 left-0 w-1/4 h-full z-20"
-        >
-          <img
-            src={leftImage}
-            alt="Sri Lanka Left"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Right Image */}
-        <div 
-          ref={rightPanelRef}
-          className="absolute top-0 right-0 w-1/4 h-full z-20"
-        >
-          <img
-            src={rightImage}
-            alt="Sri Lanka Right"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <img
+          src={heroBg}
+          alt="Sri Lanka Hero"
+          className="w-full h-full object-cover"
+        />
         <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
       </div>
 
