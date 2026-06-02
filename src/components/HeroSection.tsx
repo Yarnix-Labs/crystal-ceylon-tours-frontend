@@ -37,7 +37,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10 mt-3">
         <div className="text-center max-w-3xl mx-auto">
           {/* Quick Transfer Button */}
-          <div className="relative inline-block mb-8 mt-2">
+          <div className="relative inline-block mb-8 mt-2 animate-bounce" style={{ animationDuration: '3s' }}>
             {/* Pulsing Aura Animation */}
             <div className="absolute -inset-1.5 bg-gradient-to-r from-accent via-primary to-accent rounded-full blur-md opacity-70 animate-pulse"></div>
             
