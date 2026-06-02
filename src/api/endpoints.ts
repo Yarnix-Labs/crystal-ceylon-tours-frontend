@@ -21,7 +21,7 @@ export const ENDPOINTS = {
   galleryList: (page: number = 1) => `/gallery/?page=${page}`,
 
   // Reviews
-  reviewsList: (page: number = 1) => `/reviews?page=${page}`,
+  reviewsList: (page: number = 1, limit: number = 10) => `/reviews?page=${page}&limit=${limit}`,
 
   // Contact & Subscriptions
   contactMessage: '/contact/message',

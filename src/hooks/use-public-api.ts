@@ -106,10 +106,10 @@ export const useGalleryImages = (page: number = 1) => {
 };
 
 // --- Reviews ---
-export const useReviews = (page: number = 1) => {
+export const useReviews = (page: number = 1, limit: number = 10) => {
   return useQuery({
-    queryKey: ['reviews', page],
-    queryFn: () => getPublicReviewsList(page),
+    queryKey: ['reviews', page, limit],
+    queryFn: () => getPublicReviewsList(page, limit),
   });
 };
 

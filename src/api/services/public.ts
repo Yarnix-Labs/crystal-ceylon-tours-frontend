@@ -167,8 +167,8 @@ export async function getPublicGalleryList(page: number = 1): Promise<GalleryLis
 
 // --- Reviews (public list for testimonials) ---
 
-export async function getPublicReviewsList(page: number = 1): Promise<ReviewListResponse> {
-    const { data } = await axiosInstance.get(ENDPOINTS.reviewsList(page));
+export async function getPublicReviewsList(page: number = 1, limit: number = 10): Promise<ReviewListResponse> {
+    const { data } = await axiosInstance.get(ENDPOINTS.reviewsList(page, limit));
     const raw = data.data ?? data;
     if (raw?.items) {
         raw.items = raw.items.map((r: PublicReview) => ({

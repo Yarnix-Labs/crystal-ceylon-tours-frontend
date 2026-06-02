@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const { data: response, isLoading } = useReviews(1);
+  const { data: response, isLoading } = useReviews(1, 10);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,7 +43,7 @@ const TestimonialsSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const displayReviews = (response?.items || []).slice(0, 5).map((rev: any) => ({
+  const displayReviews = (response?.items || []).map((rev: any) => ({
     id: rev.id,
     name: rev.name || rev.customerName || "",
     location: rev.location || "",
