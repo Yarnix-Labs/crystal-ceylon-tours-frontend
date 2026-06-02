@@ -164,7 +164,9 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Capacity</div>
-            <div className="text-sm font-bold text-foreground">{capacity || "Min 2 Persons"}</div>
+            <div className="text-sm font-bold text-foreground">
+              {selectedVehicle ? `Max ${selectedVehicle.passengers} Persons` : capacity || "Min 2 Persons"}
+            </div>
           </div>
         </div>
 
