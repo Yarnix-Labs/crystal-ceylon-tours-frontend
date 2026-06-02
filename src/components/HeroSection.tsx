@@ -55,43 +55,13 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-8 max-w-xl mx-auto leading-relaxed px-2">
+          <p className="text-sm sm:text-base md:text-lg text-white/90 mb-10 sm:mb-14 max-w-xl mx-auto leading-relaxed px-2">
             Discover ancient temples, pristine beaches, lush tea plantations, and exotic wildlife 
             with personalized private tours crafted just for you.
           </p>
 
-          {/* Search Box */}
-          <div className="bg-background/95 backdrop-blur-md rounded-2xl sm:rounded-full p-2.5 sm:p-3 shadow-xl max-w-3xl mx-auto">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-0">
-              {/* Search Input */}
-              <div className="flex-1 relative w-full sm:border-r border-border/50">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                  placeholder="Search destinations..."
-                  className="pl-12 h-11 border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground"
-                />
-              </div>
-              
-              {/* Static text container - hidden on mobile */}
-              <div className="hidden sm:flex items-center h-11">
-                <div className="sm:border-r border-border/50 h-full flex items-center justify-start w-32 lg:w-36 px-4">
-                  <span className="text-sm text-muted-foreground whitespace-nowrap">Sri Lanka</span>
-                </div>
-                <div className="h-full flex items-center justify-start w-32 lg:w-36 px-4">
-                  <span className="text-sm text-muted-foreground whitespace-nowrap">Adventures</span>
-                </div>
-              </div>
-
-              {/* Search Button */}
-              <Button size="lg" className="w-full sm:w-auto h-11 px-6 rounded-full sm:ml-2">
-                <Search className="h-4 w-4 sm:mr-2" />
-                <span className="sm:inline">Search</span>
-              </Button>
-            </div>
-          </div>
-
           {/* Promotional Banner */}
-          <div className="mt-8 max-w-2xl mx-auto opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <div className="mt-10 max-w-2xl mx-auto opacity-0 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
           {/* Custom Package Banner - Organic Wave Style */}
             <Link to="/custom-package" className="block group">
               <div className="relative bg-accent/10 rounded-3xl overflow-hidden">
