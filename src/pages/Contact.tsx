@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactMessageMutation } from "@/hooks/use-public-api";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
-import contactHero from "@/assets/contact-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
 const contactInfo = [
   {
@@ -95,7 +95,7 @@ const Contact = () => {
       <PageHero
         title="Contact Us"
         subtitle="We'd love to hear from you. Let's plan your dream Sri Lankan adventure together."
-        backgroundImage={contactHero}
+        backgroundImage={heroImage}
         breadcrumb="Contact"
       />
 

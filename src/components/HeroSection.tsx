@@ -10,6 +10,7 @@ import transferAnimation from "@/assets/hero/animation.json";
 
 import heroBg from "@/assets/hero/4.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
 
 
@@ -128,7 +129,7 @@ const HeroSection = () => {
                     <div className="absolute -inset-2 bg-accent/30 rounded-[40%_60%_70%_30%/30%_30%_70%_70%] group-hover:rounded-[60%_40%_30%_70%/70%_70%_30%_30%] transition-all duration-700" />
                     <div className="relative w-36 h-28 sm:w-48 sm:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
                       <img 
-                        src={customTravelers} 
+                        src={heroImage} 
                         alt="Happy travelers in Sri Lanka" 
                         className="w-full h-full object-cover"
                       />

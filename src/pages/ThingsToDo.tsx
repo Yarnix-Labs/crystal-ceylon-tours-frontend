@@ -16,7 +16,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { ArrowRight, ChevronLeft } from "lucide-react";
-import activitiesHero from "@/assets/activities-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import { useThingsToDoList } from "@/hooks/use-public-api";
 
 const ThingsToDo = () => {
@@ -93,7 +93,7 @@ const ThingsToDo = () => {
       <PageHero
         title="Things To Do"
         subtitle="From thrilling adventures to peaceful retreats, discover unforgettable experiences"
-        backgroundImage={activitiesHero}
+        backgroundImage={heroImage}
         breadcrumb="Things To Do"
       />
 

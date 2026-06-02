@@ -15,7 +15,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import destinationsHero from "@/assets/destinations-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import { useDestinations } from "@/hooks/use-public-api";
 
 const Destinations = () => {
@@ -91,7 +91,7 @@ const Destinations = () => {
       <PageHero
         title="Explore Sri Lanka"
         subtitle="Discover the diverse landscapes, ancient wonders, and hidden gems of this tropical paradise"
-        backgroundImage={destinationsHero}
+        backgroundImage={heroImage}
         breadcrumb="Destinations"
       />
 

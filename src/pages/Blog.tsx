@@ -6,7 +6,7 @@ import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Calendar, User, ArrowRight, Clock } from "lucide-react";
-import blogHero from "@/assets/blog-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import {
@@ -95,7 +95,7 @@ const Blog = () => {
       <PageHero
         title="Travel Blog"
         subtitle="Stories, tips, and inspiration for your Sri Lankan adventure"
-        backgroundImage={blogHero}
+        backgroundImage={heroImage}
         breadcrumb="Blog"
       />
 

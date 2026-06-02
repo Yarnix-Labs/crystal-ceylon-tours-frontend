@@ -1,7 +1,7 @@
 import { Phone, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import mirissaImg from "@/assets/mirissa.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
 const AboutSection = () => {
   return (
@@ -18,7 +18,7 @@ const AboutSection = () => {
               {/* Main Image */}
               <div className="relative rounded-[32px] overflow-hidden shadow-2xl shadow-black/10 ring-1 ring-border/50">
                 <img 
-                  src={mirissaImg} 
+                  src={heroImage} 
                   alt="Explore Sri Lanka with Crystal Ceylon Tours" 
                   className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[4/5] object-cover transition-transform duration-1000 group-hover:scale-105"
                 />

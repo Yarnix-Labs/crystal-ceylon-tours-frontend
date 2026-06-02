@@ -36,7 +36,7 @@ import {
   Car,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import packagesHero from "@/assets/packages-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
 
 
@@ -157,7 +157,7 @@ Looking forward to your response!
       <PageHero
         title="Create Your Dream Tour"
         subtitle="Plan your perfect Sri Lanka journey with ease - tell us your preferences and we'll handle the rest"
-        backgroundImage={packagesHero}
+        backgroundImage={heroImage}
         breadcrumb="Custom Package"
       />
 

@@ -16,7 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import packagesHero from "@/assets/packages-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import { useTourPackages } from "@/hooks/use-public-api";
 
 import customTravelers from "@/assets/custom-travelers.jpg";
@@ -49,7 +49,7 @@ const TourPackages = () => {
       <PageHero
         title="Tour Packages"
         subtitle="Carefully crafted itineraries that showcase the very best of Sri Lanka's wonders"
-        backgroundImage={packagesHero}
+        backgroundImage={heroImage}
         breadcrumb="Tour Packages"
       />
 

@@ -23,12 +23,15 @@ const Footer = () => {
           
           {/* Column 1: Company Info */}
           <div className="space-y-6 lg:w-1/3">
-            <Link to="/" className="inline-block mb-2 group">
+            <Link to="/" className="inline-flex items-center gap-4 mb-2 group">
               <img 
                 src={logo} 
                 alt="Crystal Ceylon" 
-                className="h-20 sm:h-24 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
+                className="h-16 sm:h-20 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
               />
+              <span className="font-display text-xl sm:text-2xl font-bold text-white tracking-wide group-hover:text-primary transition-colors duration-300">
+                Crystal Ceylon
+              </span>
             </Link>
             <p className="text-footer-foreground/70 leading-relaxed text-sm sm:text-base font-light">
               Discover the wonders of Sri Lanka with personalized private tours. 

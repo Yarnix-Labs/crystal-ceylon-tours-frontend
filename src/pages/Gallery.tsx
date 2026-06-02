@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import destinationsHero from "@/assets/destinations-hero.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Pagination,
@@ -214,7 +214,7 @@ const Gallery = () => {
       <PageHero
         title="Photo Gallery"
         subtitle="Explore the breathtaking beauty of Sri Lanka through our curated collection of stunning photography"
-        backgroundImage={destinationsHero}
+        backgroundImage={heroImage}
         breadcrumb="Gallery"
       />
 

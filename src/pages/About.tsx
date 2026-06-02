@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Award, Users, Heart, Globe, CheckCircle2 } from "lucide-react";
-import aboutHero from "@/assets/our-team.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 import storyImg1 from "@/assets/sigiriya.jpg";
 import storyImg2 from "@/assets/gallery-tea-plantation.png";
 
@@ -114,7 +114,7 @@ const About = () => {
       <PageHero
         title="About Crystal Ceylon"
         subtitle="Your trusted partner for authentic Sri Lankan travel experiences since 2022"
-        backgroundImage={aboutHero}
+        backgroundImage={heroImage}
         breadcrumb="About Us"
       />
 
