@@ -18,19 +18,20 @@ const Footer = () => {
       {/* Decorative top border */}
       <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-primary" />
       
-      <div className="container mx-auto px-4 py-16 lg:py-20 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+      <div className="container mx-auto px-4 py-8 sm:py-12 lg:py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16">
           
           {/* Column 1: Company Info */}
           <div className="space-y-6 lg:w-1/3">
-            <Link to="/" className="inline-flex items-center gap-4 mb-2 group">
+            <Link to="/" className="inline-flex items-center gap-2 sm:gap-3 mb-2 group">
               <img 
                 src={logo} 
-                alt="Crystal Ceylon" 
+                alt="Crystal Ceylon Tours" 
                 className="h-16 sm:h-20 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
               />
-              <span className="font-display text-xl sm:text-2xl font-bold text-white tracking-wide group-hover:text-primary transition-colors duration-300">
-                Crystal Ceylon
+              <span className="font-display text-xl sm:text-2xl font-bold whitespace-nowrap tracking-wide group-hover:brightness-110 transition-all duration-300">
+                <span className="text-accent">Crystal</span>{" "}
+                <span className="text-primary">Ceylon Tours</span>
               </span>
             </Link>
             <p className="text-footer-foreground/70 leading-relaxed text-sm sm:text-base font-light">
