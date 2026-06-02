@@ -19,10 +19,10 @@ const Footer = () => {
       <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-primary" />
       
       <div className="container mx-auto px-4 py-16 lg:py-20 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           
           {/* Column 1: Company Info */}
-          <div className="space-y-6 lg:pr-6 sm:col-span-2 lg:col-span-1">
+          <div className="space-y-6 lg:w-1/3">
             <Link to="/" className="inline-block mb-2 group">
               <img 
                 src={logo} 
@@ -47,61 +47,61 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Company Links */}
-          <div className="sm:mt-4 lg:mt-0">
-            <h3 className="text-white font-display text-lg font-semibold tracking-wide mb-6 flex items-center gap-3">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_rgba(var(--primary),0.8)]"></span>
-              Company
-            </h3>
-            <ul className="space-y-4">
-              {['About Us', 'Blog', 'Contact Us'].map((link) => (
-                <li key={link}>
-                  <Link 
-                    to={`/${link.toLowerCase().replace(' ', '-')}`} 
-                    className="group flex items-center text-footer-foreground/70 hover:text-white transition-colors text-sm sm:text-base w-fit"
-                  >
-                    <span className="relative flex items-center pl-2">
-                      <ChevronRight className="absolute -left-3 h-4 w-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{link}</span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Link Columns */}
+          <div className="lg:w-2/3 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
+            {/* Column 2: Company Links */}
+            <div>
+              <h3 className="text-white font-display text-sm sm:text-base font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                Company
+              </h3>
+              <ul className="space-y-4">
+                {['About Us', 'Blog', 'Contact Us'].map((link) => (
+                  <li key={link}>
+                    <Link 
+                      to={`/${link.toLowerCase().replace(' ', '-')}`} 
+                      className="group flex items-center text-footer-foreground/70 hover:text-white transition-colors text-xs sm:text-sm w-fit"
+                    >
+                      <span className="relative flex items-center pl-2">
+                        <ChevronRight className="absolute -left-3 h-3 w-3 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{link}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Column 3: Explore Links */}
-          <div className="sm:mt-4 lg:mt-0">
-            <h3 className="text-white font-display text-lg font-semibold tracking-wide mb-6 flex items-center gap-3">
-              <span className="w-1.5 h-1.5 bg-accent rounded-full shadow-[0_0_10px_rgba(var(--accent),0.8)]"></span>
-              Explore
-            </h3>
-            <ul className="space-y-4">
-              {['Tour Packages', 'Things to Do', 'Destinations'].map((link) => (
-                <li key={link}>
-                  <Link 
-                    to={`/${link.toLowerCase().replace(/ /g, '-')}`} 
-                    className="group flex items-center text-footer-foreground/70 hover:text-white transition-colors text-sm sm:text-base w-fit"
-                  >
-                    <span className="relative flex items-center pl-2">
-                      <ChevronRight className="absolute -left-3 h-4 w-4 text-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{link}</span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Column 3: Explore Links */}
+            <div>
+              <h3 className="text-white font-display text-sm sm:text-base font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                Explore
+              </h3>
+              <ul className="space-y-4">
+                {['Tour Packages', 'Things to Do', 'Destinations'].map((link) => (
+                  <li key={link}>
+                    <Link 
+                      to={`/${link.toLowerCase().replace(/ /g, '-')}`} 
+                      className="group flex items-center text-footer-foreground/70 hover:text-white transition-colors text-xs sm:text-sm w-fit"
+                    >
+                      <span className="relative flex items-center pl-2">
+                        <ChevronRight className="absolute -left-3 h-3 w-3 text-accent opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">{link}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Column 4: Reviews */}
-          <div className="sm:col-span-2 lg:col-span-1 sm:mt-4 lg:mt-0">
-            <h3 className="text-white font-display text-lg font-semibold tracking-wide mb-6 flex items-center gap-3">
-              <span className="w-1.5 h-1.5 bg-[#34e0a1] rounded-full shadow-[0_0_10px_rgba(52,224,161,0.8)]"></span>
-              Reviews
-            </h3>
-            <div className="flex flex-col gap-3 items-start">
-              <TripAdvisorRatedBadge />
-              <TripAdvisorLinkingWidget />
+            {/* Column 4: Reviews */}
+            <div className="col-span-2 sm:col-span-1">
+              <h3 className="text-white font-display text-sm sm:text-base font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+                Reviews
+              </h3>
+              <div className="flex flex-col gap-3 items-start scale-90 origin-top-left sm:scale-100">
+                <TripAdvisorRatedBadge />
+                <TripAdvisorLinkingWidget />
+              </div>
             </div>
           </div>
         </div>
