@@ -4,6 +4,9 @@ import { Search, MapPin, ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import QuickTransferModal from "@/components/QuickTransferModal";
+import Lottie from "lottie-react";
+
+import transferAnimation from "@/assets/hero/animation.json";
 
 import heroBg from "@/assets/hero/4.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
@@ -34,18 +37,30 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10 mt-3">
         <div className="text-center max-w-3xl mx-auto">
           {/* Quick Transfer Button */}
-          <button
-            onClick={() => setIsTransferModalOpen(true)}
-            className="group inline-flex items-center gap-2.5 bg-accent/90 hover:bg-accent backdrop-blur-sm rounded-full px-5 py-2 mb-3 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/30 cursor-pointer"
-          >
-            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
-              <Zap className="h-3.5 w-3.5 text-white" />
-            </div>
-            <span className="text-sm text-white font-semibold">
-              Quick Transfer Booking
-            </span>
-            <ArrowRight className="h-3.5 w-3.5 text-white/80 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          <div className="relative inline-block mb-8 mt-2">
+            {/* Pulsing Aura Animation */}
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-accent via-primary to-accent rounded-full blur-md opacity-70 animate-pulse"></div>
+            
+            <button
+              onClick={() => setIsTransferModalOpen(true)}
+              className="group relative inline-flex items-center gap-3 bg-black/50 hover:bg-black/70 border border-white/30 backdrop-blur-xl rounded-full pr-7 pl-2 py-2 transition-all duration-500 hover:scale-105 cursor-pointer overflow-hidden shadow-2xl"
+            >
+              {/* Continuous Shine Sweep */}
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out" style={{ backgroundSize: '200% 100%' }} />
+              
+              <div className="w-11 h-11 rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.9)] flex items-center justify-center overflow-hidden z-10 p-1 ring-2 ring-white/50">
+                <Lottie animationData={transferAnimation} loop={true} className="w-full h-full scale-125" />
+              </div>
+              
+              <span className="text-sm md:text-base text-white font-bold tracking-wide z-10 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                Quick Transfer Booking
+              </span>
+              
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors z-10 ml-1">
+                <ArrowRight className="h-3.5 w-3.5 text-white group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </button>
+          </div>
 
           {/* Heading */}
           <h1 className="font-display text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
