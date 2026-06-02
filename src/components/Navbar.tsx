@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail, Clock, Calendar, Facebook, Instagram, Youtube, ChevronDown, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import logo from "@/assets/logo.png";
 import whatsappIcon from "@/assets/whatsapp-icon.png";
 
@@ -22,22 +17,13 @@ const navLinks = [
   { name: "Gallery", href: "/gallery" },
 ];
 
-const languages = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "de", name: "Deutsch", flag: "🇩🇪" },
-  { code: "fr", name: "Français", flag: "🇫🇷" },
-  { code: "es", name: "Español", flag: "🇪🇸" },
-  { code: "it", name: "Italiano", flag: "🇮🇹" },
-  { code: "zh", name: "中文", flag: "🇨🇳" },
-  { code: "ja", name: "日本語", flag: "🇯🇵" },
-  { code: "ru", name: "Русский", flag: "🇷🇺" },
-];
+
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -122,28 +108,11 @@ const Navbar = () => {
 
             {/* Right side - language selector, flag and social icons */}
             <div className="flex items-center gap-2 sm:gap-4 shrink-0 bg-white sm:bg-transparent pl-4 sm:pl-0 z-10">
-              {/* Language Selector */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 sm:gap-1.5 rounded-full px-2 py-1 bg-muted/50 hover:bg-muted transition-colors ring-0 focus:ring-0 outline-none border border-border/40">
-                  <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary" />
-                  <span className="font-bold">{currentLanguage.code.toUpperCase()}</span>
-                  <ChevronDown className="h-2.5 w-2.5 opacity-50" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-44 rounded-xl shadow-xl border-border/50 backdrop-blur-xl">
-                  {languages.map((lang) => (
-                    <DropdownMenuItem
-                      key={lang.code}
-                      onClick={() => setCurrentLanguage(lang)}
-                      className={`flex items-center gap-3 cursor-pointer py-2 px-3 rounded-lg my-0.5 mx-1 transition-all ${
-                        currentLanguage.code === lang.code ? "bg-primary/10 text-primary font-bold" : "hover:bg-muted"
-                      }`}
-                    >
-                      <span className="text-lg leading-none">{lang.flag}</span>
-                      <span className="text-xs">{lang.name}</span>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {/* Static Language Label */}
+              <div className="flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 py-1 bg-muted/50 border border-border/40">
+                <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary" />
+                <span className="font-bold text-xs sm:text-sm">EN</span>
+              </div>
 
               <div className="h-4 w-px bg-border/60" />
 
