@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useThingToDoBySlug } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const ActivityDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -62,6 +63,12 @@ const ActivityDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${activity.title} in Sri Lanka | Things To Do`}
+        description={activity.excerpt || activity.description || `Discover ${activity.title} and other amazing things to do in Sri Lanka.`}
+        canonical={`/things-to-do/${slug}`}
+        ogImage={activity.image || activity.coverImage || activity.heroImage}
+      />
       <Navbar />
       
       {/* Hero Section */}

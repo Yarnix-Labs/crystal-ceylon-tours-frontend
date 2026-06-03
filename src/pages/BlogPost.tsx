@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBlogBySlug } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -58,6 +59,13 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${post.title} | Sri Lanka Travel Blog`}
+        description={post.excerpt || `Read about ${post.title} on the Crystal Ceylon Tours travel blog.`}
+        canonical={`/blog/${slug}`}
+        ogImage={post.coverImage}
+        ogType="article"
+      />
       <Navbar />
       
       {/* Hero Section */}

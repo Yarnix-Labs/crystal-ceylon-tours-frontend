@@ -7,6 +7,7 @@ interface SEOProps {
   keywords?: string;
   ogImage?: string;
   ogType?: string;
+  schema?: Record<string, any> | Record<string, any>[];
 }
 
 export default function SEO({
@@ -16,9 +17,39 @@ export default function SEO({
   keywords = "Sri Lanka tours, Sri Lanka travel, custom tour packages, private tours Sri Lanka, Crystal Ceylon Tours",
   ogImage = "https://crystalceylontours.com/default-og-image.jpg",
   ogType = "website",
+  schema,
 }: SEOProps) {
   const siteUrl = "https://crystalceylontours.com";
   const fullCanonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
+
+  // Generate Breadcrumbs based on canonical URL
+  const breadcrumbSchema = canonical && canonical !== "/" ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": siteUrl
+      },
+      ...canonical.split("/").filter(Boolean).map((part, index, array) => ({
+        "@type": "ListItem",
+        "position": index + 2,
+        "name": part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, " "),
+        "item": `${siteUrl}/${array.slice(0, index + 1).join("/")}`
+      }))
+    ]
+  } : undefined;
+
+  const finalSchema = [];
+  if (schema) {
+    if (Array.isArray(schema)) finalSchema.push(...schema);
+    else finalSchema.push(schema);
+  }
+  if (breadcrumbSchema) {
+    finalSchema.push(breadcrumbSchema);
+  }
 
   return (
     <Helmet>
@@ -41,6 +72,13 @@ export default function SEO({
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={ogImage} />
+
+      {/* JSON-LD Schema */}
+      {finalSchema.length > 0 && (
+        <script type="application/ld+json">
+          {JSON.stringify(finalSchema.length === 1 ? finalSchema[0] : finalSchema)}
+        </script>
+      )}
     </Helmet>
   );
 }

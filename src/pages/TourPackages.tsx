@@ -43,12 +43,23 @@ const TourPackages = () => {
     }
   }, [pageParam]);
 
+  const itemListSchema = tours.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": tours.map((pkg, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `https://crystalceylontours.com/tour-packages/${pkg.slug}`
+    }))
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
         title="Sri Lanka Tour Packages | Crystal Ceylon Tours"
         description="Explore our exclusive Sri Lanka tour packages. Book your dream vacation with Crystal Ceylon Tours."
         canonical="/tour-packages"
+        schema={itemListSchema}
       />
       <Navbar />
       

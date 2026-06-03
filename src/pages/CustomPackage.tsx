@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-image.jpg";
+import SEO from "@/components/SEO";
 
 
 
@@ -152,6 +153,11 @@ Looking forward to your response!
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Design Your Custom Sri Lanka Tour | Tailor-Made Holidays"
+        description="Plan your perfect Sri Lanka journey with ease. Tell us your preferences and we'll handle the rest."
+        canonical="/custom-package"
+      />
       <Navbar />
 
       <PageHero

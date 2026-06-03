@@ -6,6 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTourPackageBySlug } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 import {
   Clock, 
   Users, 
@@ -81,6 +82,12 @@ const TourPackageDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${tour.name} | Sri Lanka Tour Packages`}
+        description={tour.shortDescription || `Experience the ${tour.name} with Crystal Ceylon Tours. Book your Sri Lanka adventure today!`}
+        canonical={`/tour-packages/${slug}`}
+        ogImage={tour.heroImage}
+      />
       <Navbar />
       
       {/* Hero Section */}

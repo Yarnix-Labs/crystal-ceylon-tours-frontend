@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDestinationBySlug } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const DestinationDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -62,6 +63,12 @@ const DestinationDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${destination.title} | Crystal Ceylon Tours`}
+        description={destination.excerpt || `Discover ${destination.title} and plan your perfect Sri Lankan getaway with Crystal Ceylon Tours.`}
+        canonical={`/destinations/${slug}`}
+        ogImage={destination.coverImage || destination.images?.[0]}
+      />
       <Navbar />
       
       {/* Hero Section */}

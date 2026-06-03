@@ -18,6 +18,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useBlogsList } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const Blog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -90,6 +91,11 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Sri Lanka Travel Blog & Insider Guides | Crystal Ceylon Tours"
+        description="Read our latest travel stories, tips, and insider guides for your ultimate Sri Lankan adventure."
+        canonical="/blog"
+      />
       <Navbar />
       
       <PageHero

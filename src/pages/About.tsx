@@ -7,6 +7,7 @@ import { Award, Users, Heart, Globe, CheckCircle2 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import storyImg1 from "@/assets/our-story.jpg";
 import storyImg2 from "@/assets/gallery-tea-plantation.png";
+import SEO from "@/components/SEO";
 
 import ammMalinga from "@/assets/aboutusimages/AMM Malinga(Travel Consultant).jpeg";
 import djAnanda from "@/assets/aboutusimages/DJ Ananda(Managing Director).jpeg";
@@ -109,6 +110,11 @@ const team = [
 const About = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="About Crystal Ceylon Tours | Premium Sri Lanka Travel Agency"
+        description="Learn about our passion for travel, sustainable tourism, and our expert local guides in Sri Lanka."
+        canonical="/about"
+      />
       <Navbar />
       
       <PageHero

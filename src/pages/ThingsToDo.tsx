@@ -18,6 +18,7 @@ import {
 import { ArrowRight, ChevronLeft } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import { useThingsToDoList } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const ThingsToDo = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,6 +89,11 @@ const ThingsToDo = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Best Things To Do in Sri Lanka | Activities & Experiences"
+        description="From thrilling adventures to peaceful retreats, discover unforgettable experiences and activities in Sri Lanka."
+        canonical="/things-to-do"
+      />
       <Navbar />
       
       <PageHero

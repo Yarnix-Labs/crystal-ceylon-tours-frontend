@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/pagination";
 import { useGalleryImages } from "@/hooks/use-public-api";
 import type { GalleryImage as ApiGalleryImage } from "@/api/services/public";
+import SEO from "@/components/SEO";
 
 // Gallery image wrapper for UI state
 interface GalleryImageUI extends ApiGalleryImage {
@@ -209,6 +210,11 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Sri Lanka Travel Gallery | Crystal Ceylon Tours"
+        description="Explore the breathtaking beauty of Sri Lanka through our curated collection of stunning photography."
+        canonical="/gallery"
+      />
       <Navbar />
 
       <PageHero
