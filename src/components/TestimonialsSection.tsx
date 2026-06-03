@@ -234,7 +234,7 @@ const TestimonialsSection = () => {
           }`}
         >
           {[
-            { value: "5.0", label: "TripAdvisor", stars: true, subtext: "Based on 26 reviews" },
+            { value: "5.0", label: "TripAdvisor", stars: true, subtext: "Top Rated by Travelers" },
             { value: "500+", label: "Happy Clients", stars: false, subtext: "Traveled this year" },
             { value: "98%", label: "Recommend Us", stars: false, subtext: "To family and friends" },
             { value: "24/7", label: "Premium Support", stars: false, subtext: "Always here for you" },
