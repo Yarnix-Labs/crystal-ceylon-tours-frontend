@@ -7,6 +7,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import GallerySection from "@/components/GallerySection";
 import BlogPreviewSection from "@/components/BlogPreviewSection";
 import TrustPartnersSection from "@/components/TrustPartnersSection";
+import SEOContentBlock from "@/components/SEOContentBlock";
 import NewsletterCTASection from "@/components/NewsletterCTASection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -52,6 +53,7 @@ const Index = () => {
         <GallerySection />
         <BlogPreviewSection />
         <TrustPartnersSection />
+        <SEOContentBlock />
         <NewsletterCTASection />
       </main>
       <Footer />

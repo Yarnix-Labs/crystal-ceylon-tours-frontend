@@ -80,6 +80,53 @@ const TourPackageDetail = () => {
     );
   }
 
+  // Dynamic FAQ Generation
+  const faqs = [];
+  if (tour) {
+    faqs.push({
+      question: `How long is the ${tour.name} tour?`,
+      answer: `This tour spans a duration of ${tour.packageDuration || `${tour.totalDays} days`}.`
+    });
+    faqs.push({
+      question: `What is the minimum number of people required?`,
+      answer: `This package requires a minimum of ${tour.minPeople} people to book.`
+    });
+    if (tour.includes && tour.includes.length > 0) {
+      faqs.push({
+        question: `What is included in the price?`,
+        answer: `The package includes: ${tour.includes.join(', ')}.`
+      });
+    }
+    if (tour.excludes && tour.excludes.length > 0) {
+      faqs.push({
+        question: `What is not included in the package?`,
+        answer: `The package does not include: ${tour.excludes.join(', ')}.`
+      });
+    }
+    faqs.push({
+      question: `Can I customize this tour?`,
+      answer: `Yes, absolutely! All our tours are fully customizable. You can contact us to adjust the itinerary, accommodation, or duration to suit your preferences.`
+    });
+    faqs.push({
+      question: `How do I book this tour?`,
+      answer: `You can book directly by clicking the 'Book This Tour' button, or contact us via WhatsApp or email for personalized assistance.`
+    });
+  }
+
+  // Generate FAQ Schema
+  const faqSchema = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -87,6 +134,7 @@ const TourPackageDetail = () => {
         description={tour.shortDescription || `Experience the ${tour.name} with Crystal Ceylon Tours. Book your Sri Lanka adventure today!`}
         canonical={`/tour-packages/${slug}`}
         ogImage={tour.heroImage}
+        schema={faqSchema}
       />
       <Navbar />
       
@@ -445,6 +493,30 @@ const TourPackageDetail = () => {
         </div>
       </section>
 
+      {/* Dynamic FAQ Section */}
+      <section className="py-10 sm:py-16 bg-muted/20">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base">Everything you need to know about the {tour.name} tour.</p>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={index} className="bg-white rounded-[16px] p-5 sm:p-6 shadow-sm border border-border/40">
+                <h3 className="font-display text-lg sm:text-xl font-bold text-foreground mb-3 flex items-start gap-3">
+                  <span className="text-primary mt-1 text-2xl leading-none">Q:</span> 
+                  <span className="mt-1">{faq.question}</span>
+                </h3>
+                <div className="text-foreground/80 text-sm sm:text-base leading-relaxed flex items-start gap-3 pl-[38px] sm:pl-[42px]">
+                  <span>{faq.answer}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Legacy CTA Section (Optional, could be removed if redundant) */}
       <section className="py-10 sm:py-16 bg-primary/5">

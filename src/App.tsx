@@ -19,6 +19,8 @@ import CustomPackage from "./pages/CustomPackage";
 import Gallery from "./pages/Gallery";
 import BookNow from "./pages/BookNow";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -47,6 +49,8 @@ const App = () => (
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/book-now/:type/:slug" element={<BookNow />} />
           <Route path="/book-now" element={<BookNow />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

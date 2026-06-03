@@ -59,10 +59,10 @@ const Footer = () => {
                 Company
               </h3>
               <ul className="space-y-4">
-                {['About Us', 'Blog', 'Contact Us'].map((link) => (
+                {['About Us', 'Blog', 'Contact Us', 'Privacy Policy', 'Terms of Service'].map((link) => (
                   <li key={link}>
                     <Link 
-                      to={`/${link.toLowerCase().replace(' ', '-')}`} 
+                      to={`/${link.toLowerCase().replace(/ /g, '-')}`} 
                       className="group flex items-center text-footer-foreground/70 hover:text-white transition-colors text-xs sm:text-sm w-fit"
                     >
                       <span className="relative flex items-center pl-2">
