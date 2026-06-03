@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBookingBar from "@/components/MobileStickyBookingBar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTourPackageBySlug } from "@/hooks/use-public-api";
@@ -559,6 +560,7 @@ const TourPackageDetail = () => {
 
       <Footer />
       <WhatsAppButton />
+      <MobileStickyBookingBar price={tour.price || 0} slug={slug || ""} />
     </div>
   );
 };

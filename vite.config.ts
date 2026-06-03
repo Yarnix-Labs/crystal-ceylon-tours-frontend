@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import Sitemap from "vite-plugin-sitemap";
@@ -16,25 +16,41 @@ const staticRoutes = [
   "/custom-package"
 ];
 
-// 2. (Optional but Recommended) Fetch dynamic routes from your API during build time
-// E.g., fetch your tours, destinations, and blogs to add them to the sitemap.
-const fetchDynamicRoutes = async () => {
-  // Example implementation (Replace with your actual data fetching logic/API calls):
-  // const destinations = await fetch('https://api.crystalceylontours.com/destinations').then(res => res.json());
-  // return destinations.map(d => `/destinations/${d.slug}`);
-  
-  return [
-    // This is where you would return your dynamic paths:
-    // '/destinations/colombo',
-    // '/tour-packages/sigiriya-cultural-tour',
-    // '/blog/best-time-to-visit-sri-lanka'
-  ];
+// 2. Fetch dynamic routes from your API during build time
+const fetchDynamicRoutes = async (apiUrl: string) => {
+  const routes: string[] = [];
+  try {
+    const [toursRes, destsRes, blogsRes, activitiesRes]: any[] = await Promise.all([
+      fetch(`${apiUrl}/tour-packages/package/summary/?page=1`).then(res => res.json()).catch(() => ({ data: { items: [] } })),
+      fetch(`${apiUrl}/destinations/summary/list?page=1`).then(res => res.json()).catch(() => ({ data: { items: [] } })),
+      fetch(`${apiUrl}/blogs/published/list?page=1`).then(res => res.json()).catch(() => ({ data: { items: [] } })),
+      fetch(`${apiUrl}/things-to-do/summary/list?page=1`).then(res => res.json()).catch(() => ({ data: { items: [] } }))
+    ]);
+
+    const tours = toursRes?.data?.items || toursRes?.items || [];
+    const dests = destsRes?.data?.items || destsRes?.items || [];
+    const blogs = blogsRes?.data?.items || blogsRes?.items || [];
+    const activities = activitiesRes?.data?.items || activitiesRes?.items || [];
+
+    tours.forEach((t: any) => t.slug && routes.push(`/tour-packages/${t.slug}`));
+    dests.forEach((d: any) => d.slug && routes.push(`/destinations/${d.slug}`));
+    blogs.forEach((b: any) => b.slug && routes.push(`/blog/${b.slug}`));
+    activities.forEach((a: any) => a.slug && routes.push(`/things-to-do/${a.slug}`));
+    
+    console.log(`[Sitemap] Fetched ${routes.length} dynamic routes from API.`);
+  } catch (error) {
+    console.error("[Sitemap] Failed to fetch dynamic routes:", error);
+  }
+  return routes;
 };
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const API_URL = env.VITE_API_URL || 'http://localhost:3000/api/v1';
+
   // Fetch dynamic paths before configuring Vite
-  const dynamicPaths = await fetchDynamicRoutes();
+  const dynamicPaths = await fetchDynamicRoutes(API_URL);
   const allRoutes = [...staticRoutes, ...dynamicPaths];
 
   return {
