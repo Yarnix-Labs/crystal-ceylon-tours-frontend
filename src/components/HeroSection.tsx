@@ -48,29 +48,31 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10 mt-3">
         <div className="text-center max-w-3xl mx-auto">
           {/* Quick Transfer Button */}
-          <div className="relative inline-block mb-8 mt-2 animate-bounce" style={{ animationDuration: '3s' }}>
-            {/* Pulsing Aura Animation */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-accent via-primary to-accent rounded-full blur-md opacity-70 animate-pulse"></div>
-            
-            <button
-              onClick={() => setIsTransferModalOpen(true)}
-              className="group relative inline-flex items-center gap-3 bg-black/50 hover:bg-black/70 border border-white/30 backdrop-blur-xl rounded-full pr-7 pl-2 py-2 transition-all duration-500 hover:scale-105 cursor-pointer overflow-hidden shadow-2xl"
-            >
-              {/* Continuous Shine Sweep */}
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out" style={{ backgroundSize: '200% 100%' }} />
+          <div className="relative inline-block mb-8 mt-2 p-2 group/transfer cursor-pointer">
+            <div className="relative animate-bounce group-hover/transfer:animate-none" style={{ animationDuration: '3s' }}>
+              {/* Pulsing Aura Animation */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-accent via-primary to-accent rounded-full blur-md opacity-70 animate-pulse"></div>
               
-              <div className="w-11 h-11 rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.9)] flex items-center justify-center overflow-hidden z-10 p-1 ring-2 ring-white/50">
-                <Lottie animationData={transferAnimation} loop={true} className="w-full h-full scale-125" />
-              </div>
-              
-              <span className="text-sm md:text-base text-white font-bold tracking-wide z-10 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                Quick Transfer Booking
-              </span>
-              
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors z-10 ml-1">
-                <ArrowRight className="h-3.5 w-3.5 text-white group-hover:translate-x-0.5 transition-transform" />
-              </div>
-            </button>
+              <button
+                onClick={() => setIsTransferModalOpen(true)}
+                className="group relative inline-flex items-center gap-3 bg-black/50 hover:bg-black/70 border border-white/30 backdrop-blur-xl rounded-full pr-7 pl-2 py-2 transition-all duration-500 hover:scale-105 cursor-pointer overflow-hidden shadow-2xl"
+              >
+                {/* Continuous Shine Sweep */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out" style={{ backgroundSize: '200% 100%' }} />
+                
+                <div className="w-11 h-11 rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.9)] flex items-center justify-center overflow-hidden z-10 p-1 ring-2 ring-white/50">
+                  <Lottie animationData={transferAnimation} loop={true} className="w-full h-full scale-125" />
+                </div>
+                
+                <span className="text-sm md:text-base text-white font-bold tracking-wide z-10 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  Quick Transfer Booking
+                </span>
+                
+                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors z-10 ml-1">
+                  <ArrowRight className="h-3.5 w-3.5 text-white group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </button>
+            </div>
           </div>
 
           {/* Heading */}
