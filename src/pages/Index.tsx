@@ -37,7 +37,7 @@ const travelAgencySchema = {
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title="Crystal Ceylon Tours | Sri Lanka Tour Packages & Private Tours"
         description="Experience the best of Sri Lanka with our custom tour packages and private tours."
         canonical="/"
@@ -47,8 +47,8 @@ const Index = () => {
       <main>
         <HeroSection />
         <WhyChooseUsSection />
-        <DestinationsSection />
         <TourPackagesSection />
+        <DestinationsSection />
         <TestimonialsSection />
         <GallerySection />
         <BlogPreviewSection />
