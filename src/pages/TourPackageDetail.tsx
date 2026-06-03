@@ -235,7 +235,7 @@ const TourPackageDetail = () => {
                 <div className="bg-card rounded-[18px] sm:rounded-[22px] shadow-sm ring-1 ring-border/30 p-5 sm:p-6 md:p-8">
                   <div className="space-y-3 sm:space-y-4">
                     {tour.description?.split('\n').filter(p => p.trim()).map((paragraph, index) => (
-                      <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                      <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify">
                         {paragraph}
                       </p>
                     ))}

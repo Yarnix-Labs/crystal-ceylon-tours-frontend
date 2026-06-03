@@ -45,7 +45,7 @@ const TermsOfService = () => {
             {/* Header Area */}
             <div className="flex flex-col md:flex-row gap-6 items-start justify-between border-b border-border/60 pb-8 mb-10">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-3">Terms & Conditions</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Terms & Conditions</h2>
                 <p className="text-muted-foreground font-medium flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   Last Updated: {lastUpdated}
@@ -58,7 +58,7 @@ const TermsOfService = () => {
             </div>
 
             {/* Introduction */}
-            <div className="text-lg text-foreground/80 leading-relaxed mb-12 font-medium">
+            <div className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-10 sm:mb-12 font-medium text-justify">
               <p>
                 Welcome to <strong className="text-foreground">Crystal Ceylon Tours</strong>. By booking a tour, utilizing our services, or accessing <Link to="/" className="text-primary hover:underline font-bold">crystalceylontours.com</Link>, you agree to be bound by the following Terms and Conditions. Please read them carefully before making a booking.
               </p>
@@ -73,9 +73,9 @@ const TermsOfService = () => {
                   <div className="bg-accent/15 p-3 rounded-2xl text-accent shadow-sm">
                     <CreditCard className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">1. Booking and Payment Policies</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">1. Booking and Payment Policies</h3>
                 </div>
-                <div className="space-y-4 text-foreground/80 leading-relaxed">
+                <div className="space-y-4 text-foreground/80 leading-relaxed text-justify">
                   <ul className="space-y-3 mt-4">
                     <li className="flex items-start gap-3">
                       <div className="mt-1 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
@@ -99,9 +99,9 @@ const TermsOfService = () => {
                   <div className="bg-red-500/15 p-3 rounded-2xl text-red-600 shadow-sm">
                     <RefreshCcw className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">2. Cancellation and Refund Policy</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">2. Cancellation and Refund Policy</h3>
                 </div>
-                <div className="text-foreground/80 leading-relaxed">
+                <div className="text-foreground/80 leading-relaxed text-justify">
                   <p className="mb-4">We understand that travel plans can change. Cancellations must be made in writing. Our standard cancellation policy is as follows:</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col items-center text-center justify-center">
@@ -136,12 +136,12 @@ const TermsOfService = () => {
                     <div className="bg-blue-500/15 p-2.5 rounded-xl text-blue-600 shadow-sm">
                       <RefreshCw className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">3. Tour Modifications</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">3. Tour Modifications</h3>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed text-sm mb-4">
+                  <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
                     Crystal Ceylon Tours reserves the right to modify itineraries, accommodations, and transport arrangements due to unforeseen circumstances such as severe weather, natural disasters, political instability, or road closures. We will provide alternative arrangements of a comparable standard.
                   </p>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
+                  <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     If you wish to modify your itinerary after the tour has commenced, any additional costs incurred will be your responsibility.
                   </p>
                 </section>
@@ -151,9 +151,9 @@ const TermsOfService = () => {
                     <div className="bg-primary/15 p-2.5 rounded-xl text-primary shadow-sm">
                       <UserCheck className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">4. Customer Responsibilities</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">4. Customer Responsibilities</h3>
                   </div>
-                  <ul className="space-y-3 text-sm text-foreground/80">
+                  <ul className="space-y-3 text-sm text-foreground/80 text-justify">
                     <li className="flex items-start gap-2">
                       <div className="mt-1 w-1 h-1 rounded-full bg-primary shrink-0" />
                       <p><strong>Travel Documents:</strong> Valid passport (6 months validity) and appropriate ETA/Visa.</p>
@@ -177,12 +177,12 @@ const TermsOfService = () => {
                     <div className="bg-orange-500/15 p-2.5 rounded-xl text-orange-600 shadow-sm">
                       <ShieldAlert className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">5. Limitation of Liability</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">5. Limitation of Liability</h3>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed text-sm mb-4">
+                  <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
                     Crystal Ceylon Tours acts solely as an agent for the independent suppliers providing hotel accommodations, transportation, and sightseeing activities.
                   </p>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
+                  <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     We shall not be liable for any injury, damage, loss, accident, delay, or irregularity caused by the defect of any vehicle, or the negligence of any company carrying out these services.
                   </p>
                 </section>
@@ -192,12 +192,12 @@ const TermsOfService = () => {
                     <div className="bg-purple-500/15 p-2.5 rounded-xl text-purple-600 shadow-sm">
                       <CloudLightning className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">6. Force Majeure</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">6. Force Majeure</h3>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed text-sm mb-4">
+                  <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
                     We cannot accept liability or pay compensation where performance of obligations is prevented by "Force Majeure".
                   </p>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
+                  <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     Events include war, threat of war, civil strife, terrorist activity, industrial dispute, natural disasters, adverse weather conditions, and government actions.
                   </p>
                 </section>
@@ -209,9 +209,9 @@ const TermsOfService = () => {
                   <div className="bg-accent/15 p-3 rounded-2xl text-accent shadow-sm">
                     <MessageSquare className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">7. Complaints and Disputes</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">7. Complaints and Disputes</h3>
                 </div>
-                <div className="space-y-4 text-foreground/80 leading-relaxed">
+                <div className="space-y-4 text-foreground/80 leading-relaxed text-justify">
                   <p>If you experience any issues during your tour, you must immediately inform your designated tour guide or our 24/7 support team so that we can attempt to resolve the matter promptly.</p>
                   <p>Any unresolved disputes shall be subject to the exclusive jurisdiction of the courts of the Democratic Socialist Republic of Sri Lanka.</p>
                 </div>
@@ -219,7 +219,7 @@ const TermsOfService = () => {
 
               {/* Contact Us */}
               <section className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-6 sm:p-8 border border-primary/20">
-                <h3 className="text-2xl font-display font-bold text-foreground mb-6 text-center">Questions About Terms?</h3>
+                <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-6 text-center">Questions About Terms?</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex flex-col items-center text-center p-4 bg-white rounded-2xl shadow-sm border border-white/50">
                     <div className="bg-primary/10 p-3 rounded-full text-primary mb-3">

@@ -129,7 +129,7 @@ const ThingsToDo = () => {
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-1.5 sm:mb-2.5 group-hover:text-primary transition-colors duration-300">
                     {activity.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed mb-6 font-normal">
+                  <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed mb-6 font-normal text-justify">
                     {activity.description || activity.excerpt || activity.overview || "Discover incredible experiences in Sri Lanka."}
                   </p>
                   

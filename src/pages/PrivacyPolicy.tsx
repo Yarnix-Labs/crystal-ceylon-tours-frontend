@@ -44,7 +44,7 @@ const PrivacyPolicy = () => {
             {/* Header Area */}
             <div className="flex flex-col md:flex-row gap-6 items-start justify-between border-b border-border/60 pb-8 mb-10">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-3">Privacy Policy</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-3">Privacy Policy</h2>
                 <p className="text-muted-foreground font-medium flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   Last Updated: {lastUpdated}
@@ -57,7 +57,7 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* Introduction */}
-            <div className="text-lg text-foreground/80 leading-relaxed mb-12 font-medium">
+            <div className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-10 sm:mb-12 font-medium text-justify">
               <p>
                 At <strong className="text-foreground">Crystal Ceylon Tours</strong> ("we", "us", or "our"), accessible from <Link to="/" className="text-primary hover:underline font-bold">crystalceylontours.com</Link>, one of our main priorities is the privacy of our visitors and clients. This document explains the types of information we collect and how we use it to provide you with an unforgettable Sri Lankan experience.
               </p>
@@ -72,9 +72,9 @@ const PrivacyPolicy = () => {
                   <div className="bg-accent/15 p-3 rounded-2xl text-accent shadow-sm">
                     <Database className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">1. Information We Collect</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">1. Information We Collect</h3>
                 </div>
-                <div className="space-y-4 text-foreground/80 leading-relaxed">
+                <div className="space-y-4 text-foreground/80 leading-relaxed text-justify">
                   <p>We collect personal information that you voluntarily provide to us when you express an interest in obtaining information about us or our tours, or when you contact us.</p>
                   <ul className="space-y-3 mt-4">
                     <li className="flex items-start gap-3">
@@ -99,9 +99,9 @@ const PrivacyPolicy = () => {
                   <div className="bg-primary/15 p-3 rounded-2xl text-primary shadow-sm">
                     <CheckCircle className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">2. How We Use Your Information</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">2. How We Use Your Information</h3>
                 </div>
-                <div className="text-foreground/80 leading-relaxed">
+                <div className="text-foreground/80 leading-relaxed text-justify">
                   <p className="mb-4">We use the information we collect in various ways, primarily to ensure your trip is perfect:</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[
@@ -127,9 +127,9 @@ const PrivacyPolicy = () => {
                   <div className="bg-orange-500/15 p-3 rounded-2xl text-orange-600 shadow-sm">
                     <Globe className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-display font-bold text-foreground">3. Third-Party Services</h3>
+                  <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">3. Third-Party Services</h3>
                 </div>
-                <div className="space-y-4 text-foreground/80 leading-relaxed">
+                <div className="space-y-4 text-foreground/80 leading-relaxed text-justify">
                   <p>We may share your data with trusted third-party vendors who perform services on our behalf:</p>
                   <div className="flex flex-col sm:flex-row gap-4 mt-4">
                     <div className="flex-1 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
@@ -159,9 +159,9 @@ const PrivacyPolicy = () => {
                     <div className="bg-purple-500/15 p-2.5 rounded-xl text-purple-600 shadow-sm">
                       <Cookie className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">4. Use of Cookies</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">4. Use of Cookies</h3>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
+                  <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     Like any other website, Crystal Ceylon Tours uses "cookies" to store information including visitors' preferences, and the pages visited. The information is used to optimize your experience by customizing our web page content based on browser type.
                   </p>
                 </section>
@@ -171,12 +171,12 @@ const PrivacyPolicy = () => {
                     <div className="bg-blue-500/15 p-2.5 rounded-xl text-blue-600 shadow-sm">
                       <UserCheck className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-foreground">5. Your Rights</h3>
+                    <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">5. Your Rights</h3>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed text-sm mb-4">
+                  <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
                     You have the right to access, rectify, erase, or restrict processing of your personal data.
                   </p>
-                  <p className="text-foreground/80 leading-relaxed text-sm">
+                  <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     If you make a request, we have one month to respond to you. Contact us to exercise these rights.
                   </p>
                 </section>
@@ -184,7 +184,7 @@ const PrivacyPolicy = () => {
 
               {/* Contact Us */}
               <section className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl p-6 sm:p-8 border border-primary/20">
-                <h3 className="text-2xl font-display font-bold text-foreground mb-6 text-center">Questions About Privacy?</h3>
+                <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-6 text-center">Questions About Privacy?</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex flex-col items-center text-center p-4 bg-white rounded-2xl shadow-sm border border-white/50">
                     <div className="bg-primary/10 p-3 rounded-full text-primary mb-3">

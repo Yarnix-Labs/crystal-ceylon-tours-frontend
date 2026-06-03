@@ -165,7 +165,7 @@ const ActivityDetail = () => {
                           .split('\n')
                           .filter(p => p.trim())
                           .map((paragraph, index) => (
-                            <p key={`ov-${index}`} className="text-sm sm:text-base md:text-[18px] text-foreground/90 font-semibold leading-[1.8] text-justify sm:text-left italic">
+                            <p key={`ov-${index}`} className="text-sm sm:text-base md:text-[18px] text-foreground/90 font-semibold leading-[1.8] text-justify italic">
                               {paragraph}
                             </p>
                           ))}
@@ -178,7 +178,7 @@ const ActivityDetail = () => {
                       .split('\n')
                       .filter(p => p.trim())
                       .map((paragraph, index) => (
-                        <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                        <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify">
                           {paragraph}
                         </p>
                       ))}
@@ -215,7 +215,7 @@ const ActivityDetail = () => {
                             {"title" in highlight ? highlight.title : ""}
                           </h3>
                         </div>
-                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed text-justify">
                           {"description" in highlight ? highlight.description : ""}
                         </p>
                       </div>

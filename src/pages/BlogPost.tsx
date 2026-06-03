@@ -174,7 +174,7 @@ const BlogPost = () => {
 
           {/* Clean Long Description Standard - Using dangerouslySetInnerHTML for parsed HTML content */}
           <div 
-            className="prose prose-lg sm:prose-xl max-w-none prose-headings:font-display prose-p:text-foreground/80 prose-p:font-medium prose-p:text-sm sm:prose-p:text-base md:prose-p:text-[17px] prose-p:leading-[2] whitespace-pre-wrap [&>p]:mb-8 [&>div]:mb-8 [&>h2]:mt-12 [&>h2]:mb-6 [&>h3]:mt-8 [&>h3]:mb-4 [&>ul]:mb-8 [&>ol]:mb-8"
+            className="prose prose-lg sm:prose-xl max-w-none prose-headings:font-display prose-p:text-foreground/80 prose-p:font-medium prose-p:text-sm sm:prose-p:text-base md:prose-p:text-[17px] prose-p:leading-[2] prose-p:text-justify whitespace-pre-wrap [&>p]:mb-8 [&>div]:mb-8 [&>h2]:mt-12 [&>h2]:mb-6 [&>h3]:mt-8 [&>h3]:mb-4 [&>ul]:mb-8 [&>ol]:mb-8"
             dangerouslySetInnerHTML={{ __html: post.content }} 
           />
 

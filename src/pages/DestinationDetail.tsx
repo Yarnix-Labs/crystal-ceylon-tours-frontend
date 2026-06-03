@@ -151,7 +151,7 @@ const DestinationDetail = () => {
                 {/* Vertical line border wrapper */}
                 <div className="border-l-[3px] border-primary/40 pl-5 sm:pl-8 space-y-3 sm:space-y-4">
                   {(destination.content || "").split('\n').filter(p => p.trim()).map((paragraph, index) => (
-                    <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify sm:text-left">
+                    <p key={index} className="text-sm sm:text-base md:text-[17px] text-foreground/80 font-medium leading-[1.8] text-justify">
                       {paragraph}
                     </p>
                   ))}
@@ -176,7 +176,7 @@ const DestinationDetail = () => {
                       </div>
                       <div>
                         <h3 className="font-display text-base sm:text-lg font-bold text-foreground mb-1.5">{activity.title}</h3>
-                        <p className="text-sm sm:text-base text-foreground/80 font-medium leading-[1.6]">{activity.description}</p>
+                        <p className="text-sm sm:text-base text-foreground/80 font-medium leading-[1.6] text-justify">{activity.description}</p>
                       </div>
                     </div>
                   ))}
@@ -192,7 +192,7 @@ const DestinationDetail = () => {
                 {/* Start Your Journey */}
                 <div className="bg-white rounded-[32px] p-6 sm:p-8 shadow-sm ring-1 ring-border/20">
                   <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-3">Start Your Journey</h3>
-                  <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-8 text-left">
+                  <p className="text-foreground/80 font-medium text-xs sm:text-sm md:text-base leading-relaxed mb-8 text-justify">
                     Ready to experience the magic of {destination.title}? Let our travel experts craft the perfect itinerary for you.
                   </p>
                   
