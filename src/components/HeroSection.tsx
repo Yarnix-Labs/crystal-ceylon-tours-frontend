@@ -9,6 +9,7 @@ import Lottie from "lottie-react";
 import transferAnimation from "@/assets/hero/animation.json";
 
 import heroBg from "@/assets/hero/4.png";
+import mobileHeroBg from "@/assets/hero/mobile-hero.png";
 import customTravelers from "@/assets/custom-travelers.jpg";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -36,11 +37,14 @@ const HeroSection = () => {
       
       {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-        <img
-          src={heroBg}
-          alt="Scenic train ride through tea plantations in Sri Lanka - Crystal Ceylon Tours"
-          className="w-full h-full object-cover animate-kenburns"
-        />
+        <picture>
+          <source media="(min-width: 640px)" srcSet={heroBg} />
+          <img
+            src={mobileHeroBg}
+            alt="Scenic train ride through tea plantations in Sri Lanka - Crystal Ceylon Tours"
+            className="w-full h-full object-cover animate-kenburns"
+          />
+        </picture>
         <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
       </div>
 
