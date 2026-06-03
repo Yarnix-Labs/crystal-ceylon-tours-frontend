@@ -1,54 +1,64 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Leaf, Map, Compass } from "lucide-react";
 
 const SEOContentBlock = () => {
   return (
-    <section className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 max-w-5xl">
-        <div className="bg-white rounded-[32px] p-8 sm:p-12 shadow-sm border border-border/40">
-          <div className="text-center mb-10">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">
+    <section className="py-12 bg-slate-50 border-t border-slate-100">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-16">
+          
+          {/* Left Column: Main Intro */}
+          <div className="md:w-1/3">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
               Discover Sri Lanka with Crystal Ceylon Tours
             </h2>
-            <div className="h-1.5 w-16 bg-primary rounded-full mx-auto" />
+            <div className="h-1 w-12 bg-primary rounded-full mb-6" />
+            <p className="text-base text-foreground/70 leading-relaxed mb-6">
+              Welcome to the teardrop island of the Indian Ocean—a land of ancient ruins, endless beaches, welcoming people, and famous tea. We specialize in crafting the finest <strong>Sri Lanka tour packages</strong> designed to immerse you in the authentic beauty and culture of this magnificent country.
+            </p>
+            <Link 
+              to="/custom-package" 
+              className="inline-flex items-center text-base font-bold text-primary hover:text-accent transition-colors group"
+            >
+              Design Your Custom Tour
+              <ArrowRight className="ml-1.5 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
 
-          <div className="prose prose-slate prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:text-foreground prose-p:text-foreground/80 prose-p:leading-relaxed">
+          {/* Right Column: Detailed Grid */}
+          <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
             
-            <p>
-              Welcome to the teardrop island of the Indian Ocean—a land of ancient ruins, endless beaches, welcoming people, and famous tea. At <strong>Crystal Ceylon Tours</strong>, we specialize in crafting the finest <strong>Sri Lanka tour packages</strong> designed to immerse you in the authentic beauty and culture of this magnificent country. Whether you're seeking a thrilling wildlife adventure, a serene beach holiday, or a deep dive into rich historical heritage, our expertly tailored itineraries offer an unparalleled travel experience.
-            </p>
+            {/* Feature 1 */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Compass className="w-5 h-5 text-accent" />
+                <h3 className="font-bold text-foreground text-base">Private Sri Lanka Tours</h3>
+              </div>
+              <p className="text-sm text-foreground/70 leading-relaxed">
+                Our private tours guarantee flexibility, comfort, and personalized attention. With an experienced local guide and a dedicated private vehicle, you have the freedom to explore at your own pace, from the Sigiriya Rock Fortress to the lush tea plantations of Nuwara Eliya.
+              </p>
+            </div>
 
-            <h3>Why Choose Our Private Sri Lanka Tours?</h3>
-            <p>
-              Traveling should be more than just visiting tourist spots; it should be an unforgettable journey shaped around your unique interests. Our <strong>private Sri Lanka tours</strong> guarantee flexibility, comfort, and personalized attention. With an experienced local guide and a dedicated private vehicle, you have the freedom to explore at your own pace. You can linger longer at the awe-inspiring Sigiriya Rock Fortress, take spontaneous detours through lush tea plantations in Nuwara Eliya, or pause to photograph wild elephants in Yala National Park.
-            </p>
+            {/* Feature 2 */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Map className="w-5 h-5 text-primary" />
+                <h3 className="font-bold text-foreground text-base">Unforgettable Experiences</h3>
+              </div>
+              <p className="text-sm text-foreground/70 leading-relaxed">
+                We curate travel experiences that resonate. Dive into cultural tours of ancient cities, embark on exhilarating wildlife safaris in Yala National Park, relax on the pristine beaches of Mirissa, or hike through the misty trails of Horton Plains.
+              </p>
+            </div>
 
-            <h3>Unforgettable Sri Lanka Travel Experiences</h3>
-            <p>
-              We don't just book holidays; we curate <strong>Sri Lanka travel experiences</strong> that resonate. Our diverse range of offerings caters to every type of traveler:
-            </p>
-            <ul>
-              <li><strong>Cultural Tours:</strong> Step back in time as you explore the ancient cities of Anuradhapura and Polonnaruwa, marvel at the Dambulla Cave Temple, and witness the sacred Temple of the Tooth Relic in Kandy.</li>
-              <li><strong>Wildlife Safaris:</strong> Sri Lanka is a biodiversity hotspot. Join our expert trackers for exhilarating safaris in Minneriya to see the great elephant gathering, or venture into Yala National Park in search of the elusive Sri Lankan leopard.</li>
-              <li><strong>Beach Holidays:</strong> Relax on pristine, golden shores. From the lively waves of Mirissa and Unawatuna in the south to the untouched tranquility of Trincomalee in the east, we know the perfect beach for your tropical escape.</li>
-              <li><strong>Adventure & Nature:</strong> Hike through the misty trails of Horton Plains, take the world-famous scenic train ride from Kandy to Ella, and conquer the peaks of Adam's Peak or Little Adam's Peak.</li>
-            </ul>
-
-            <h3>Bespoke Custom Tours Tailored for You</h3>
-            <p>
-              We understand that standard itineraries don't fit everyone. That’s why we excel at designing <strong>custom tours</strong>. You tell us your dreams—whether it's a romantic honeymoon, a family vacation, or a solo backpacking adventure—and our travel experts will weave them into a seamless reality. From boutique eco-lodges to luxury resorts, we handpick accommodations that elevate your stay. 
-            </p>
-
-            <p>
-              When you book with Crystal Ceylon Tours, you're not just a client; you become a part of our extended family. Our commitment to sustainable tourism ensures that your visit positively impacts local communities while preserving the island's natural splendor for generations to come.
-            </p>
-
-            <div className="mt-10 text-center">
-              <Link to="/custom-package" className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
-                Design Your Custom Tour
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+            {/* Feature 3 */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Leaf className="w-5 h-5 text-green-600" />
+                <h3 className="font-bold text-foreground text-base">Bespoke Custom Itineraries</h3>
+              </div>
+              <p className="text-sm text-foreground/70 leading-relaxed">
+                Standard itineraries don't fit everyone. Tell us your dreams—whether a romantic honeymoon, a family vacation, or a solo adventure—and our experts will weave them into a seamless reality, handpicking accommodations that elevate your stay.
+              </p>
             </div>
 
           </div>
