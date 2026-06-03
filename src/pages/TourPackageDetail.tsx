@@ -127,6 +127,21 @@ const TourPackageDetail = () => {
     }))
   } : undefined;
 
+  // Generate Product Schema
+  const productSchema = tour ? {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": tour.name,
+    "description": tour.shortDescription,
+    "image": tour.heroImage,
+    "offers": {
+      "@type": "Offer",
+      "price": tour.price,
+      "priceCurrency": "USD",
+      "availability": tour.status === "PUBLISHED" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+    }
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -134,7 +149,7 @@ const TourPackageDetail = () => {
         description={tour.shortDescription || `Experience the ${tour.name} with Crystal Ceylon Tours. Book your Sri Lanka adventure today!`}
         canonical={`/tour-packages/${slug}`}
         ogImage={tour.heroImage}
-        schema={faqSchema}
+        schema={[productSchema, faqSchema].filter(Boolean)}
       />
       <Navbar />
       

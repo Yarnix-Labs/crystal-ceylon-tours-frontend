@@ -17,6 +17,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDestinationBySlug } from "@/hooks/use-public-api";
 import SEO from "@/components/SEO";
+import TourPackagesSection from "@/components/TourPackagesSection";
 
 const DestinationDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -61,6 +62,43 @@ const DestinationDetail = () => {
     );
   }
 
+  // Dynamic FAQ Generation for Destinations
+  const faqs = [];
+  if (destination) {
+    if (destination.location) {
+      faqs.push({
+        question: `Where is ${destination.title} located?`,
+        answer: `${destination.title} is located in ${destination.location}, Sri Lanka.`
+      });
+    }
+    if (destination.bestTime) {
+      faqs.push({
+        question: `What is the best time to visit ${destination.title}?`,
+        answer: `The best time to visit ${destination.title} is generally ${destination.bestTime}.`
+      });
+    }
+    if (destination.tourCount) {
+      faqs.push({
+        question: `How many tour packages include ${destination.title}?`,
+        answer: `We currently have ${destination.tourCount} private tour packages that feature ${destination.title}.`
+      });
+    }
+  }
+
+  // Generate FAQ Schema
+  const faqSchema = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -68,6 +106,7 @@ const DestinationDetail = () => {
         description={destination.excerpt || `Discover ${destination.title} and plan your perfect Sri Lankan getaway with Crystal Ceylon Tours.`}
         canonical={`/destinations/${slug}`}
         ogImage={destination.coverImage || destination.images?.[0]}
+        schema={faqSchema}
       />
       <Navbar />
       
@@ -208,6 +247,8 @@ const DestinationDetail = () => {
           </div>
         </div>
       </section>
+
+      <TourPackagesSection />
 
       <Footer />
       <WhatsAppButton />

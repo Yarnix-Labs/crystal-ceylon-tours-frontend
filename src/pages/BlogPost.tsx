@@ -57,6 +57,29 @@ const BlogPost = () => {
     );
   }
 
+  // Generate Article Schema
+  const articleSchema = post ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.coverImage,
+    "datePublished": post.publishedAt || post.createdAt,
+    "dateModified": post.updatedAt || post.publishedAt || post.createdAt,
+    "author": {
+      "@type": "Person",
+      "name": post.authorName || "Crystal Ceylon Tours Expert"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Crystal Ceylon Tours",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://crystalceylontours.com/logo-4.png"
+      }
+    }
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -65,6 +88,7 @@ const BlogPost = () => {
         canonical={`/blog/${slug}`}
         ogImage={post.coverImage}
         ogType="article"
+        schema={articleSchema}
       />
       <Navbar />
       
@@ -153,6 +177,28 @@ const BlogPost = () => {
             className="prose prose-lg sm:prose-xl max-w-none prose-headings:font-display prose-p:text-foreground/80 prose-p:font-medium prose-p:text-sm sm:prose-p:text-base md:prose-p:text-[17px] prose-p:leading-[2] whitespace-pre-wrap [&>p]:mb-8 [&>div]:mb-8 [&>h2]:mt-12 [&>h2]:mb-6 [&>h3]:mt-8 [&>h3]:mb-4 [&>ul]:mb-8 [&>ol]:mb-8"
             dangerouslySetInnerHTML={{ __html: post.content }} 
           />
+
+          {/* Conversion CTA (Hub & Spoke) */}
+          <div className="mt-16 bg-primary/5 rounded-[24px] p-8 sm:p-10 text-center border border-primary/10">
+            <h3 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              Ready to explore Sri Lanka?
+            </h3>
+            <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+              Our travel experts are ready to craft a personalized itinerary just for you. Book a custom private tour today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/custom-package">
+                <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 px-8 font-bold">
+                  Get a Free Custom Quote
+                </Button>
+              </Link>
+              <Link to="/tour-packages">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-white rounded-full h-12 px-8 font-bold">
+                  Browse Tour Packages
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -38,7 +38,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
         <img
           src={heroBg}
-          alt="Sri Lanka Hero"
+          alt="Scenic train ride through tea plantations in Sri Lanka - Crystal Ceylon Tours"
           className="w-full h-full object-cover animate-kenburns"
         />
         <div className="hero-overlay absolute inset-0 z-30 pointer-events-none" />
@@ -130,7 +130,7 @@ const HeroSection = () => {
                     <div className="relative w-36 h-28 sm:w-48 sm:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
                       <img 
                         src={customTravelers} 
-                        alt="Happy travelers in Sri Lanka" 
+                        alt="Happy travelers enjoying a private Sri Lanka tour with Crystal Ceylon Tours" 
                         className="w-full h-full object-cover"
                       />
                     </div>

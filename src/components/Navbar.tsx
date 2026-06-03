@@ -249,7 +249,7 @@ const Navbar = () => {
         >
           <img 
             src={logo} 
-            alt="Crystal Ceylon" 
+            alt="Crystal Ceylon Tours - Best Travel Agency in Sri Lanka" 
             className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300" 
           />
           <span className="text-sm sm:text-base font-bold whitespace-nowrap hidden lg:block">

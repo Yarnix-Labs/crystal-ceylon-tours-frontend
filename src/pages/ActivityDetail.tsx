@@ -61,6 +61,43 @@ const ActivityDetail = () => {
     );
   }
 
+  // Dynamic FAQ Generation for Activities
+  const faqs = [];
+  if (activity) {
+    if (activity.duration) {
+      faqs.push({
+        question: `How long does the ${activity.title} take?`,
+        answer: `The ${activity.title} experience generally takes ${activity.duration}.`
+      });
+    }
+    if (activity.difficulty) {
+      faqs.push({
+        question: `What is the difficulty level of ${activity.title}?`,
+        answer: `The difficulty level is considered to be ${activity.difficulty}.`
+      });
+    }
+    if (activity.whatsIncluded && activity.whatsIncluded.length > 0) {
+      faqs.push({
+        question: `What is included in the ${activity.title}?`,
+        answer: `This experience includes: ${activity.whatsIncluded.join(', ')}.`
+      });
+    }
+  }
+
+  // Generate FAQ Schema
+  const faqSchema = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -68,6 +105,7 @@ const ActivityDetail = () => {
         description={activity.excerpt || activity.description || `Discover ${activity.title} and other amazing things to do in Sri Lanka.`}
         canonical={`/things-to-do/${slug}`}
         ogImage={activity.image || activity.coverImage || activity.heroImage}
+        schema={faqSchema}
       />
       <Navbar />
       

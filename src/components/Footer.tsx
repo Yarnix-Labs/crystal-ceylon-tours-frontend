@@ -26,7 +26,7 @@ const Footer = () => {
             <Link to="/" className="inline-flex items-center gap-2 sm:gap-3 mb-2 group">
               <img 
                 src={logo} 
-                alt="Crystal Ceylon Tours" 
+                alt="Crystal Ceylon Tours Travel Agency Sri Lanka Logo" 
                 className="h-16 sm:h-20 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
               />
               <span className="font-display text-xl sm:text-2xl font-bold whitespace-nowrap tracking-wide group-hover:brightness-110 transition-all duration-300">
