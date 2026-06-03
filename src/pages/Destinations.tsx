@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/pagination";
 import heroImage from "@/assets/hero-image.jpg";
 import { useDestinations } from "@/hooks/use-public-api";
+import SEO from "@/components/SEO";
 
 const Destinations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,6 +87,11 @@ const Destinations = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Top Destinations in Sri Lanka | Crystal Ceylon Tours"
+        description="Discover the most beautiful and culturally rich destinations across Sri Lanka."
+        canonical="/destinations"
+      />
       <Navbar />
       
       <PageHero

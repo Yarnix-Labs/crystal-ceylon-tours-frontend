@@ -10,10 +10,16 @@ import TrustPartnersSection from "@/components/TrustPartnersSection";
 import NewsletterCTASection from "@/components/NewsletterCTASection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Crystal Ceylon Tours | Sri Lanka Tour Packages & Private Tours"
+        description="Experience the best of Sri Lanka with our custom tour packages and private tours."
+        canonical="/"
+      />
       <Navbar />
       <main>
         <HeroSection />

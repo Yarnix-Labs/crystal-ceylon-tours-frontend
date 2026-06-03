@@ -20,6 +20,7 @@ import heroImage from "@/assets/hero-image.jpg";
 import { useTourPackages } from "@/hooks/use-public-api";
 
 import customTravelers from "@/assets/custom-travelers.jpg";
+import SEO from "@/components/SEO";
 
 const TourPackages = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,6 +45,11 @@ const TourPackages = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Sri Lanka Tour Packages | Crystal Ceylon Tours"
+        description="Explore our exclusive Sri Lanka tour packages. Book your dream vacation with Crystal Ceylon Tours."
+        canonical="/tour-packages"
+      />
       <Navbar />
       
       <PageHero

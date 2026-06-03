@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useContactMessageMutation } from "@/hooks/use-public-api";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import SEO from "@/components/SEO";
 
 const contactInfo = [
   {
@@ -90,6 +91,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Contact Crystal Ceylon Tours | Sri Lanka Travel Experts"
+        description="Get in touch with our Sri Lanka travel experts to plan your customized tour."
+        canonical="/contact"
+      />
       <Navbar />
       
       <PageHero
