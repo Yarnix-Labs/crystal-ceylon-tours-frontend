@@ -1,14 +1,11 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# /public/robots.txt
 
 User-agent: *
 Allow: /
+
+# Exclude transactional, private, and internal pages
+Disallow: /book-now/
+Disallow: /book-now
+
+# Point search engines to your dynamic sitemap
+Sitemap: https://crystalceylontours.com/sitemap.xml
