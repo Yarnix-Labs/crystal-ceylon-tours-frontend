@@ -8,4 +8,4 @@ Disallow: /book-now/
 Disallow: /book-now
 
 # Point search engines to your dynamic sitemap
-Sitemap: https://crystalceylontours.com/sitemap.xml
+Sitemap: https://www.seilavotours.com/sitemap.xml

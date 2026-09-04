@@ -56,7 +56,7 @@ const WhyChooseUsSection = () => {
             {/* Subtitle */}
             <div className="mb-2">
               <span className="font-display italic text-xl sm:text-2xl md:text-3xl text-accent font-medium">
-                The Crystal Ceylon Difference
+                The Seilavo Difference
               </span>
             </div>
 

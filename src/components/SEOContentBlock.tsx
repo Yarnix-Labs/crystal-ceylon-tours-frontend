@@ -10,7 +10,7 @@ const SEOContentBlock = () => {
           {/* Left Column: Main Intro */}
           <div className="md:w-1/3">
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-4">
-              Discover Sri Lanka with Crystal Ceylon Tours
+              Discover Sri Lanka with Seilavo Tours
             </h2>
             <div className="h-1 w-12 bg-primary rounded-full mb-6" />
             <p className="text-base text-foreground/70 leading-relaxed mb-6">

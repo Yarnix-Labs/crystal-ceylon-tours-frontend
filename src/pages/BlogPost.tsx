@@ -68,14 +68,14 @@ const BlogPost = () => {
     "dateModified": post.updatedAt || post.publishedAt || post.createdAt,
     "author": {
       "@type": "Person",
-      "name": post.authorName || "Crystal Ceylon Tours Expert"
+      "name": post.authorName || "Seilavo Tours Expert"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Crystal Ceylon Tours",
+      "name": "Seilavo Tours",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://crystalceylontours.com/logo-4.png"
+        "url": "https://www.seilavotours.com/logo-4.png"
       }
     }
   } : undefined;

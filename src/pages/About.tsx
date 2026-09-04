@@ -111,14 +111,14 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="About Crystal Ceylon Tours | Premium Sri Lanka Travel Agency"
+        title="About Seilavo Tours | Premium Sri Lanka Travel Agency"
         description="Learn about our passion for travel, sustainable tourism, and our expert local guides in Sri Lanka."
         canonical="/about"
       />
       <Navbar />
 
       <PageHero
-        title="About Crystal Ceylon"
+        title="About Seilavo"
         subtitle="Your trusted partner for authentic Sri Lankan travel experiences since 2022"
         backgroundImage={heroImage}
         breadcrumb="About Us"
@@ -189,8 +189,8 @@ const About = () => {
 
               <div className="space-y-4 sm:space-y-6 opacity-0 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
                 <p className="text-sm sm:text-base lg:text-lg text-foreground/80 font-medium leading-relaxed">
-                  <span className="float-left text-4xl sm:text-5xl font-display text-primary mr-3 mt-1 font-bold">C</span>
-                  rystal Ceylon was founded in 2022 by Tharaka Walawage, a passionate traveler who wanted to share the magic of Sri Lanka with the world. What started as a small family operation has rapidly grown into one of the most trusted tour companies on the island.
+                  <span className="float-left text-4xl sm:text-5xl font-display text-primary mr-3 mt-1 font-bold">S</span>
+                  eilavo Tours was founded in 2022 by Tharaka Walawage, a passionate traveler who wanted to share the magic of Sri Lanka with the world. What started as a small family operation has rapidly grown into one of the most trusted tour companies on the island.
                 </p>
                 <p className="text-sm sm:text-base lg:text-lg text-foreground/80 font-medium leading-relaxed">
                   We believe that travel should be transformative. We go far beyond typical tourist trails to offer authentic, deeply immersive experiences that connect you with Sri Lanka's rich heritage, stunning landscapes, and warm-hearted people.

@@ -19,7 +19,7 @@ const AboutSection = () => {
               <div className="relative rounded-[32px] overflow-hidden shadow-2xl shadow-black/10 ring-1 ring-border/50">
                 <img 
                   src={heroImage} 
-                  alt="Explore Sri Lanka with Crystal Ceylon Tours" 
+                  alt="Explore Sri Lanka with Seilavo Tours" 
                   className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[4/5] object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 
@@ -61,7 +61,7 @@ const AboutSection = () => {
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-[1.1]">
               Explore Sri Lanka with <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent relative inline-block">
-                Crystal Ceylon Tours
+                Seilavo Tours
                 <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 12" preserveAspectRatio="none">
                   <path d="M2,10 Q50,0 98,10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-primary/30" />
                 </svg>

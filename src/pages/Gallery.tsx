@@ -211,7 +211,7 @@ const Gallery = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Sri Lanka Travel Gallery | Crystal Ceylon Tours"
+        title="Sri Lanka Travel Gallery | Seilavo Tours"
         description="Explore the breathtaking beauty of Sri Lanka through our curated collection of stunning photography."
         canonical="/gallery"
       />

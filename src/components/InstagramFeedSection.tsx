@@ -57,7 +57,7 @@ const InstagramFeedSection = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-white text-xs font-bold uppercase tracking-widest mb-4 shadow-lg shadow-[#dc2743]/20">
             <Instagram className="h-3.5 w-3.5" />
-            @crystalceylontours
+            @seilavotours
           </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-foreground mb-2">
             Follow Our{" "}

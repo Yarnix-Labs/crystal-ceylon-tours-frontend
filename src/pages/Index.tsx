@@ -16,10 +16,10 @@ import SEO from "@/components/SEO";
 const travelAgencySchema = {
   "@context": "https://schema.org",
   "@type": ["TravelAgency", "Organization"],
-  "name": "Crystal Ceylon Tours",
-  "url": "https://crystalceylontours.com",
-  "logo": "https://crystalceylontours.com/logo-4.png",
-  "image": "https://crystalceylontours.com/default-og-image.jpg",
+  "name": "Seilavo Tours",
+  "url": "https://seilavotours.com",
+  "logo": "https://seilavotours.com/logo-4.png",
+  "image": "https://seilavotours.com/default-og-image.jpg",
   "description": "Experience the best of Sri Lanka with our custom tour packages and private tours.",
   "address": {
     "@type": "PostalAddress",
@@ -29,7 +29,7 @@ const travelAgencySchema = {
     "@type": "ContactPoint",
     "telephone": "+94762866748",
     "contactType": "customer service",
-    "email": "hello@crystalceylon.com",
+    "email": "seilavotours@gmail.com",
     "availableLanguage": ["English"]
   }
 };
@@ -38,7 +38,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Crystal Ceylon Tours | Sri Lanka Tour Packages & Private Tours"
+        title="Seilavo Tours | Sri Lanka Tour Packages & Private Tours"
         description="Experience the best of Sri Lanka with our custom tour packages and private tours."
         canonical="/"
         schema={travelAgencySchema}

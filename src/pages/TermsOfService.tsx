@@ -25,15 +25,15 @@ const TermsOfService = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Terms and Conditions | Crystal Ceylon Tours"
-        description="Read the terms and conditions for booking tours and travel packages with Crystal Ceylon Tours in Sri Lanka."
+        title="Terms and Conditions | Seilavo Tours"
+        description="Read the terms and conditions for booking tours and travel packages with Seilavo Tours in Sri Lanka."
         canonical="/terms-of-service"
       />
       <Navbar />
       
       <PageHero
         title="Terms & Conditions"
-        subtitle="Important information regarding your booking with Crystal Ceylon Tours."
+        subtitle="Important information regarding your booking with Seilavo Tours."
         backgroundImage={heroImage}
         breadcrumb="Terms & Conditions"
       />
@@ -60,7 +60,7 @@ const TermsOfService = () => {
             {/* Introduction */}
             <div className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-10 sm:mb-12 font-medium text-justify">
               <p>
-                Welcome to <strong className="text-foreground">Crystal Ceylon Tours</strong>. By booking a tour, utilizing our services, or accessing <Link to="/" className="text-primary hover:underline font-bold">crystalceylontours.com</Link>, you agree to be bound by the following Terms and Conditions. Please read them carefully before making a booking.
+                Welcome to <strong className="text-foreground">Seilavo Tours</strong>. By booking a tour, utilizing our services, or accessing <Link to="/" className="text-primary hover:underline font-bold">www.seilavotours.com</Link>, you agree to be bound by the following Terms and Conditions. Please read them carefully before making a booking.
               </p>
             </div>
 
@@ -139,7 +139,7 @@ const TermsOfService = () => {
                     <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">3. Tour Modifications</h3>
                   </div>
                   <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
-                    Crystal Ceylon Tours reserves the right to modify itineraries, accommodations, and transport arrangements due to unforeseen circumstances such as severe weather, natural disasters, political instability, or road closures. We will provide alternative arrangements of a comparable standard.
+                    Seilavo Tours reserves the right to modify itineraries, accommodations, and transport arrangements due to unforeseen circumstances such as severe weather, natural disasters, political instability, or road closures. We will provide alternative arrangements of a comparable standard.
                   </p>
                   <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     If you wish to modify your itinerary after the tour has commenced, any additional costs incurred will be your responsibility.
@@ -180,7 +180,7 @@ const TermsOfService = () => {
                     <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">5. Limitation of Liability</h3>
                   </div>
                   <p className="text-foreground/80 leading-relaxed text-sm mb-4 text-justify">
-                    Crystal Ceylon Tours acts solely as an agent for the independent suppliers providing hotel accommodations, transportation, and sightseeing activities.
+                    Seilavo Tours acts solely as an agent for the independent suppliers providing hotel accommodations, transportation, and sightseeing activities.
                   </p>
                   <p className="text-foreground/80 leading-relaxed text-sm text-justify">
                     We shall not be liable for any injury, damage, loss, accident, delay, or irregularity caused by the defect of any vehicle, or the negligence of any company carrying out these services.
@@ -226,7 +226,7 @@ const TermsOfService = () => {
                       <Mail className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-bold text-foreground mb-1">Email Us</span>
-                    <a href="mailto:crystalceylon76@gmail.com" className="text-xs text-muted-foreground hover:text-primary transition-colors">crystalceylon76@gmail.com</a>
+                    <a href="mailto:seilavotours@gmail.com" className="text-xs text-muted-foreground hover:text-primary transition-colors">seilavotours@gmail.com</a>
                   </div>
                   <div className="flex flex-col items-center text-center p-4 bg-white rounded-2xl shadow-sm border border-white/50">
                     <div className="bg-accent/10 p-3 rounded-full text-accent mb-3">

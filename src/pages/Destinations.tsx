@@ -88,7 +88,7 @@ const Destinations = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Top Destinations in Sri Lanka | Crystal Ceylon Tours"
+        title="Top Destinations in Sri Lanka | Seilavo Tours"
         description="Discover the most beautiful and culturally rich destinations across Sri Lanka."
         canonical="/destinations"
       />

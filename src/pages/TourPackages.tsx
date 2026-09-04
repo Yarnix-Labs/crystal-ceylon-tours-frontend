@@ -49,15 +49,15 @@ const TourPackages = () => {
     "itemListElement": tours.map((pkg, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "url": `https://crystalceylontours.com/tour-packages/${pkg.slug}`
+      "url": `https://www.seilavotours.com/tour-packages/${pkg.slug}`
     }))
   } : undefined;
 
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Sri Lanka Tour Packages | Crystal Ceylon Tours"
-        description="Explore our exclusive Sri Lanka tour packages. Book your dream vacation with Crystal Ceylon Tours."
+        title="Sri Lanka Tour Packages | Seilavo Tours"
+        description="Explore our exclusive Sri Lanka tour packages. Book your dream vacation with Seilavo Tours."
         canonical="/tour-packages"
         schema={itemListSchema}
       />
