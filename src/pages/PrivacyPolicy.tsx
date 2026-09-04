@@ -24,15 +24,15 @@ const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Privacy Policy | Crystal Ceylon Tours"
-        description="Learn how Crystal Ceylon Tours collects, uses, and protects your personal information when booking Sri Lanka travel packages."
+        title="Privacy Policy | Seilavo Tours"
+        description="Learn how Seilavo Tours collects, uses, and protects your personal information when booking Sri Lanka travel packages."
         canonical="/privacy-policy"
       />
       <Navbar />
       
       <PageHero
         title="Privacy Policy"
-        subtitle="How we protect your personal information at Crystal Ceylon Tours."
+        subtitle="How we protect your personal information at Seilavo Tours."
         backgroundImage={heroImage}
         breadcrumb="Privacy Policy"
       />
@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
             {/* Introduction */}
             <div className="text-base sm:text-lg text-foreground/80 leading-relaxed mb-10 sm:mb-12 font-medium text-justify">
               <p>
-                At <strong className="text-foreground">Crystal Ceylon Tours</strong> ("we", "us", or "our"), accessible from <Link to="/" className="text-primary hover:underline font-bold">crystalceylontours.com</Link>, one of our main priorities is the privacy of our visitors and clients. This document explains the types of information we collect and how we use it to provide you with an unforgettable Sri Lankan experience.
+                At <strong className="text-foreground">Seilavo Tours</strong> ("we", "us", or "our"), accessible from <Link to="/" className="text-primary hover:underline font-bold">www.seilavotours.com</Link>, one of our main priorities is the privacy of our visitors and clients. This document explains the types of information we collect and how we use it to provide you with an unforgettable Sri Lankan experience.
               </p>
             </div>
 
@@ -162,7 +162,7 @@ const PrivacyPolicy = () => {
                     <h3 className="text-lg sm:text-xl font-display font-bold text-foreground">4. Use of Cookies</h3>
                   </div>
                   <p className="text-foreground/80 leading-relaxed text-sm text-justify">
-                    Like any other website, Crystal Ceylon Tours uses "cookies" to store information including visitors' preferences, and the pages visited. The information is used to optimize your experience by customizing our web page content based on browser type.
+                    Like any other website, Seilavo Tours uses "cookies" to store information including visitors' preferences, and the pages visited. The information is used to optimize your experience by customizing our web page content based on browser type.
                   </p>
                 </section>
 
@@ -191,7 +191,7 @@ const PrivacyPolicy = () => {
                       <Mail className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-bold text-foreground mb-1">Email Us</span>
-                    <a href="mailto:crystalceylon76@gmail.com" className="text-xs text-muted-foreground hover:text-primary transition-colors">crystalceylon76@gmail.com</a>
+                    <a href="mailto:seilavotours@gmail.com" className="text-xs text-muted-foreground hover:text-primary transition-colors">seilavotours@gmail.com</a>
                   </div>
                   <div className="flex flex-col items-center text-center p-4 bg-white rounded-2xl shadow-sm border border-white/50">
                     <div className="bg-accent/10 p-3 rounded-full text-accent mb-3">

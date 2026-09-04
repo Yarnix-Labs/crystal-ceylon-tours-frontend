@@ -89,11 +89,11 @@ const Navbar = () => {
 
               <div className="h-4 w-px bg-border/60 shrink-0" />
 
-              <a href="mailto:crystalceylon76@gmail.com" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors">
+              <a href="mailto:seilavotours@gmail.com" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                   <Mail className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-accent" />
                 </div>
-                <span className="text-foreground group-hover:text-primary transition-colors">crystalceylon76@gmail.com</span>
+                <span className="text-foreground group-hover:text-primary transition-colors">seilavotours@gmail.com</span>
               </a>
 
               <div className="h-4 w-px bg-border/60 shrink-0 hidden sm:block" />
@@ -249,12 +249,12 @@ const Navbar = () => {
         >
           <img 
             src={logo} 
-            alt="Crystal Ceylon Tours - Best Travel Agency in Sri Lanka" 
+            alt="Seilavo Tours - Best Travel Agency in Sri Lanka" 
             className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300" 
           />
           <span className="text-sm sm:text-base font-bold whitespace-nowrap hidden lg:block">
-            <span className="text-accent">Crystal</span>{" "}
-            <span className="text-primary">Ceylon Tours</span>
+            <span className="text-accent">Seilavo</span>{" "}
+            <span className="text-primary">Tours</span>
           </span>
         </Link>
 
@@ -338,9 +338,9 @@ const Navbar = () => {
                   <Phone className="h-4 w-4" />
                   <span>+94 77 123 4567</span>
                 </a>
-                <a href="mailto:crystalceylon76@gmail.com" className="flex items-center gap-3 py-2 text-primary-foreground/80">
+                <a href="mailto:seilavotours@gmail.com" className="flex items-center gap-3 py-2 text-primary-foreground/80">
                   <Mail className="h-4 w-4" />
-                  <span>crystalceylon76@gmail.com</span>
+                  <span>seilavotours@gmail.com</span>
                 </a>
               </div>
             </div>

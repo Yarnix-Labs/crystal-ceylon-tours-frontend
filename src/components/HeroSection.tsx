@@ -41,7 +41,7 @@ const HeroSection = () => {
           <source media="(min-width: 640px)" srcSet={heroBg} />
           <img
             src={mobileHeroBg}
-            alt="Scenic train ride through tea plantations in Sri Lanka - Crystal Ceylon Tours"
+            alt="Scenic train ride through tea plantations in Sri Lanka - Seilavo Tours"
             className="w-full h-full object-cover animate-kenburns"
           />
         </picture>
@@ -136,7 +136,7 @@ const HeroSection = () => {
                     <div className="relative w-36 h-28 sm:w-48 sm:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-500">
                       <img 
                         src={customTravelers} 
-                        alt="Happy travelers enjoying a private Sri Lanka tour with Crystal Ceylon Tours" 
+                        alt="Happy travelers enjoying a private Sri Lanka tour with Seilavo Tours" 
                         className="w-full h-full object-cover"
                       />
                     </div>

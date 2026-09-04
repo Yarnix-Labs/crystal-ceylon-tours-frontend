@@ -64,7 +64,7 @@ export default defineConfig(async ({ mode }) => {
     plugins: [
       react(),
       Sitemap({
-        hostname: "https://crystalceylontours.com",
+        hostname: "https://www.seilavotours.com",
         dynamicRoutes: allRoutes,
         exclude: [
           "/book-now",

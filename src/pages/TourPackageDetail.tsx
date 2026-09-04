@@ -147,7 +147,7 @@ const TourPackageDetail = () => {
     <div className="min-h-screen bg-background">
       <SEO 
         title={`${tour.name} | Sri Lanka Tour Packages`}
-        description={tour.shortDescription || `Experience the ${tour.name} with Crystal Ceylon Tours. Book your Sri Lanka adventure today!`}
+        description={tour.shortDescription || `Experience the ${tour.name} with Seilavo Tours. Book your Sri Lanka adventure today!`}
         canonical={`/tour-packages/${slug}`}
         ogImage={tour.heroImage}
         schema={[productSchema, faqSchema].filter(Boolean)}

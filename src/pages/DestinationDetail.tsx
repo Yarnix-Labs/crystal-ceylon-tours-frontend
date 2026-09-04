@@ -102,8 +102,8 @@ const DestinationDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title={`${destination.title} | Crystal Ceylon Tours`}
-        description={destination.excerpt || `Discover ${destination.title} and plan your perfect Sri Lankan getaway with Crystal Ceylon Tours.`}
+        title={`${destination.title} | Seilavo Tours`}
+        description={destination.excerpt || `Discover ${destination.title} and plan your perfect Sri Lankan getaway with Seilavo Tours.`}
         canonical={`/destinations/${slug}`}
         ogImage={destination.coverImage || destination.images?.[0]}
         schema={faqSchema}

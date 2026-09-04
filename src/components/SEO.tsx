@@ -14,12 +14,12 @@ export default function SEO({
   title,
   description,
   canonical,
-  keywords = "Sri Lanka tours, Sri Lanka travel, custom tour packages, private tours Sri Lanka, Crystal Ceylon Tours",
-  ogImage = "https://crystalceylontours.com/default-og-image.jpg",
+  keywords = "Sri Lanka tours, Sri Lanka travel, custom tour packages, private tours Sri Lanka, Seilavo Tours",
+  ogImage = "https://www.seilavotours.com/default-og-image.jpg",
   ogType = "website",
   schema,
 }: SEOProps) {
-  const siteUrl = "https://crystalceylontours.com";
+  const siteUrl = "https://www.seilavotours.com";
   const fullCanonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
 
   // Generate Breadcrumbs based on canonical URL

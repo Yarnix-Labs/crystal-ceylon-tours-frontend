@@ -26,12 +26,12 @@ const Footer = () => {
             <Link to="/" className="inline-flex items-center gap-2 sm:gap-3 mb-2 group">
               <img 
                 src={logo} 
-                alt="Crystal Ceylon Tours Travel Agency Sri Lanka Logo" 
+                alt="Seilavo Tours Travel Agency Sri Lanka Logo" 
                 className="h-16 sm:h-20 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
               />
               <span className="font-display text-xl sm:text-2xl font-bold whitespace-nowrap tracking-wide group-hover:brightness-110 transition-all duration-300">
-                <span className="text-accent">Crystal</span>{" "}
-                <span className="text-primary">Ceylon Tours</span>
+                <span className="text-accent">Seilavo</span>{" "}
+                <span className="text-primary">Tours</span>
               </span>
             </Link>
             <p className="text-footer-foreground/70 leading-relaxed text-sm sm:text-base font-light">
@@ -116,7 +116,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-footer-foreground/50 text-sm font-light text-center md:text-left">
-              &copy; {currentYear} Crystal Ceylon Tours. All rights reserved.
+              &copy; {currentYear} Seilavo Tours. All rights reserved.
             </p>
             <div className="flex items-center gap-8 text-sm font-light">
               <Link to="/privacy-policy" className="text-footer-foreground/50 hover:text-primary transition-colors">

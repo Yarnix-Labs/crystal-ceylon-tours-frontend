@@ -92,7 +92,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Contact Crystal Ceylon Tours | Sri Lanka Travel Experts"
+        title="Contact Seilavo Tours | Sri Lanka Travel Experts"
         description="Get in touch with our Sri Lanka travel experts to plan your customized tour."
         canonical="/contact"
       />
