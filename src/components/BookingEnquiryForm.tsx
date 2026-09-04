@@ -310,7 +310,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
                       Your Contact No. *
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="+94771234567" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
+                      <Input placeholder="+94771928212" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -364,7 +364,7 @@ const BookingEnquiryForm: React.FC<BookingEnquiryFormProps> = ({
                       WhatsApp Number (Optional)
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="+94771234567" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
+                      <Input placeholder="+94771928212" className="h-12 bg-muted/20 border-border/40 focus:bg-white rounded-xl" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

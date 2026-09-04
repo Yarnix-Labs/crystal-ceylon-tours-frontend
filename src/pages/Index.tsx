@@ -27,7 +27,7 @@ const travelAgencySchema = {
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+94762866748",
+    "telephone": "+94771928212",
     "contactType": "customer service",
     "email": "seilavotours@gmail.com",
     "availableLanguage": ["English"]

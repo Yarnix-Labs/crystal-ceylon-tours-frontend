@@ -355,11 +355,11 @@ const TourPackageDetail = () => {
                     </p>
                     <div className="space-y-2.5 sm:space-y-3">
                       <a 
-                        href="tel:+94762866748" 
+                        href="tel:+94771928212" 
                         className="flex items-center gap-2.5 sm:gap-3 text-foreground hover:text-primary transition-colors text-sm sm:text-base"
                       >
                         <Phone className="h-4 w-4 text-accent" />
-                        <span className="font-medium">+94 76 2866 748</span>
+                        <span className="font-medium">+94 77 192 8212</span>
                       </a>
                       <a 
                         href="mailto:hello@crystalceylon.com" 
