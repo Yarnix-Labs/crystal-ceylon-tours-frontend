@@ -47,7 +47,7 @@ const fetchDynamicRoutes = async (apiUrl: string) => {
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const API_URL = env.VITE_API_URL || 'http://localhost:3000/api/v1';
+  const API_URL = env.VITE_API_URL || 'https://api.seilavotours.com/api/v1';
 
   // Fetch dynamic paths before configuring Vite
   const dynamicPaths = await fetchDynamicRoutes(API_URL);
