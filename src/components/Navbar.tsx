@@ -98,11 +98,11 @@ const Navbar = () => {
 
               <div className="h-4 w-px bg-border/60 shrink-0 hidden sm:block" />
 
-              <a href="tel:+94771234567" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors hidden sm:flex">
+              <a href="tel:+94771928212" className="flex items-center gap-1.5 whitespace-nowrap shrink-0 group hover:text-primary transition-colors hidden sm:flex">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                   <Phone className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-accent" />
                 </div>
-                <span className="text-foreground group-hover:text-primary transition-colors">+94 77 123 4567</span>
+                <span className="text-foreground group-hover:text-primary transition-colors">+94 77 192 8212</span>
               </a>
             </div>
 
@@ -334,9 +334,9 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="pt-4 border-t border-primary-foreground/20 mt-4">
-                <a href="tel:+94771234567" className="flex items-center gap-3 py-2 text-primary-foreground/80">
-                  <Phone className="h-4 w-4" />
-                  <span>+94 77 123 4567</span>
+                <a href="tel:+94771928212" className="flex items-center gap-3 py-2 text-primary-foreground/80">
+                  <Phone className="h-5 w-5 text-accent" />
+                  <span>+94 77 192 8212</span>
                 </a>
                 <a href="mailto:seilavotours@gmail.com" className="flex items-center gap-3 py-2 text-primary-foreground/80">
                   <Mail className="h-4 w-4" />

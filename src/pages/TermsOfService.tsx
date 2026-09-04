@@ -233,7 +233,7 @@ const TermsOfService = () => {
                       <Phone className="w-5 h-5" />
                     </div>
                     <span className="text-sm font-bold text-foreground mb-1">Call Us</span>
-                    <a href="tel:+94771234567" className="text-xs text-muted-foreground hover:text-accent transition-colors">+94 77 123 4567</a>
+                    <a href="tel:+94771928212" className="text-xs text-muted-foreground hover:text-accent transition-colors">+94 77 192 8212</a>
                   </div>
                   <div className="flex flex-col items-center text-center p-4 bg-white rounded-2xl shadow-sm border border-white/50">
                     <div className="bg-palm/10 p-3 rounded-full text-palm mb-3">

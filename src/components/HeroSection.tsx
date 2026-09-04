@@ -17,7 +17,7 @@ import heroImage from "@/assets/hero-image.jpg";
 
 const HeroSection = () => {
   const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
-  const phoneNumber = "+94771234567";
+  const phoneNumber = "+94771928212";
   const message = "Hello! I'm interested in booking a tour to Sri Lanka.";
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\+/g, "")}?text=${encodeURIComponent(message)}`;
 

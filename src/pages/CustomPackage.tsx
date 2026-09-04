@@ -351,7 +351,7 @@ Looking forward to your response!
                   <Label htmlFor="phone">Phone Number <span className="text-destructive">*</span></Label>
                   <Input
                     id="phone"
-                    placeholder="+94712345678"
+                    placeholder="+94771928212"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="h-12"

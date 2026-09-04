@@ -41,7 +41,7 @@ const AboutSection = () => {
                     Book Tour Now
                   </p>
                   <p className="text-lg sm:text-2xl font-display font-bold text-foreground">
-                    +94 77 123 4567
+                    +94 77 192 8212
                   </p>
                 </div>
               </div>
