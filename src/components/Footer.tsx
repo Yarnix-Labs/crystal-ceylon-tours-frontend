@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Youtube, ChevronRight } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/Seilavo_logo.svg";
 import TripAdvisorLinkingWidget from "./TripAdvisorLinkingWidget";
 import TripAdvisorRatedBadge from "./TripAdvisorRatedBadge";
 
@@ -27,7 +27,7 @@ const Footer = () => {
               <img 
                 src={logo} 
                 alt="Seilavo Tours Travel Agency Sri Lanka Logo" 
-                className="h-16 sm:h-20 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
+                className="h-24 sm:h-32 w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-500" 
               />
               <span className="font-display text-xl sm:text-2xl font-bold whitespace-nowrap tracking-wide group-hover:brightness-110 transition-all duration-300">
                 <span className="text-accent">Seilavo</span>{" "}

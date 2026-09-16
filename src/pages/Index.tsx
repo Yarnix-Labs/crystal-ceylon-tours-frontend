@@ -18,7 +18,7 @@ const travelAgencySchema = {
   "@type": ["TravelAgency", "Organization"],
   "name": "Seilavo Tours",
   "url": "https://seilavotours.com",
-  "logo": "https://seilavotours.com/logo-4.png",
+  "logo": "https://seilavotours.com/Seilavo_logo.svg",
   "image": "https://seilavotours.com/default-og-image.jpg",
   "description": "Experience the best of Sri Lanka with our custom tour packages and private tours.",
   "address": {

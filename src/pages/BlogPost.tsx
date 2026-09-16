@@ -75,7 +75,7 @@ const BlogPost = () => {
       "name": "Seilavo Tours",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.seilavotours.com/logo-4.png"
+        "url": "https://www.seilavotours.com/Seilavo_logo.svg"
       }
     }
   } : undefined;

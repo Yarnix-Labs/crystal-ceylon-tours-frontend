@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail, Clock, Calendar, Facebook, Instagram, Youtube, ChevronDown, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import logo from "@/assets/logo.png";
+import logo from "@/assets/Seilavo_logo.svg";
 import whatsappIcon from "@/assets/whatsapp-icon.png";
 
 const navLinks = [
@@ -201,7 +201,7 @@ const Navbar = () => {
       {/* Navigation bar container */}
       <div className="relative h-12 sm:h-14">
         {/* Logo section with organic design */}
-        <div className="absolute left-0 top-0 h-full w-[30%] sm:w-[25%] lg:w-[25%] overflow-hidden">
+        <div className="absolute left-0 top-0 h-full w-[85%] sm:w-[50%] lg:w-[25%] overflow-hidden">
           {/* White background */}
           <div className="absolute inset-0 bg-white" />
           
@@ -245,22 +245,22 @@ const Navbar = () => {
         {/* Logo and company name */}
         <Link 
           to="/" 
-          className="absolute left-2 sm:left-4 w-auto top-1/2 -translate-y-1/2 z-20 flex items-center gap-3 group"
+          className="absolute left-2 sm:left-4 w-auto top-1/2 -translate-y-1/2 mt-2 z-20 flex items-center gap-2 sm:gap-3 group"
         >
           <img 
             src={logo} 
             alt="Seilavo Tours - Best Travel Agency in Sri Lanka" 
-            className="h-16 w-16 sm:h-20 sm:w-20 object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300" 
+            className="h-20 w-auto sm:h-28 object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300" 
           />
-          <span className="text-sm sm:text-base font-bold whitespace-nowrap hidden lg:block">
-            <span className="text-accent">Seilavo</span>{" "}
-            <span className="text-primary">Tours</span>
+          <span className="text-base sm:text-lg lg:text-xl font-bold whitespace-nowrap block">
+            <span className="text-accent">Seilavo</span>
+            <span className="text-primary ml-1">Tours</span>
           </span>
         </Link>
 
         {/* Angled gold navigation bar */}
         <nav 
-          className="absolute right-0 top-0 h-full bg-primary w-[75%] sm:w-[78%] lg:w-[78%]"
+          className="absolute right-0 top-0 h-full bg-primary w-[25%] sm:w-[55%] lg:w-[78%]"
           style={{
             clipPath: "polygon(2% 0, 100% 0, 100% 100%, 0% 100%)"
           }}
@@ -273,7 +273,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`px-3 py-2 text-[15px] font-medium tracking-wide transition-all relative group whitespace-nowrap ${
+                  className={`px-3 py-2 text-base lg:text-[17px] font-medium tracking-wide transition-all relative group whitespace-nowrap ${
                     location.pathname === link.href 
                       ? "text-primary-foreground drop-shadow-md" 
                       : "text-primary-foreground/90 hover:text-primary-foreground hover:drop-shadow-md"
@@ -289,7 +289,7 @@ const Navbar = () => {
               {/* Separate Contact Us Button */}
               <div className="ml-4 lg:ml-6 flex-shrink-0">
                 <Link to="/contact">
-                  <Button className="bg-accent hover:bg-accent/90 text-white font-bold rounded-full px-4 py-1.5 shadow-md transition-all hover:scale-105 active:scale-95 text-[12px] uppercase tracking-wide h-9">
+                  <Button className="bg-accent hover:bg-accent/90 text-white font-bold rounded-full px-5 py-1.5 shadow-md transition-all hover:scale-105 active:scale-95 text-sm uppercase tracking-wide h-10">
                     Contact Us
                   </Button>
                 </Link>
