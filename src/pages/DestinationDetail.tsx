@@ -99,6 +99,20 @@ const DestinationDetail = () => {
     }))
   } : undefined;
 
+  // Generate Tourist Destination Schema
+  const destinationSchema = destination ? {
+    "@context": "https://schema.org",
+    "@type": ["TouristDestination", "Place"],
+    "name": destination.title,
+    "description": destination.excerpt || (destination.content && destination.content.substring(0, 200)),
+    "image": destination.coverImage || (destination.images && destination.images[0]),
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "LK",
+      "addressLocality": destination.location || "Sri Lanka"
+    }
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -106,7 +120,7 @@ const DestinationDetail = () => {
         description={destination.excerpt || `Discover ${destination.title} and plan your perfect Sri Lankan getaway with Seilavo Tours.`}
         canonical={`/destinations/${slug}`}
         ogImage={destination.coverImage || destination.images?.[0]}
-        schema={faqSchema}
+        schema={[destinationSchema, faqSchema].filter(Boolean)}
       />
       <Navbar />
       
@@ -142,11 +156,11 @@ const DestinationDetail = () => {
               </div>
 
               {/* Description */}
-              <div className="mb-12 sm:mb-16">
-                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8 flex items-end gap-2.5">
+              <div className="mb-12 sm:mb-16 mt-4">
+                <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8 flex items-end gap-2.5">
                   <span className="italic text-primary font-medium tracking-tight">About</span> 
                   {destination.title}
-                </h2>
+                </h1>
                 
                 {/* Vertical line border wrapper */}
                 <div className="border-l-[3px] border-primary/40 pl-5 sm:pl-8 space-y-3 sm:space-y-4">

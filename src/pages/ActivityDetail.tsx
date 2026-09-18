@@ -98,6 +98,21 @@ const ActivityDetail = () => {
     }))
   } : undefined;
 
+  // Generate Tourist Attraction Schema
+  const activitySchema = activity ? {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": activity.title,
+    "description": activity.description || activity.excerpt || activity.overview,
+    "image": activity.image || activity.coverImage || activity.heroImage,
+    "publicAccess": true,
+    "timeRequired": activity.duration || undefined,
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "LK"
+    }
+  } : undefined;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO 
@@ -105,7 +120,7 @@ const ActivityDetail = () => {
         description={activity.excerpt || activity.description || `Discover ${activity.title} and other amazing things to do in Sri Lanka.`}
         canonical={`/things-to-do/${slug}`}
         ogImage={activity.image || activity.coverImage || activity.heroImage}
-        schema={faqSchema}
+        schema={[activitySchema, faqSchema].filter(Boolean)}
       />
       <Navbar />
       
