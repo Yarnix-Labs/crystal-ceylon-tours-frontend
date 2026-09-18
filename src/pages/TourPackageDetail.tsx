@@ -362,11 +362,11 @@ const TourPackageDetail = () => {
                         <span className="font-medium">+94 77 192 8212</span>
                       </a>
                       <a 
-                        href="mailto:hello@crystalceylon.com" 
+                        href="mailto:seilavotours@gmail.com" 
                         className="flex items-center gap-2.5 sm:gap-3 text-foreground hover:text-primary transition-colors text-sm sm:text-base"
                       >
                         <Mail className="h-4 w-4 text-accent" />
-                        <span className="font-medium">hello@crystalceylon.com</span>
+                        <span className="font-medium">seilavotours@gmail.com</span>
                       </a>
                     </div>
                   </div>

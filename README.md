@@ -1,6 +1,6 @@
-# Crystal Ceylon - Private Tours Sri Lanka
+# Seilavo - Private Tours Sri Lanka
 
-A modern travel website for Crystal Ceylon - your gateway to personalized private tours in Sri Lanka.
+A modern travel website for Seilavo - your gateway to personalized private tours in Sri Lanka.
 
 ## Features
 

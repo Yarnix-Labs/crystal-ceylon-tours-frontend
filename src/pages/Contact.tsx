@@ -25,7 +25,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    details: ["info@crystalceylon.com", "bookings@crystalceylon.com"],
+    details: ["seilavotours@gmail.com"],
   },
   {
     icon: Clock,

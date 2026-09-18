@@ -84,7 +84,7 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       <SEO 
         title={`${post.title} | Sri Lanka Travel Blog`}
-        description={post.excerpt || `Read about ${post.title} on the Crystal Ceylon Tours travel blog.`}
+        description={post.excerpt || `Read about ${post.title} on the Seilavo Tours travel blog.`}
         canonical={`/blog/${slug}`}
         ogImage={post.coverImage}
         ogType="article"
